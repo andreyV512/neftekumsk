@@ -817,7 +817,7 @@ void Compute::Recalculation()
 	DeathZoneFront(0);
 	DeathZoneBack(len);
 	
-	thicknessData.countZones = primaryData.countZones = len - 1;
+	thicknessData.countZones = primaryData.countZones = len;
 	thicknessData.status[len - 1] = 0;
 	for(int i = 0; i < count_sensors; ++i)
 	{
