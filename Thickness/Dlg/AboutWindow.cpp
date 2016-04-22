@@ -1,11 +1,13 @@
 #include "stdafx.h"
 #include "Dlg.h"
 #include "typelist.hpp"
+#include "Version.h"
 namespace{
 static const wchar_t *about_text[] = {
 	L"ООО НТЦ НК 'Уран'"
 	, L"Ноябрь 2015 г."
 	, L"Версия 5.3"
+	, VERSION()
 };
 
 LRESULT CALLBACK Proc(HWND h, UINT msg, WPARAM wParam, LPARAM lParam)
