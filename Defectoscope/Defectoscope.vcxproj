@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{AA43E982-79CE-49F2-B386-E425483A85FF}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Thickness</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>../Thickness;Dlg;../Widgets;Data;../Graphics;..\Base;..\;Windows;App;..\window_tool;..\templates;..\debug_tools;</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>Full</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>../Thickness;../../DlgTemplates;Dlg;../Widgets;Data;../Graphics;..\Base;..\;Windows;App;..\window_tool;..\templates;..\debug_tools;</AdditionalIncludeDirectories>
+      <OmitFramePointers>true</OmitFramePointers>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Base\Base.hpp" />
+    <ClInclude Include="..\Base\tables.hpp" />
+    <ClInclude Include="..\Base\TablesDefine.h" />
+    <ClInclude Include="..\debug_tools\DebugMess.h" />
+    <ClInclude Include="..\DlgTemplates\dlg.hpp" />
+    <ClInclude Include="..\DlgTemplates\DlgItems.h" />
+    <ClInclude Include="..\DlgTemplates\DlgTemplate.hpp" />
+    <ClInclude Include="..\DlgTemplates\dlg_templates.h" />
+    <ClInclude Include="..\DlgTemplates\EditDlg.h" />
+    <ClInclude Include="..\DlgTemplates\ParamDlg.h" />
+    <ClInclude Include="..\DlgTemplates\ParamDlg.hpp" />
+    <ClInclude Include="..\DlgTemplates\ParamDlgTresholds.h" />
+    <ClInclude Include="..\Graphics\BarSeries.h" />
+    <ClInclude Include="..\Graphics\Borders.h" />
+    <ClInclude Include="..\Graphics\Chart.h" />
+    <ClInclude Include="..\Graphics\Chart.hpp" />
+    <ClInclude Include="..\Graphics\ColorLabel.h" />
+    <ClInclude Include="..\Graphics\GridChart.h" />
+    <ClInclude Include="..\Log\LogBuffer.h" />
+    <ClInclude Include="..\Log\LogMessages.h" />
+    <ClInclude Include="..\templates\typelist.hpp" />
+    <ClInclude Include="..\Widgets\CheckBoxWidget.h" />
+    <ClInclude Include="..\window_tool\Emptywindow.h" />
+    <ClInclude Include="..\window_tool\InitToolbar.hpp" />
+    <ClInclude Include="..\window_tool\MenuAPI.h" />
+    <ClInclude Include="..\window_tool\message.h" />
+    <ClInclude Include="..\window_tool\Pass.h" />
+    <ClInclude Include="..\window_tool\SaveSizeWindow.h" />
+    <ClInclude Include="..\window_tool\ToolBarWidth.hpp" />
+    <ClInclude Include="App\App.h" />
+    <ClInclude Include="App\AppBase.h" />
+    <ClInclude Include="App\Config.h" />
+    <ClInclude Include="Data\CrossData.h" />
+    <ClInclude Include="Dlg\Dlg.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="Defectoscope.h" />
+    <ClInclude Include="Windows\CrossViewer.h" />
+    <ClInclude Include="Windows\MainWindow.h" />
+    <ClInclude Include="Windows\MainWindowMenu.hpp" />
+    <ClInclude Include="Windows\MainWindowToolBar.h" />
+    <ClInclude Include="Windows\SelectTypeSize.h" />
+    <ClInclude Include="Windows\TopLabelViewer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\debug_tools\DebugMess.cpp" />
+    <ClCompile Include="..\DlgTemplates\DlgItems.cpp" />
+    <ClCompile Include="..\DlgTemplates\EditDlg.cpp" />
+    <ClCompile Include="..\DlgTemplates\ParamDlg.cpp" />
+    <ClCompile Include="..\Graphics\BarSeries.cpp" />
+    <ClCompile Include="..\Graphics\Borders.cpp" />
+    <ClCompile Include="..\Graphics\Chart.cpp" />
+    <ClCompile Include="..\Graphics\ColorLabel.cpp" />
+    <ClCompile Include="..\Graphics\GridChart.cpp" />
+    <ClCompile Include="..\Log\LogBuffer.cpp" />
+    <ClCompile Include="..\Log\LogMessages.cpp" />
+    <ClCompile Include="..\Widgets\CheckBoxWidget.cpp" />
+    <ClCompile Include="..\window_tool\EmptyWindow.cpp" />
+    <ClCompile Include="..\window_tool\MenuAPI.cpp" />
+    <ClCompile Include="..\window_tool\Pass.cpp" />
+    <ClCompile Include="..\window_tool\SaveSizeWindow.cpp" />
+    <ClCompile Include="App\App.cpp" />
+    <ClCompile Include="App\AppBase.cpp" />
+    <ClCompile Include="Data\CrossData.cpp" />
+    <ClCompile Include="Dlg\StoredSizeMainWindow.cpp" />
+    <ClCompile Include="Dlg\TestDlg.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Defectoscope.cpp" />
+    <ClCompile Include="Windows\CrossViewer.cpp" />
+    <ClCompile Include="Windows\MainWindow.cpp" />
+    <ClCompile Include="Windows\MainWindowToolBar.cpp" />
+    <ClCompile Include="Windows\SelectTypeSize.cpp" />
+    <ClCompile Include="Windows\TopLabelViewer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Defectoscope.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

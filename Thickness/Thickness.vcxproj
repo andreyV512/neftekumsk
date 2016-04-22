@@ -1,0 +1,285 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{B5278047-EB6C-4E40-946E-8938EF00F395}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Thickness</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>TCPServer;$(ProjectDir);ProtocolTCP;..\..\Thickness\ProtocolTCP;Communication;../Ini;../Log;../1730;ArchiveEvents;Automat;StoredData;Compute;FFT;../DebugApp;Lan;Lan/Include;../Thickness;../../DlgTemplates;Dlg;../Widgets;Data;../Graphics;..\Base;..\;Windows;App;..\window_tool;..\templates;..\debug_tools;ItemsData;</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>Disabled</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>TCPServer;$(ProjectDir);ProtocolTCP;..\..\Thickness\ProtocolTCP;Communication;../Ini;../Log;../1730;ArchiveEvents;Automat;StoredData;Compute;FFT;../DebugApp;Lan;Lan/Include;../Thickness;../../DlgTemplates;Dlg;../Widgets;Data;../Graphics;..\Base;..\;Windows;App;..\window_tool;..\templates;..\debug_tools;ItemsData;</AdditionalIncludeDirectories>
+      <OmitFramePointers>true</OmitFramePointers>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <None Include="Lan\include\REGKEY\VT_Drivers.ri" />
+    <None Include="Lan\include\REGKEY\VT_Library.ri" />
+    <None Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\1730\Device1730.h" />
+    <ClInclude Include="..\Base\Base.hpp" />
+    <ClInclude Include="..\Base\ExpressBase.hpp" />
+    <ClInclude Include="..\Base\tables.hpp" />
+    <ClInclude Include="..\Base\TablesDefine.h" />
+    <ClInclude Include="..\debug_tools\DebugMess.h" />
+    <ClInclude Include="..\DlgTemplates\dlg.hpp" />
+    <ClInclude Include="..\DlgTemplates\DlgItems.h" />
+    <ClInclude Include="..\DlgTemplates\DlgTemplate.hpp" />
+    <ClInclude Include="..\DlgTemplates\dlg_templates.h" />
+    <ClInclude Include="..\DlgTemplates\EditDlg.h" />
+    <ClInclude Include="..\DlgTemplates\ParamDlg.h" />
+    <ClInclude Include="..\DlgTemplates\ParamDlg.hpp" />
+    <ClInclude Include="..\DlgTemplates\ParamDlgTresholds.h" />
+    <ClInclude Include="..\emul\emulLan\EmulLan.h" />
+    <ClInclude Include="..\emul\emulLan\TestLanBuffer.h" />
+    <ClInclude Include="..\Graphics\BarSeries.h" />
+    <ClInclude Include="..\Graphics\Borders.h" />
+    <ClInclude Include="..\Graphics\Chart.h" />
+    <ClInclude Include="..\Graphics\Chart.hpp" />
+    <ClInclude Include="..\Graphics\ColorLabel.h" />
+    <ClInclude Include="..\Graphics\GridChart.h" />
+    <ClInclude Include="..\Ini\ItemIni.h" />
+    <ClInclude Include="..\Ini\WindowsPosition.h" />
+    <ClInclude Include="..\Log\LogBuffer.h" />
+    <ClInclude Include="..\Log\LogMessages.h" />
+    <ClInclude Include="..\templates\typelist.hpp" />
+    <ClInclude Include="..\Widgets\CheckBoxWidget.h" />
+    <ClInclude Include="..\window_tool\DlgFiles.h" />
+    <ClInclude Include="..\window_tool\Emptywindow.h" />
+    <ClInclude Include="..\window_tool\InitToolbar.hpp" />
+    <ClInclude Include="..\window_tool\MenuAPI.h" />
+    <ClInclude Include="..\window_tool\message.h" />
+    <ClInclude Include="..\window_tool\Pass.h" />
+    <ClInclude Include="..\window_tool\ToolBarWidth.hpp" />
+    <ClInclude Include="App\App.h" />
+    <ClInclude Include="App\AppBase.h" />
+    <ClInclude Include="App\Config.h" />
+    <ClInclude Include="App\AppConst.h" />
+    <ClInclude Include="ArchiveEvents\ArchiveEvents.h" />
+    <ClInclude Include="ArchiveEvents\Messages.h" />
+    <ClInclude Include="Automat\Automat.h" />
+    <ClInclude Include="Automat\InOutBits.h" />
+    <ClInclude Include="Automat\SQEvents.h" />
+    <ClInclude Include="CommunicationWapper\CommunicationWapper.h" />
+    <ClInclude Include="Communication\DataExchange.h" />
+    <ClInclude Include="Communication\SQLbase.h" />
+    <ClInclude Include="Compute\Communication.h" />
+    <ClInclude Include="Compute\Compute.h" />
+    <ClInclude Include="Compute\MedianFiltre.h" />
+    <ClInclude Include="Compute\Strobes.h" />
+    <ClInclude Include="Data\CrossData.h" />
+    <ClInclude Include="Dlg\Dlg.h" />
+    <ClInclude Include="FFT\FFT.h" />
+    <ClInclude Include="ItemsData\PrimaryData.h" />
+    <ClInclude Include="ItemsData\ThicknessData.h" />
+    <ClInclude Include="ItemsData\ZonesData.h" />
+    <ClInclude Include="Lan\include\IRshDevice.h" />
+    <ClInclude Include="Lan\include\RshDllClient.h" />
+    <ClInclude Include="Lan\Lan.h" />
+    <ClInclude Include="Lan\LanParameters.h" />
+    <ClInclude Include="ProtocolTCP\AsyncServer.h" />
+    <ClInclude Include="ProtocolTCP\CommonTCP.h" />
+    <ClInclude Include="ProtocolTCP\Frame.h" />
+    <ClInclude Include="ProtocolTCP\GetHostByName.h" />
+    <ClInclude Include="ProtocolTCP\InitTcp.h" />
+    <ClInclude Include="ProtocolTCP\IPprotocolProcedureList.hpp" />
+    <ClInclude Include="ProtocolTCP\NetClient.h" />
+    <ClInclude Include="ProtocolTCP\NetFrame.h" />
+    <ClInclude Include="ProtocolTCP\StopCycle\StopCycleProtocol.h" />
+    <ClInclude Include="ProtocolTCP\Strobes\StrobesProtocol.h" />
+    <ClInclude Include="ProtocolTCP\Thickness\ThicknessProtocol.h" />
+    <ClInclude Include="ProtocolTCP\TypeSize\TypeSizeProtocol.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="TCPServer\ServerHandler.h" />
+    <ClInclude Include="Thickness.h" />
+    <ClInclude Include="Windows\ACFViewer.h" />
+    <ClInclude Include="Windows\CorrelationViewer.h" />
+    <ClInclude Include="Windows\DetailedWindow.h" />
+    <ClInclude Include="Windows\DetailedWindowMenu.hpp" />
+    <ClInclude Include="Windows\LabelMessage.h" />
+    <ClInclude Include="Windows\MainWindow.h" />
+    <ClInclude Include="Windows\MainWindowMenu.hpp" />
+    <ClInclude Include="Windows\MainWindowToolBar.h" />
+    <ClInclude Include="Windows\SelectTypeSize.h" />
+    <ClInclude Include="Windows\SensorViewer.h" />
+    <ClInclude Include="Windows\SignalData.h" />
+    <ClInclude Include="Windows\SignalViewer.h" />
+    <ClInclude Include="Windows\ThicknessViewer.h" />
+    <ClInclude Include="Windows\TopLabelViewer.h" />
+    <ClInclude Include="Windows\ZonesViewer.h" />
+    <ClInclude Include="Windows\ZonesWindow.h" />
+    <ClInclude Include="Windows\ZonesWindowMenu.hpp" />
+    <ClInclude Include="Windows\ZonesWindowToolBar.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\1730\Device1730.cpp" />
+    <ClCompile Include="..\debug_tools\DebugMess.cpp" />
+    <ClCompile Include="..\DlgTemplates\DlgItems.cpp" />
+    <ClCompile Include="..\DlgTemplates\EditDlg.cpp" />
+    <ClCompile Include="..\DlgTemplates\ParamDlg.cpp" />
+    <ClCompile Include="..\emul\emulLan\EmulLan.cpp" />
+    <ClCompile Include="..\emul\emulLan\TestLanBuffer.cpp" />
+    <ClCompile Include="..\Graphics\BarSeries.cpp" />
+    <ClCompile Include="..\Graphics\Borders.cpp" />
+    <ClCompile Include="..\Graphics\Chart.cpp" />
+    <ClCompile Include="..\Graphics\ColorLabel.cpp" />
+    <ClCompile Include="..\Graphics\GridChart.cpp" />
+    <ClCompile Include="..\Ini\ItemIni.cpp" />
+    <ClCompile Include="..\Ini\WindowsPosition.cpp" />
+    <ClCompile Include="..\Log\LogBuffer.cpp" />
+    <ClCompile Include="..\Log\LogMessages.cpp" />
+    <ClCompile Include="..\Widgets\CheckBoxWidget.cpp" />
+    <ClCompile Include="..\window_tool\DlgFiles.cpp" />
+    <ClCompile Include="..\window_tool\EmptyWindow.cpp" />
+    <ClCompile Include="..\window_tool\MenuAPI.cpp" />
+    <ClCompile Include="..\window_tool\Pass.cpp" />
+    <ClCompile Include="App\App.cpp" />
+    <ClCompile Include="App\AppBase.cpp" />
+    <ClCompile Include="ArchiveEvents\ArchiveEvents.cpp" />
+    <ClCompile Include="ArchiveEvents\Messages.cpp" />
+    <ClCompile Include="Automat\Automat.cpp" />
+    <ClCompile Include="Automat\InOutBits.cpp" />
+    <ClCompile Include="Automat\SQEvents.cpp" />
+    <ClCompile Include="CommunicationWapper\CommunicationWapper.cpp" />
+    <ClCompile Include="Communication\DataExchange.cpp" />
+    <ClCompile Include="Compute\Communication.cpp" />
+    <ClCompile Include="Compute\Compute.cpp" />
+    <ClCompile Include="Compute\MedianFiltre.cpp" />
+    <ClCompile Include="Compute\SaveLoadData.cpp" />
+    <ClCompile Include="Compute\Strobes.cpp" />
+    <ClCompile Include="Data\CrossData.cpp" />
+    <ClCompile Include="Dlg\AboutWindow.cpp" />
+    <ClCompile Include="Dlg\ACFBorderDlg.cpp" />
+    <ClCompile Include="Dlg\AnalogPlateDlg.cpp" />
+    <ClCompile Include="Dlg\AxedDlg.cpp" />
+    <ClCompile Include="Dlg\CoeficientDlg.cpp" />
+    <ClCompile Include="Dlg\ColorItemsDlg.cpp" />
+    <ClCompile Include="Dlg\DiscretePlateDlg.cpp" />
+    <ClCompile Include="Dlg\MedianFiltreDlg.cpp" />
+    <ClCompile Include="Dlg\SignalsDlg.cpp" />
+    <ClCompile Include="Dlg\TcpDlg.cpp" />
+    <ClCompile Include="Dlg\TypeSizeDlg.cpp" />
+    <ClCompile Include="FFT\FFT.cpp" />
+    <ClCompile Include="ItemsData\PrimaryData.cpp" />
+    <ClCompile Include="ItemsData\ThicknessData.cpp" />
+    <ClCompile Include="ItemsData\ZonesData.cpp" />
+    <ClCompile Include="Lan\include\RshApi.cpp" />
+    <ClCompile Include="Lan\include\RshDllClient.cpp" />
+    <ClCompile Include="Lan\include\RshError.cpp" />
+    <ClCompile Include="Lan\include\RshFunctions.cpp" />
+    <ClCompile Include="Lan\Lan.cpp" />
+    <ClCompile Include="ProtocolTCP\AsyncServer.cpp" />
+    <ClCompile Include="ProtocolTCP\CommonTCP.cpp" />
+    <ClCompile Include="ProtocolTCP\Frame.cpp" />
+    <ClCompile Include="ProtocolTCP\GetHostByName.cpp" />
+    <ClCompile Include="ProtocolTCP\InitTcp.cpp" />
+    <ClCompile Include="ProtocolTCP\NetClient.cpp" />
+    <ClCompile Include="ProtocolTCP\NetFrame.cpp" />
+    <ClCompile Include="ProtocolTCP\StopCycle\StopCycleClient.cpp" />
+    <ClCompile Include="ProtocolTCP\StopCycle\StopCycleServer.cpp" />
+    <ClCompile Include="ProtocolTCP\Strobes\StrobesClient.cpp" />
+    <ClCompile Include="ProtocolTCP\Strobes\StrobesServer.cpp" />
+    <ClCompile Include="ProtocolTCP\Thickness\ThicknessClient.cpp" />
+    <ClCompile Include="ProtocolTCP\Thickness\ThicknessServer.cpp" />
+    <ClCompile Include="ProtocolTCP\TypeSize\TypeSizeClient.cpp" />
+    <ClCompile Include="ProtocolTCP\TypeSize\TypeSizeServer.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="TCPServer\ServerHandler.cpp" />
+    <ClCompile Include="Thickness.cpp" />
+    <ClCompile Include="Windows\ACFViewer.cpp" />
+    <ClCompile Include="Windows\CorrelationViewer.cpp" />
+    <ClCompile Include="Windows\DetailedWindow.cpp" />
+    <ClCompile Include="Windows\LabelMessage.cpp" />
+    <ClCompile Include="Windows\MainWindow.cpp" />
+    <ClCompile Include="Windows\MainWindowToolBar.cpp" />
+    <ClCompile Include="Windows\SelectTypeSize.cpp" />
+    <ClCompile Include="Windows\SensorViewer.cpp">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Communication;../Ini;../Log;../1730;ArchiveEvents;Automat;StoredData;Compute;FFT;../DebugApp;Lan;Lan/Include;../Thickness;../../DlgTemplates;Dlg;../Widgets;Data;../Graphics;..\Base;..\;Windows;App;..\window_tool;..\templates;..\debug_tools;ItemsData;</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClCompile Include="Windows\SignalData.cpp" />
+    <ClCompile Include="Windows\SignalViewer.cpp" />
+    <ClCompile Include="Windows\ThicknessViewer.cpp" />
+    <ClCompile Include="Windows\TopLabelViewer.cpp" />
+    <ClCompile Include="Windows\ZonesViewer.cpp" />
+    <ClCompile Include="Windows\ZonesWindow.cpp" />
+    <ClCompile Include="Windows\ZonesWindowToolBar.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Thickness.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

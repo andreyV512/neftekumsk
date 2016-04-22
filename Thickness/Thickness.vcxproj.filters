@@ -1,0 +1,698 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="App">
+      <UniqueIdentifier>{3ef2344a-af95-4757-8b78-4b583125fb5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Windows">
+      <UniqueIdentifier>{58a78200-2344-4685-a8f5-d14d0fb2bcae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Windows\MainWindow">
+      <UniqueIdentifier>{0ceea036-c7f6-4da3-96c5-b274e0b23121}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="window_tool">
+      <UniqueIdentifier>{9f97fbbf-0f35-4a6e-9241-e81e10b18828}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="templates">
+      <UniqueIdentifier>{05f29432-431a-4a7e-b719-a70b265db299}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="debug_tools">
+      <UniqueIdentifier>{9801fe00-b0ab-483f-8a1d-a9c2b834f3da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Base">
+      <UniqueIdentifier>{0543ce24-d976-4476-89f9-9d708fcfaec8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics">
+      <UniqueIdentifier>{fc8a5b7e-76ba-4f23-beda-d3edaf031099}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data">
+      <UniqueIdentifier>{00abfdbb-b9b1-42be-ae6c-b4d0cd992e11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Widgets">
+      <UniqueIdentifier>{4a3d4aa0-e546-4579-a169-5c0736181e72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Log">
+      <UniqueIdentifier>{fc767a5f-7efb-4a8d-ab33-485958ddddd7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Dlg">
+      <UniqueIdentifier>{8bfdf2eb-b3d0-44f6-acdb-5e8a0a9d1187}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DlgTemplates">
+      <UniqueIdentifier>{eb10a008-3964-4c09-bdcf-b4d82566f9b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ItemsData">
+      <UniqueIdentifier>{9e5d882a-6b4b-4a41-baf2-20c6e385d15c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Devices">
+      <UniqueIdentifier>{9b94bd80-1bb9-4f5e-bd32-7799c65740e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Devices\Lan">
+      <UniqueIdentifier>{817af4df-0008-4deb-a989-feff308c945f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DebugApp">
+      <UniqueIdentifier>{5e5c5105-cfd3-4eb9-8465-675558e14d25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Devices\Lan\Include">
+      <UniqueIdentifier>{b9db8c27-ae70-4268-a34f-c3a7c89bf318}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Windows\DetailedWindow">
+      <UniqueIdentifier>{595a35ee-25f9-42e6-9127-86e5bf5ea94c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Windows\ZonesWindow">
+      <UniqueIdentifier>{a7e4d990-59c9-45e7-ad53-4dd9df05ceb0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FFT">
+      <UniqueIdentifier>{676780f9-eec5-4086-9ebc-b7ce453368d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Compute">
+      <UniqueIdentifier>{2b22370b-a84b-4880-95c9-52a6022e87ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Automat">
+      <UniqueIdentifier>{e71483c5-8edf-4a5c-8e21-2493e8ad1270}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ArchiveEvents">
+      <UniqueIdentifier>{9a4dd5bd-4b75-4ce3-92b6-9c19ccc03177}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Devices\1730">
+      <UniqueIdentifier>{79c46ff7-fad7-4fa3-bbf6-fae53987e92c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="emulLan">
+      <UniqueIdentifier>{b7c5986f-e29a-4b63-994c-e747c9b42f4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ini">
+      <UniqueIdentifier>{c6a2dabc-feb8-485e-bc7f-279b2e080286}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Communication">
+      <UniqueIdentifier>{94789316-1a8b-473a-8b49-74ab42a2626a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Devices\Lan\Include\REGKEY">
+      <UniqueIdentifier>{794d6540-59c0-4b16-ae34-0a5cd8da0010}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ProtocolTCP">
+      <UniqueIdentifier>{5824984a-9b17-4c98-a9ba-90133cc756a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ProtocolTCP\Thickness">
+      <UniqueIdentifier>{85e278ce-cda6-4a64-9cc7-85f3b3369e24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ProtocolTCP\Strobes">
+      <UniqueIdentifier>{b67b0f11-a939-4ec0-8f01-7ba81ea823c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ProtocolTCP\TypeSize">
+      <UniqueIdentifier>{7f5ec972-9974-4862-8ad4-28240e1ab880}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TCPServer">
+      <UniqueIdentifier>{33dd43bc-e497-4abe-b595-8dc29aaf5be7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CommunicationWapper">
+      <UniqueIdentifier>{08ef42bd-b728-48e5-af43-8b4739c684fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ProtocolTCP\StopCycle">
+      <UniqueIdentifier>{ab40c0d9-656d-4c02-8838-3632be77187d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+    <None Include="Lan\include\REGKEY\VT_Drivers.ri">
+      <Filter>Devices\Lan\Include\REGKEY</Filter>
+    </None>
+    <None Include="Lan\include\REGKEY\VT_Library.ri">
+      <Filter>Devices\Lan\Include\REGKEY</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Thickness.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="App\App.h">
+      <Filter>App</Filter>
+    </ClInclude>
+    <ClInclude Include="Windows\MainWindow.h">
+      <Filter>Windows\MainWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="..\window_tool\message.h">
+      <Filter>window_tool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\templates\typelist.hpp">
+      <Filter>templates</Filter>
+    </ClInclude>
+    <ClInclude Include="..\debug_tools\DebugMess.h">
+      <Filter>debug_tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\window_tool\MenuAPI.h">
+      <Filter>window_tool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\window_tool\Emptywindow.h">
+      <Filter>window_tool</Filter>
+    </ClInclude>
+    <ClInclude Include="Windows\MainWindowMenu.hpp">
+      <Filter>Windows\MainWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="App\Config.h">
+      <Filter>App</Filter>
+    </ClInclude>
+    <ClInclude Include="Windows\MainWindowToolBar.h">
+      <Filter>Windows\MainWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="..\window_tool\InitToolbar.hpp">
+      <Filter>window_tool</Filter>
+    </ClInclude>
+    <ClInclude Include="Windows\SelectTypeSize.h">
+      <Filter>Windows\MainWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="App\AppBase.h">
+      <Filter>App</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Base\Base.hpp">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Base\tables.hpp">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Graphics\BarSeries.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Graphics\Borders.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Graphics\Chart.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Graphics\Chart.hpp">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Graphics\ColorLabel.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Graphics\GridChart.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Windows\TopLabelViewer.h">
+      <Filter>Windows\MainWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="Data\CrossData.h">
+      <Filter>Data</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Widgets\CheckBoxWidget.h">
+      <Filter>Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Base\TablesDefine.h">
+      <Filter>App</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg\Dlg.h">
+      <Filter>Dlg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DlgTemplates\dlg.hpp">
+      <Filter>DlgTemplates</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DlgTemplates\dlg_templates.h">
+      <Filter>DlgTemplates</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DlgTemplates\DlgItems.h">
+      <Filter>DlgTemplates</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DlgTemplates\DlgTemplate.hpp">
+      <Filter>DlgTemplates</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DlgTemplates\EditDlg.h">
+      <Filter>DlgTemplates</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DlgTemplates\ParamDlg.h">
+      <Filter>DlgTemplates</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DlgTemplates\ParamDlg.hpp">
+      <Filter>DlgTemplates</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DlgTemplates\ParamDlgTresholds.h">
+      <Filter>DlgTemplates</Filter>
+    </ClInclude>
+    <ClInclude Include="..\window_tool\Pass.h">
+      <Filter>window_tool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\window_tool\ToolBarWidth.hpp">
+      <Filter>window_tool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Log\LogBuffer.h">
+      <Filter>Log</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Log\LogMessages.h">
+      <Filter>Log</Filter>
+    </ClInclude>
+    <ClInclude Include="Windows\ThicknessViewer.h">
+      <Filter>Windows\MainWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemsData\ThicknessData.h">
+      <Filter>ItemsData</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemsData\PrimaryData.h">
+      <Filter>ItemsData</Filter>
+    </ClInclude>
+    <ClInclude Include="Lan\LanParameters.h">
+      <Filter>Devices\Lan</Filter>
+    </ClInclude>
+    <ClInclude Include="Lan\Lan.h">
+      <Filter>Devices\Lan</Filter>
+    </ClInclude>
+    <ClInclude Include="Windows\LabelMessage.h">
+      <Filter>Windows\MainWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="Windows\DetailedWindow.h">
+      <Filter>Windows\DetailedWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="Windows\DetailedWindowMenu.hpp">
+      <Filter>Windows\DetailedWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="Windows\SensorViewer.h">
+      <Filter>Windows\DetailedWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="Windows\ZonesWindow.h">
+      <Filter>Windows\ZonesWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="Windows\ZonesWindowToolBar.h">
+      <Filter>Windows\ZonesWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="Windows\ZonesViewer.h">
+      <Filter>Windows\ZonesWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemsData\ZonesData.h">
+      <Filter>ItemsData</Filter>
+    </ClInclude>
+    <ClInclude Include="Windows\CorrelationViewer.h">
+      <Filter>Windows\ZonesWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="Windows\SignalViewer.h">
+      <Filter>Windows\ZonesWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="Windows\SignalData.h">
+      <Filter>Windows\ZonesWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="Windows\ACFViewer.h">
+      <Filter>Windows\ZonesWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="FFT\FFT.h">
+      <Filter>FFT</Filter>
+    </ClInclude>
+    <ClInclude Include="Compute\Compute.h">
+      <Filter>Compute</Filter>
+    </ClInclude>
+    <ClInclude Include="Automat\SQEvents.h">
+      <Filter>Automat</Filter>
+    </ClInclude>
+    <ClInclude Include="Automat\InOutBits.h">
+      <Filter>Automat</Filter>
+    </ClInclude>
+    <ClInclude Include="ArchiveEvents\ArchiveEvents.h">
+      <Filter>ArchiveEvents</Filter>
+    </ClInclude>
+    <ClInclude Include="ArchiveEvents\Messages.h">
+      <Filter>ArchiveEvents</Filter>
+    </ClInclude>
+    <ClInclude Include="Compute\MedianFiltre.h">
+      <Filter>Compute</Filter>
+    </ClInclude>
+    <ClInclude Include="..\window_tool\DlgFiles.h">
+      <Filter>window_tool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\1730\Device1730.h">
+      <Filter>Devices\1730</Filter>
+    </ClInclude>
+    <ClInclude Include="Automat\Automat.h">
+      <Filter>Automat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\emul\emulLan\EmulLan.h">
+      <Filter>emulLan</Filter>
+    </ClInclude>
+    <ClInclude Include="..\emul\emulLan\TestLanBuffer.h">
+      <Filter>emulLan</Filter>
+    </ClInclude>
+    <ClInclude Include="Compute\Communication.h">
+      <Filter>Compute</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Ini\ItemIni.h">
+      <Filter>Ini</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Ini\WindowsPosition.h">
+      <Filter>Ini</Filter>
+    </ClInclude>
+    <ClInclude Include="Windows\ZonesWindowMenu.hpp">
+      <Filter>Windows\ZonesWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="Communication\SQLbase.h">
+      <Filter>Communication</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Base\ExpressBase.hpp">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Communication\DataExchange.h">
+      <Filter>Communication</Filter>
+    </ClInclude>
+    <ClInclude Include="App\AppConst.h">
+      <Filter>App</Filter>
+    </ClInclude>
+    <ClInclude Include="Lan\include\IRshDevice.h">
+      <Filter>Devices\Lan\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Lan\include\RshDllClient.h">
+      <Filter>Devices\Lan\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="ProtocolTCP\AsyncServer.h">
+      <Filter>ProtocolTCP</Filter>
+    </ClInclude>
+    <ClInclude Include="ProtocolTCP\CommonTCP.h">
+      <Filter>ProtocolTCP</Filter>
+    </ClInclude>
+    <ClInclude Include="ProtocolTCP\Frame.h">
+      <Filter>ProtocolTCP</Filter>
+    </ClInclude>
+    <ClInclude Include="ProtocolTCP\InitTcp.h">
+      <Filter>ProtocolTCP</Filter>
+    </ClInclude>
+    <ClInclude Include="ProtocolTCP\IPprotocolProcedureList.hpp">
+      <Filter>ProtocolTCP</Filter>
+    </ClInclude>
+    <ClInclude Include="ProtocolTCP\NetClient.h">
+      <Filter>ProtocolTCP</Filter>
+    </ClInclude>
+    <ClInclude Include="ProtocolTCP\NetFrame.h">
+      <Filter>ProtocolTCP</Filter>
+    </ClInclude>
+    <ClInclude Include="ProtocolTCP\Thickness\ThicknessProtocol.h">
+      <Filter>ProtocolTCP\Thickness</Filter>
+    </ClInclude>
+    <ClInclude Include="ProtocolTCP\Strobes\StrobesProtocol.h">
+      <Filter>ProtocolTCP\Strobes</Filter>
+    </ClInclude>
+    <ClInclude Include="ProtocolTCP\TypeSize\TypeSizeProtocol.h">
+      <Filter>ProtocolTCP\TypeSize</Filter>
+    </ClInclude>
+    <ClInclude Include="TCPServer\ServerHandler.h">
+      <Filter>TCPServer</Filter>
+    </ClInclude>
+    <ClInclude Include="CommunicationWapper\CommunicationWapper.h">
+      <Filter>CommunicationWapper</Filter>
+    </ClInclude>
+    <ClInclude Include="ProtocolTCP\StopCycle\StopCycleProtocol.h">
+      <Filter>ProtocolTCP\StopCycle</Filter>
+    </ClInclude>
+    <ClInclude Include="Compute\Strobes.h">
+      <Filter>Compute</Filter>
+    </ClInclude>
+    <ClInclude Include="ProtocolTCP\GetHostByName.h">
+      <Filter>ProtocolTCP</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Thickness.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="App\App.cpp">
+      <Filter>App</Filter>
+    </ClCompile>
+    <ClCompile Include="Windows\MainWindow.cpp">
+      <Filter>Windows\MainWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="..\debug_tools\DebugMess.cpp">
+      <Filter>debug_tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\window_tool\MenuAPI.cpp">
+      <Filter>window_tool</Filter>
+    </ClCompile>
+    <ClCompile Include="..\window_tool\EmptyWindow.cpp">
+      <Filter>window_tool</Filter>
+    </ClCompile>
+    <ClCompile Include="Windows\MainWindowToolBar.cpp">
+      <Filter>Windows\MainWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="Windows\SelectTypeSize.cpp">
+      <Filter>Windows\MainWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="App\AppBase.cpp">
+      <Filter>App</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Graphics\BarSeries.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Graphics\Borders.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Graphics\Chart.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Graphics\ColorLabel.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Graphics\GridChart.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Windows\TopLabelViewer.cpp">
+      <Filter>Windows\MainWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="Data\CrossData.cpp">
+      <Filter>Data</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Widgets\CheckBoxWidget.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DlgTemplates\DlgItems.cpp">
+      <Filter>DlgTemplates</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DlgTemplates\EditDlg.cpp">
+      <Filter>DlgTemplates</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DlgTemplates\ParamDlg.cpp">
+      <Filter>DlgTemplates</Filter>
+    </ClCompile>
+    <ClCompile Include="..\window_tool\Pass.cpp">
+      <Filter>window_tool</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Log\LogBuffer.cpp">
+      <Filter>Log</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Log\LogMessages.cpp">
+      <Filter>Log</Filter>
+    </ClCompile>
+    <ClCompile Include="Windows\ThicknessViewer.cpp">
+      <Filter>Windows\MainWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemsData\ThicknessData.cpp">
+      <Filter>ItemsData</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemsData\PrimaryData.cpp">
+      <Filter>ItemsData</Filter>
+    </ClCompile>
+    <ClCompile Include="Lan\Lan.cpp">
+      <Filter>Devices\Lan</Filter>
+    </ClCompile>
+    <ClCompile Include="Windows\LabelMessage.cpp">
+      <Filter>Windows\MainWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="Windows\DetailedWindow.cpp">
+      <Filter>Windows\DetailedWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="Windows\SensorViewer.cpp">
+      <Filter>Windows\DetailedWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="Windows\ZonesWindow.cpp">
+      <Filter>Windows\ZonesWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="Windows\ZonesWindowToolBar.cpp">
+      <Filter>Windows\ZonesWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="Windows\ZonesViewer.cpp">
+      <Filter>Windows\ZonesWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemsData\ZonesData.cpp">
+      <Filter>ItemsData</Filter>
+    </ClCompile>
+    <ClCompile Include="Windows\CorrelationViewer.cpp">
+      <Filter>Windows\ZonesWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="Windows\SignalViewer.cpp">
+      <Filter>Windows\ZonesWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="Windows\SignalData.cpp">
+      <Filter>Windows\ZonesWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="Windows\ACFViewer.cpp">
+      <Filter>Windows\ZonesWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="FFT\FFT.cpp">
+      <Filter>FFT</Filter>
+    </ClCompile>
+    <ClCompile Include="Compute\Compute.cpp">
+      <Filter>Compute</Filter>
+    </ClCompile>
+    <ClCompile Include="Automat\SQEvents.cpp">
+      <Filter>Automat</Filter>
+    </ClCompile>
+    <ClCompile Include="Automat\InOutBits.cpp">
+      <Filter>Automat</Filter>
+    </ClCompile>
+    <ClCompile Include="ArchiveEvents\ArchiveEvents.cpp">
+      <Filter>ArchiveEvents</Filter>
+    </ClCompile>
+    <ClCompile Include="ArchiveEvents\Messages.cpp">
+      <Filter>ArchiveEvents</Filter>
+    </ClCompile>
+    <ClCompile Include="Compute\MedianFiltre.cpp">
+      <Filter>Compute</Filter>
+    </ClCompile>
+    <ClCompile Include="Compute\SaveLoadData.cpp">
+      <Filter>Compute</Filter>
+    </ClCompile>
+    <ClCompile Include="..\window_tool\DlgFiles.cpp">
+      <Filter>window_tool</Filter>
+    </ClCompile>
+    <ClCompile Include="..\1730\Device1730.cpp">
+      <Filter>Devices\1730</Filter>
+    </ClCompile>
+    <ClCompile Include="Automat\Automat.cpp">
+      <Filter>Automat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\emul\emulLan\EmulLan.cpp">
+      <Filter>emulLan</Filter>
+    </ClCompile>
+    <ClCompile Include="..\emul\emulLan\TestLanBuffer.cpp">
+      <Filter>emulLan</Filter>
+    </ClCompile>
+    <ClCompile Include="Compute\Communication.cpp">
+      <Filter>Compute</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Ini\ItemIni.cpp">
+      <Filter>Ini</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Ini\WindowsPosition.cpp">
+      <Filter>Ini</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg\TypeSizeDlg.cpp">
+      <Filter>Dlg</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg\DiscretePlateDlg.cpp">
+      <Filter>Dlg</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg\AnalogPlateDlg.cpp">
+      <Filter>Dlg</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg\CoeficientDlg.cpp">
+      <Filter>Dlg</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg\MedianFiltreDlg.cpp">
+      <Filter>Dlg</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg\SignalsDlg.cpp">
+      <Filter>Dlg</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg\ACFBorderDlg.cpp">
+      <Filter>Dlg</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg\AboutWindow.cpp">
+      <Filter>Dlg</Filter>
+    </ClCompile>
+    <ClCompile Include="Communication\DataExchange.cpp">
+      <Filter>Communication</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg\ColorItemsDlg.cpp">
+      <Filter>Dlg</Filter>
+    </ClCompile>
+    <ClCompile Include="Lan\include\RshApi.cpp">
+      <Filter>Devices\Lan\Include</Filter>
+    </ClCompile>
+    <ClCompile Include="Lan\include\RshDllClient.cpp">
+      <Filter>Devices\Lan\Include</Filter>
+    </ClCompile>
+    <ClCompile Include="Lan\include\RshError.cpp">
+      <Filter>Devices\Lan\Include</Filter>
+    </ClCompile>
+    <ClCompile Include="Lan\include\RshFunctions.cpp">
+      <Filter>Devices\Lan</Filter>
+    </ClCompile>
+    <ClCompile Include="ProtocolTCP\AsyncServer.cpp">
+      <Filter>ProtocolTCP</Filter>
+    </ClCompile>
+    <ClCompile Include="ProtocolTCP\CommonTCP.cpp">
+      <Filter>ProtocolTCP</Filter>
+    </ClCompile>
+    <ClCompile Include="ProtocolTCP\Frame.cpp">
+      <Filter>ProtocolTCP</Filter>
+    </ClCompile>
+    <ClCompile Include="ProtocolTCP\InitTcp.cpp">
+      <Filter>ProtocolTCP</Filter>
+    </ClCompile>
+    <ClCompile Include="ProtocolTCP\NetClient.cpp">
+      <Filter>ProtocolTCP</Filter>
+    </ClCompile>
+    <ClCompile Include="ProtocolTCP\NetFrame.cpp">
+      <Filter>ProtocolTCP</Filter>
+    </ClCompile>
+    <ClCompile Include="ProtocolTCP\Thickness\ThicknessClient.cpp">
+      <Filter>ProtocolTCP\Thickness</Filter>
+    </ClCompile>
+    <ClCompile Include="ProtocolTCP\Thickness\ThicknessServer.cpp">
+      <Filter>ProtocolTCP\Thickness</Filter>
+    </ClCompile>
+    <ClCompile Include="ProtocolTCP\Strobes\StrobesClient.cpp">
+      <Filter>ProtocolTCP\Strobes</Filter>
+    </ClCompile>
+    <ClCompile Include="ProtocolTCP\Strobes\StrobesServer.cpp">
+      <Filter>ProtocolTCP\Strobes</Filter>
+    </ClCompile>
+    <ClCompile Include="ProtocolTCP\TypeSize\TypeSizeClient.cpp">
+      <Filter>ProtocolTCP\TypeSize</Filter>
+    </ClCompile>
+    <ClCompile Include="ProtocolTCP\TypeSize\TypeSizeServer.cpp">
+      <Filter>ProtocolTCP\TypeSize</Filter>
+    </ClCompile>
+    <ClCompile Include="TCPServer\ServerHandler.cpp">
+      <Filter>TCPServer</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg\TcpDlg.cpp">
+      <Filter>Dlg</Filter>
+    </ClCompile>
+    <ClCompile Include="CommunicationWapper\CommunicationWapper.cpp">
+      <Filter>CommunicationWapper</Filter>
+    </ClCompile>
+    <ClCompile Include="ProtocolTCP\StopCycle\StopCycleClient.cpp">
+      <Filter>ProtocolTCP\StopCycle</Filter>
+    </ClCompile>
+    <ClCompile Include="ProtocolTCP\StopCycle\StopCycleServer.cpp">
+      <Filter>ProtocolTCP\StopCycle</Filter>
+    </ClCompile>
+    <ClCompile Include="Compute\Strobes.cpp">
+      <Filter>Compute</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg\AxedDlg.cpp">
+      <Filter>Dlg</Filter>
+    </ClCompile>
+    <ClCompile Include="ProtocolTCP\GetHostByName.cpp">
+      <Filter>ProtocolTCP</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Thickness.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
