@@ -591,15 +591,22 @@ void Compute::CalculationOneFrame(int sensorIndex, char *sensorData, double &res
 	//*/
 //-----------------------------------поиск пика	
 	int maxOffs = maxOffset[sensorIndex];
-	int z = int(0.6 * minOffset[sensorIndex]);
+	int z = minOffset[sensorIndex];
 	if(maxOffs > frameSize) maxOffs = frameSize;
 	if(z > frameSize / 2) z = 0;
-	double minVal = data[z];
-	double maxVal = minVal;
+	//double minVal = data[z];
+	//double maxVal = minVal;
 	double val = 0;
 	int offsMin = z;
 	int offsMax = z;
 	int offsVal = z;
+
+	double minVal = data[0];
+	for(int i = 1; i < z; ++i)
+	{
+		if(minVal > data[i]) minVal = data[i];
+	}
+	double maxVal = minVal;
 
 	double tresh = data[0] * peak[sensorIndex];
 
