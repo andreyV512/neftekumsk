@@ -22,8 +22,8 @@ namespace StrobesProtocol
 
 		if(strobe->count > ThicknessData::MAX_ZONES_COUNT) strobe->count = ThicknessData::MAX_ZONES_COUNT;
 
-		thicknessData.countZones = strobe->count - 1;
-		primaryData.countZones = strobe->count - 1;
+		thicknessData.countZones = strobe->count;// - 1;
+		primaryData.countZones = strobe->count;// - 1;
 		memset(offs, 0, sizeof(offs));
 		memmove(offs, strobe->data, sizeof(unsigned) * thicknessData.countZones);
 		
