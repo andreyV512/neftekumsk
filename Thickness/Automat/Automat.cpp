@@ -9,6 +9,7 @@
 #include "Lan.h"
 #include "Compute.h"
 #include "DataExchange.h"
+#include "Config.h"
 #include "CommunicationWapper\CommunicationWapper.h"
 
 #pragma warning(disable : 4995)
@@ -260,6 +261,18 @@ void Automat::Do()
 	SET_BITS(PowerInverterBitOut);
 	while(true)
 	{
+#ifdef DEBUG_ITEMS
+		switch(WaitForSingleObject(App::hEventStrobes, 5 * 60000))
+		{
+		case WAIT_OBJECT_0:
+			{
+				compute.Recalculation();
+				SendThickhess();
+			}
+			break;
+		}
+		continue;
+#endif
 		workMode = false;
 		bool automatMode = false;
 		bool singleMode = false;

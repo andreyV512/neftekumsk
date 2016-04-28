@@ -781,59 +781,50 @@ void Compute::Recalculation()
 	ZeroMemory(primaryData.result, sizeof(primaryData.result));
 	ZeroMemory(primaryData.status, sizeof(primaryData.status));
 	int count = primaryData.GetCurrentOffset();
-
-
-/*
-	primaryData.countZones = 34;
-	for(int i = 0; i < 60; ++i)  primaryData.realOffsetTime[i] = 450 * i;
-	unsigned t = primaryData.realOffsetTime[0];
-	int co = count / primaryData.numberPackets;
-	for(int i = 0; i < co; ++i)
+	if(count > 0)
 	{
-		 primaryData.realOffsetTime[i] -= t;
-		  primaryData.realOffsetTime[i] *= 3;
+		count /= 2;
+		int o = 0;
+		__Recalculation__ _0(*this, o, o + count);
+		o += count;
+		__Recalculation__ _1(*this, o, o + count);
+		//o += count;
+		//__Recalculation__ _2(*this, o, o + count);
+		//o += count;
+		//__Recalculation__ _3(*this, o, primaryData.GetCurrentOffset());
+
+		HANDLE h[] = {
+			CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)__Recalculation__::Proc, &_0, 0,NULL)
+			,  CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)__Recalculation__::Proc, &_1, 0,NULL)
+			//	 ,  CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)__Recalculation__::Proc, &_2, 0,NULL)
+		};
+		//_3.Do();
+		WaitForMultipleObjects(dimention_of(h), h, TRUE, INFINITE);
+
+		for(int i = 0; i < dimention_of(h); ++i) CloseHandle(h[i]);
+
+		int len = primaryData.countZones;
+		if(len > dimention_of(primaryData.offsetOfTime)) len = dimention_of(primaryData.offsetOfTime);
+		if(len > 0)
+		{
+			Strobes();
+
+			SubRecalculation(0, len);
+			DeathZoneFront(0);
+			DeathZoneBack(len);
+
+			thicknessData.countZones = primaryData.countZones = len;
+			thicknessData.status[len - 1] = 0;
+			for(int i = 0; i < count_sensors; ++i)
+			{
+				sensorsData[i].countZones = primaryData.countZones;
+				sensorsData[i].status[len - 1] = 0;
+
+			}
+			unsigned stopTime = GetTickCount() - startTime;
+			dprint(__FUNCTION__" duration computing %d\n", stopTime);
+		}
 	}
-	primaryData.frameStartTime = t;
-//*/
-	count /= 2;
-	int o = 0;
-	__Recalculation__ _0(*this, o, o + count);
-	o += count;
-	__Recalculation__ _1(*this, o, o + count);
-	//o += count;
-	//__Recalculation__ _2(*this, o, o + count);
-	//o += count;
-	//__Recalculation__ _3(*this, o, primaryData.GetCurrentOffset());
-
-	HANDLE h[] = {
-         CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)__Recalculation__::Proc, &_0, 0,NULL)
-		 ,  CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)__Recalculation__::Proc, &_1, 0,NULL)
-	//	 ,  CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)__Recalculation__::Proc, &_2, 0,NULL)
-	};
-	//_3.Do();
-	WaitForMultipleObjects(dimention_of(h), h, TRUE, INFINITE);
-
-	for(int i = 0; i < dimention_of(h); ++i) CloseHandle(h[i]);
-
-	int len = primaryData.countZones;
-	if(len > dimention_of(primaryData.offsetOfTime)) len = dimention_of(primaryData.offsetOfTime);
-
-	Strobes();
-	
-	SubRecalculation(0, len);
-	DeathZoneFront(0);
-	DeathZoneBack(len);
-	
-	thicknessData.countZones = primaryData.countZones = len;
-	thicknessData.status[len - 1] = 0;
-	for(int i = 0; i < count_sensors; ++i)
-	{
-		sensorsData[i].countZones = primaryData.countZones;
-		sensorsData[i].status[len - 1] = 0;
-
-	}
-	unsigned stopTime = GetTickCount() - startTime;
-	dprint(__FUNCTION__" duration computing %d\n", stopTime);
 	thicknessViewer.Update();
 }
 

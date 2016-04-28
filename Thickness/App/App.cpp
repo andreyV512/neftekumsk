@@ -78,7 +78,9 @@ void App::Init()
 	HWND h = WindowTemplate(&mainWindow, L"Толщинометр", r.left, r.top, r.right, r.bottom);
 	ShowWindow(h, SW_SHOWNORMAL);
 	AsyncServer::Create(Singleton<IPAddressTable>::Instance().items.get<IPPort>().value);
+#ifndef DEBUG_ITEMS
 	if(initOk)
+#endif
 	{
 		automat.Init();
 	}
