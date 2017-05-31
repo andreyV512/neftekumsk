@@ -29,15 +29,15 @@ bool ZonesViewer::CursorLabel::Draw(TMouseMove &l, VGraphics &g)
 	if(status)
 	{
 		offset = leftOffs;
-		if(status == PrimaryData::Nominal || status == PrimaryData::Defect || status == PrimaryData::Treshold2Class)
+		if(status == PrimaryData::Nominal || status == PrimaryData::Defect || status == PrimaryData::Treshold2Class || status == PrimaryData::Treshold3Class)
 		{
-			sprintf(buf, "<0xff>Смещение <0xff0000>%d   <0xff>толщина <0xff0000>%0.2f %s   <ff>\"1 класс\" %.2f \"2 класс\" <ff0000>%.2f"//%  <ff>плюс <ff0000>%.2f%%"
+			sprintf(buf, "<0xff>Смещение <0xff0000>%d   <0xff>толщина <0xff0000>%0.2f %s   <ff>\"1 класс\" %.2f \"2 класс\" <ffff00>%.2f  <ff>\"3 класс\" <ff0000>%.2f"
 				, offset + owner.zonesOffset
 				, data.zones[offset]
 			    , StatusLabel(status).text
 				, Singleton<ThresholdsTable>::Instance().items.get<Border2Class>().value
+				, Singleton<ThresholdsTable>::Instance().items.get<Border3Class>().value
 				, Singleton<ThresholdsTable>::Instance().items.get<BorderDefect>().value
-				//, Singleton<ThresholdsTable>::Instance().items.get<NominalPercentMax>().value
 				);
 		}
 		else

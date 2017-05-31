@@ -60,6 +60,7 @@ public:
 	double &defectDifferentWallPercent;
 	*/
 	double &treshold2Class;
+	double &treshold3Class;
 	double &tresholdDefect;
 	//double lengthTube;    
 	int &deadAreaMM0;
@@ -75,7 +76,7 @@ public:
 	char usefulPiecePipeOk;
 	double defectBorderMin;
 	double defectBorderMax;
-//	double defectDifferentWall;
+	double defectBorder3;
 	static void ThreadProc(Compute *);	
 public:
 	

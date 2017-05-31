@@ -27,20 +27,12 @@ bool CorrelationViewer::CursorLabel::Draw(TMouseMove &l, VGraphics &g)
 	{
 		double y = data[leftOffs];
 		char subBuf[128];
-		/*
-		if(1000.0 == owner.thickness)
-		{
-			sprintf(subBuf, "<ff0000>ÒÎËÙÈÍÀ םו מןנוהוכוםא ");
-		}
-		else 
-		{
-			sprintf(subBuf, "<ff>ÒÎËÙÈÍÀ <ff0000>%.2f ", owner.thickness);
-		}
-		*/
+		
 		if( 
 			PrimaryData::Nominal == owner.status
 			|| PrimaryData::Defect == owner.status
 			|| PrimaryData::Treshold2Class == owner.status
+			|| PrimaryData::Treshold3Class == owner.status
 			)
 		{
 			int thickness = int((owner.thickness - owner.coefficientB) / owner.coefficientA); 

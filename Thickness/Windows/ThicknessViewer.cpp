@@ -24,26 +24,23 @@ bool ThicknessViewer::CursorLabel::Draw(TMouseMove &l, VGraphics &g)
 	double dX = (double)(chart.rect.right - chart.rect.left - chart.offsetAxesLeft - chart.offsetAxesRight) / (chart.maxAxesX - chart.minAxesX);
 	double x = -0.5 * dX + chart.rect.left + chart.offsetAxesLeft;
 	int leftOffs = int((double(l.x) - x) / dX);
-	int status =  thicknessData.status[leftOffs - 1];///////////////////////////////////////////////
+	int status =  thicknessData.status[leftOffs - 1];
 	if(status)
 	{		
 		char *txt = StatusLabel(status).text;
-		if(status < PrimaryData::Undefined)// || status == PrimaryData::DefectMinMax || status == PrimaryData::DefectDifferentWall)
+		if(status < PrimaryData::Undefined)
 		{
-			double yMin = thicknessData.zonesMin[leftOffs - 1];////////////////////////////////////////////////////
+			double yMin = thicknessData.zonesMin[leftOffs - 1];
 			double yMax = thicknessData.zonesMax[leftOffs - 1];
 			double delta = yMax - yMin;
-			sprintf(buf, "<ff>Зона <0xff0000>%d <ff>Смещение <ff0000>%.2f <ff>м толщ <0xff0000>%0.2f %s <ff>\"1 класс\" %.1f  <ff>\"2 класс\" %.1f"
+			sprintf(buf, "<ff>Зона <0xff0000>%d <ff>Смещение <ff0000>%.2f <ff>м толщ <0xff0000>%0.2f %s <ff>\"1 класс\" %.1f  <ff>\"2 класс\" %.1f <ff>\"3 класс\" %.1f"
 				, leftOffs
 				, 0.001 * zone_length * leftOffs 
 				, yMin
-			//	, yMax
-			//	, delta
 				, txt
 				, Singleton<ThresholdsTable>::Instance().items.get<Border2Class>().value
+				, Singleton<ThresholdsTable>::Instance().items.get<Border3Class>().value
 				, Singleton<ThresholdsTable>::Instance().items.get<BorderDefect>().value
-			//	, Singleton<ThresholdsTable>::Instance().items.get<NominalPercentMax>().value	
-			//	, Singleton<ThresholdsTable>::Instance().items.get<DefectDifferentWallPercent>().value
 				);
 		}
 		else

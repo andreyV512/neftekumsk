@@ -31,20 +31,13 @@ STATUS_LABEL(LessMinimumEnergy, "Энергия сигнала меньше порогового значения")
 STATUS_LABEL(GreaterMaximumEnergy, "Энергия сигнала больше порогового значения")
 STATUS_LABEL(ValueLessThreshold, "Сигнал меньше порогового значения")
 STATUS_LABEL(ThicknessLessThreshold, "Вычисленная толщина меньше минимального значения")
-//STATUS_LABEL(ThicknessGreaterThreshold, "Вычисленная толщина больше максимального значения")
 STATUS_LABEL(Undefined, "Результат не определён")
 STATUS_LABEL(DeathZone, "Мёртвая зона")
 
 STATUS_LABEL(Nominal, "<ff00>Толщина в допуске")
 STATUS_LABEL(Defect, "<ff0000>Брак")
 STATUS_LABEL(Treshold2Class, "<ff>Класс 2")
-//STATUS_LABEL(DefectMinMax, "<ffff00>Брак плюс-минус")
-//STATUS_LABEL(DefectDifferentWall, "<ffff>Брак разностенность")
-
-//STATUS_LABEL(DefectDifferentWallMin   , "<993333>Брак разностенность минус")
-//STATUS_LABEL(DefectDifferentWallMax   , "<7749ff>Брак разностенность плюс")
-//STATUS_LABEL(DefectDifferentWallMinMax, "<663300>Брак разностенность плюс-минус")
-
+STATUS_LABEL(Treshold3Class, "<ff>Класс 3")
 #undef STATUS_LABEL
 //---------------------------------------------------------------------------
 template<class O, class P>struct __set_color_bar__
@@ -108,6 +101,7 @@ COLOR_DATA(DeathZone)
 COLOR(Nominal)
 COLOR(Defect)
 COLOR(Treshold2Class)
+COLOR(Treshold3Class)
 //COLOR(DefectMinMax)
 //COLOR(DefectDifferentWall)
 //

@@ -124,6 +124,7 @@ DLG_SUB(Undefined)
 DLG_SUB(Nominal)
 DLG_SUB(Defect)
 DLG_SUB(Treshold2Class)
+DLG_SUB(Treshold3Class)
 DLG_SUB(DeathZone)
 //------------------------------------------------------------------------------------------------
 PARAM_TITLE(LessMinimumEnergy, L"Энергия меньше минимума")
@@ -134,6 +135,7 @@ PARAM_TITLE(Undefined, L"Результат не определён")
 PARAM_TITLE(Nominal, L"Номинальная толщина")
 PARAM_TITLE(Defect, L"Брак")
 PARAM_TITLE(Treshold2Class, L"Класс 2")
+PARAM_TITLE(Treshold3Class, L"Класс 3")
 PARAM_TITLE(DeathZone, L"Мёртвая зона")
 
 DO_NOT_CHECK(LessMinimumEnergy)
@@ -144,6 +146,7 @@ DO_NOT_CHECK(Undefined)
 DO_NOT_CHECK(Nominal)
 DO_NOT_CHECK(Defect)
 DO_NOT_CHECK(Treshold2Class)
+DO_NOT_CHECK(Treshold3Class)
 DO_NOT_CHECK(DeathZone)
 
 struct DefaultBtn

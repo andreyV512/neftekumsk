@@ -43,6 +43,7 @@ namespace ThicknessProtocol
 				case PrimaryData::Treshold2Class: res = 4; break;
 				case PrimaryData::Nominal       : res = 1; break;
 				case PrimaryData::DeathZone     : res = 2; break;
+				case PrimaryData::Treshold3Class: res = 6; break;
 				}
 				item.status[i] = res;
 			}

@@ -55,11 +55,10 @@ unsigned DetailedWindow::operator()(TCreate &m)
 	TL::foreach<sensors_list, __detailed_window_create__>()(&sensorsWindow, &m.hwnd);
 	topLabelViewer.hWnd = CreateChildWindow(m.hwnd, (WNDPROC)&Viewer<TopLabelViewer>::Proc, L"TopLabelWindow", &topLabelViewer);
 	char buf[128];
-	sprintf(buf,  "<ff>Порог \"1 класса %.2f\"  <ff>Порог\"2 класса<ff0000>%.2f\""
+	sprintf(buf,  "<ff>Порог \"1 класса %.2f\"  <ff>Порог\"2 класса<ffff00>%.2f\" <ff>Порог\"3 класса<ff0000>%.2f\""
 		, Singleton<ThresholdsTable>::Instance().items.get<Border2Class>().value
+		, Singleton<ThresholdsTable>::Instance().items.get<Border3Class>().value
 		, Singleton<ThresholdsTable>::Instance().items.get<BorderDefect>().value
-		//, Singleton<ThresholdsTable>::Instance().items.get<NominalPercentMax>().value
-		//, Singleton<ThresholdsTable>::Instance().items.get<DefectDifferentWallPercent>().value
 		);
 	topLabelViewer.label = buf;
 	topLabelViewer.label.fontHeight = 15;

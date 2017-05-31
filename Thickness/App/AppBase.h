@@ -23,12 +23,14 @@ struct CurrentParametersTable
 STR_PARAM(NameParam, 128, L"NONAME")
 
 DEFINE_PARAM(Border2Class, double, 5.8)
+DEFINE_PARAM(Border3Class, double, 5.0)
 DEFINE_PARAM(BorderDefect, double, 4.5)
 
 struct ThresholdsTable
 {
 	typedef TL::MkTlst<
 		Border2Class
+		, Border3Class
 		, BorderDefect
 	>::Result items_list;
 	typedef NullType unique_list;
@@ -82,17 +84,18 @@ struct PointsOptionsTable
 };
 //----------------------------------------------------------------------------------
 DEFINE_PARAM(LessMinimumEnergy, int, 0xff555555)
-	DEFINE_PARAM(GreaterMaximumEnergy, int, 0xff555555)
-	DEFINE_PARAM(ValueLessThreshold, int, 0xff555555)
-	DEFINE_PARAM(ThicknessLessThreshold, int, 0xff555555)
-	DEFINE_PARAM(Undefined, int, 0xff555555)
+DEFINE_PARAM(GreaterMaximumEnergy, int, 0xff555555)
+DEFINE_PARAM(ValueLessThreshold, int, 0xff555555)
+DEFINE_PARAM(ThicknessLessThreshold, int, 0xff555555)
+DEFINE_PARAM(Undefined, int, 0xff555555)
 
-	DEFINE_PARAM(Nominal, int, 0xff00ff00)
-	DEFINE_PARAM(Treshold2Class, int, 0xffffff00)
-	DEFINE_PARAM(Defect, int, 0xffff0000)
+DEFINE_PARAM(Nominal, int, 0xff00ff00)
+DEFINE_PARAM(Treshold2Class, int, 0xffc1ff00)
+DEFINE_PARAM(Treshold3Class, int, 0xffffff00)
+DEFINE_PARAM(Defect, int, 0xffff0000)
  
 
-	DEFINE_PARAM(DeathZone, int, 0xff333333)   
+DEFINE_PARAM(DeathZone, int, 0xff333333)   
 
 struct ColorTable
 {
@@ -104,6 +107,7 @@ struct ColorTable
 		, Nominal
 		, Defect
 		, Treshold2Class
+		, Treshold3Class
 		, Undefined
 		, DeathZone
 	>::Result items_list;

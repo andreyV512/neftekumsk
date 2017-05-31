@@ -30,8 +30,7 @@ bool SensorViewer::CursorLabel::Draw(TMouseMove &l, VGraphics &g)
 	int status = compute.sensorsData[num].status[leftOffs - 1];
 	if(status)
 	{
-		char *txt = StatusLabel(status).text;
-		//if(status == PrimaryData::Nominal || status == PrimaryData::Defect || status == PrimaryData::Treshold2Class)
+		char *txt = StatusLabel(status).text;		
 		if(status < PrimaryData::Undefined)
 		{
 			double yMin =  compute.sensorsData[num].zonesMin[leftOffs - 1];

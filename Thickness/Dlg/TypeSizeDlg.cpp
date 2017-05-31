@@ -7,10 +7,14 @@
 #include "MainWindow.h"
 namespace{
 PARAM_TITLE(Border2Class, L"Порог класс 1")
-PARAM_TITLE(BorderDefect, L"Порог класс 2")	
+PARAM_TITLE(Border3Class, L"Порог класс 2")	
+PARAM_TITLE(BorderDefect, L"Порог класс 3")	
 
 MIN_EQUAL_VALUE(Border2Class, 2)
 MAX_EQUAL_VALUE(Border2Class, 15)
+
+MIN_EQUAL_VALUE(Border3Class, 2)
+MAX_EQUAL_VALUE(Border3Class, 15)
 
 MIN_EQUAL_VALUE(BorderDefect, 2)
 MAX_EQUAL_VALUE(BorderDefect, 15)
@@ -202,19 +206,4 @@ void SelectTypeSizeDeleteDlg::Do(HWND hWnd)
 		}
 	}
 }
- /*
-namespace{
-	PARAM_TITLE(DiameterTube, L"Диаметр трубы (мм)")
-
-	MIN_EQUAL_VALUE(DiameterTube, 30)
-	MAX_EQUAL_VALUE(DiameterTube, 200)
-}
-void DiameterTubeDlg::Do(HWND h)
-{
-	if(TemplDialog<DiameterTubeTable>(Singleton<DiameterTubeTable>::Instance()).Do(h, L"Диаметр трубы (мм)"))
-	{
-		///\brief  можно выполнить когда парраметры изменются
-	}
-}
-*/
 

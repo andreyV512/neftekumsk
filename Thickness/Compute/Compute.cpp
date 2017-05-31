@@ -32,6 +32,7 @@ Compute::Compute(PrimaryData &pd)
 	, referenceOffsetSQ3(300)
 	, frameSize(Singleton<LanParametersTable>::Instance().items.get<PacketSize>().value)
 	, treshold2Class(Singleton<ThresholdsTable>::Instance().items.get<Border2Class>().value)
+	, treshold3Class(Singleton<ThresholdsTable>::Instance().items.get<Border3Class>().value)
 	, tresholdDefect(Singleton<ThresholdsTable>::Instance().items.get<BorderDefect>().value)
 	, deadAreaMM0 (Singleton<DeadAreaTable>::Instance().items.get<DeadAreaMM0>().value)
 	, deadAreaMM1(Singleton<DeadAreaTable>::Instance().items.get<DeadAreaMM1>().value)
@@ -190,79 +191,11 @@ void Compute::InitParam()
 		filtre[i].SetLength(medianFiltreLength);
 		filtre[i].Clear();
 	}
-	defectBorderMin = tresholdDefect;// nominalThickness * (1.0 - nominalPercentMin / 100);
-	defectBorderMax = treshold2Class;//nominalThickness * (1.0 + nominalPercentMax / 100);
-	//defectDifferentWall = defectDifferentWallPercent * nominalThickness / 100;
+	defectBorderMin = tresholdDefect;
+	defectBorderMax = treshold2Class;
+	defectBorder3 = treshold3Class;
+	
 }
-
-#if 1
-/*
-void Compute::MeshuringBaseStop1()
-{
-	deltaTimePaintMarker = 0;
-	deltaTimeZoneStop1 = timeGetTime();
-
-	deltaTime = (double)zone_length * (deltaTimeZoneStop1 - deltaTimeZoneStart) / referenceOffset1;//время прохождения зоны
-
-	primaryData.countZones = 0;
-	offsetOfZonesOffset = (double)(deltaTimeZoneStop1 - deltaTimeZoneStart) * 400 / referenceOffset1;//физическое смещение датчика в корзине (400 мм)
-	primaryData.offsetOfTime[0] =  offsetOfZonesOffset;
-	stop = 0;
-	for(int i = 0; i < count_sensors; ++i)
-	{
-	   sensorsData[i].zonesMin[0] = result_undefined;
-	   sensorsData[i].zonesMax[0] = result_undefined;
-	   sensorsData[i].status[0] = PrimaryData::Undefined;
-	}
-	thicknessData.zonesMin[0] = result_undefined;
-	thicknessData.zonesMax[0] = result_undefined;
-	thicknessData.status[0] = PrimaryData::Undefined;
-	InitParam();
-	while(ResumeThread(hThread[0]));
-	Sleep(10);
-	while(ResumeThread(hThread[1]));
-	Sleep(10);
-}
-*/
-#else
-void Compute::MeshuringBaseStop1()
-{
-	deltaTimePaintMarker = 0;
-	deltaTimeZoneStop1 = timeGetTime();
-
-	deltaTime = (double)zone_length * (deltaTimeZoneStop1 - deltaTimeZoneStart) / referenceOffset1;//время прохождения зоны
-
-	primaryData.countZones = 0;
-	offsetOfZonesOffset = 0;
-	primaryData.offsetOfTime[0] = 0;
-	deadAreaTime = int((double)(deltaTimeZoneStop1 - deltaTimeZoneStart) * deadAreaMM0 / referenceOffset1);
-	//offsetOfZonesOffset = (double)(deltaTimeZoneStop1 - deltaTimeZoneStart) * deadAreaMM0 / referenceOffset1;
-	//primaryData.offsetOfTime[0] =  offsetOfZonesOffset;
-	stop = 0;
-	for(int i = 0; i < count_sensors; ++i)
-	{
-	   sensorsData[i].zonesMin[0] = result_undefined;
-	   sensorsData[i].zonesMax[0] = result_undefined;
-	   sensorsData[i].status[0] = PrimaryData::Undefined;
-	}
-	thicknessData.zonesMin[0] = result_undefined;
-	thicknessData.zonesMax[0] = result_undefined;
-	thicknessData.status[0] = PrimaryData::Undefined;
-	InitParam();
-	while(ResumeThread(hThread[0]));
-	Sleep(10);
-	while(ResumeThread(hThread[1]));
-	Sleep(10);
-}
-#endif
-//----------------------------------------------------------------------
-/*
-void Compute::MeshuringBaseStop2()
-{
-	deltaTimeZoneStop2 = timeGetTime();
-	deltaTime = (double)zone_length * (deltaTimeZoneStop2 - deltaTimeZoneStart) / referenceOffset2;//время прохождения зоны
-}
-*/
 //-----------------------------------------------------------------------------------------
 void Compute::EndAdjustmentsTube()//коррекция результата с учётом мёртвой зоны в конце трубы
 {
@@ -290,86 +223,36 @@ struct LockTry
 //----------------------------------------------------------------------------------
 void SetDataStatus(double &sensorsMin, double &sensorsMax, char &sensorsStatus, unsigned char stat, double data_i)
 {
-	/*
-	if(PrimaryData::Nominal == stat)
-	{
-        if(PrimaryData::Undefined == sensorsStatus || PrimaryData::DeathZone == sensorsStatus)
-		{
-				sensorsStatus = PrimaryData::Nominal;
-				sensorsMin = sensorsMax = data_i;
-				return;
-		}
-	}
-	else
-	{
-		if(stat >> 3) 
-		{
-			if(PrimaryData::DeathZone == stat) sensorsStatus = PrimaryData::DeathZone;
-			return;
-		}
-		//unsigned val = stat & (PrimaryData::DefectMin | PrimaryData::DefectMax);
-		unsigned val = stat & PrimaryData::Defect;
 
-		if(PrimaryData::Undefined == sensorsStatus || PrimaryData::DeathZone == sensorsStatus)
-		{
-			sensorsMin = sensorsMax = data_i;
-			sensorsStatus = val;
-		}
-		else if(PrimaryData::Nominal == sensorsStatus)
-		{
-			sensorsStatus = val;
-		}
-		else 
-		{
-			sensorsStatus |= val;
-		}
-
-		if(0 == sensorsStatus) sensorsStatus = PrimaryData::Nominal;
-	}
-
-	if(0 != data_i && sensorsMin > data_i) sensorsMin = data_i;
-	if(sensorsMax < data_i) sensorsMax = data_i;
-	*/
-	//if(stat ==  PrimaryData::Nominal)
-	//{
-	//	//if(sensorsStatus > PrimaryData::Nominal) 
-	//		
-	//		sensorsStatus = PrimaryData::Nominal;
-	//	if(0 != data_i && sensorsMin > data_i) sensorsMin = data_i;
-	//			if(sensorsMax < data_i) sensorsMax = data_i;
-	//			return;
-	//}
-	//else
+	for(unsigned char i = PrimaryData::DeathZone; i < PrimaryData::Undefined; i <<= 1)
 	{
-		for(unsigned char i = PrimaryData::DeathZone; i < PrimaryData::Undefined; i <<= 1)
+		if(stat & i)
 		{
-			if(stat & i)
+
+			if(sensorsStatus < PrimaryData::Undefined)
 			{
-				
-				if(sensorsStatus < PrimaryData::Undefined)
-				{
 				if(0 != data_i && sensorsMin > data_i) sensorsMin = data_i;
 				if(sensorsMax < data_i) sensorsMax = data_i;
-				
-				}
-				if(sensorsStatus > i)
-					{
-						if(PrimaryData::Undefined == sensorsStatus)
-						{
-							sensorsMin = sensorsMax = data_i;
-						}
-						sensorsStatus = i;
-				}
-				return;
+
 			}
+			if(sensorsStatus > i)
+			{
+				if(PrimaryData::Undefined == sensorsStatus)
+				{
+					sensorsMin = sensorsMax = data_i;
+				}
+				sensorsStatus = i;
+			}
+			return;
 		}
 	}
-    if(stat == PrimaryData::Undefined)
+
+	if(stat == PrimaryData::Undefined)
 	{
-	sensorsStatus = PrimaryData::Undefined;
-	sensorsMin = sensorsMax = data_i;
+		sensorsStatus = PrimaryData::Undefined;
+		sensorsMin = sensorsMax = data_i;
 	}
-	
+
 }
 
 void Compute::CalculationFftFrame()
@@ -708,16 +591,18 @@ void Compute::CalculationOneFrame(int sensorIndex, char *sensorData, double &res
 	
 
 	char s = PrimaryData::Nominal;
-	//if(result < defectBorderMin + 0.1) s = PrimaryData::Defect;
-	//else if(result < defectBorderMax - 0.1) s = PrimaryData::Treshold2Class;
 
 	if(result < defectBorderMin)
-		{
-			s = PrimaryData::Defect;
+	{
+		s = PrimaryData::Defect;
+	}
+	else if(result < defectBorder3) 
+	{
+		s = PrimaryData::Treshold3Class;
 	}
 	else if(result < defectBorderMax) 
-		{
-			s = PrimaryData::Treshold2Class;
+	{
+		s = PrimaryData::Treshold2Class;
 	}
 
 	status = s;
@@ -772,9 +657,9 @@ void Compute::Recalculation()
 {
 	compute.InitParam();
 	unsigned startTime = GetTickCount();
-	defectBorderMin = tresholdDefect;//nominalThickness * (1 - nominalPercentMin / 100);
-	defectBorderMax = treshold2Class;//nominalThickness * (1 + nominalPercentMax / 100);
-	//defectDifferentWall = defectDifferentWallPercent * nominalThickness / 100;
+	defectBorderMin = tresholdDefect;
+	defectBorderMax = treshold2Class;
+	defectBorder3 =  treshold3Class;
 
 	ZeroMemory(&thicknessData, sizeof(thicknessData));
 	ZeroMemory(&sensorsData, sizeof(sensorsData));
@@ -788,17 +673,11 @@ void Compute::Recalculation()
 		__Recalculation__ _0(*this, o, o + count);
 		o += count;
 		__Recalculation__ _1(*this, o, o + count);
-		//o += count;
-		//__Recalculation__ _2(*this, o, o + count);
-		//o += count;
-		//__Recalculation__ _3(*this, o, primaryData.GetCurrentOffset());
-
+		
 		HANDLE h[] = {
 			CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)__Recalculation__::Proc, &_0, 0,NULL)
 			,  CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)__Recalculation__::Proc, &_1, 0,NULL)
-			//	 ,  CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)__Recalculation__::Proc, &_2, 0,NULL)
 		};
-		//_3.Do();
 		WaitForMultipleObjects(dimention_of(h), h, TRUE, INFINITE);
 
 		for(int i = 0; i < dimention_of(h); ++i) CloseHandle(h[i]);
