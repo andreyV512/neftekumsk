@@ -1,4 +1,5 @@
-#include "stdafx.h"
+п»ї#include "stdafx.h"
+#include <float.h>
 #include "../DlgTemplates/ParamDlg.h"
 #include "../DlgTemplates/ParamDlg.hpp"
 #include "Dlg.h"
@@ -6,9 +7,9 @@
 
 #include "MainWindow.h"
 namespace{
-	PARAM_TITLE(Border2Class, L"Порог класс 1")
-	PARAM_TITLE(Border3Class, L"Порог класс 2")	
-	PARAM_TITLE(BorderDefect, L"Порог класс 3")	
+	PARAM_TITLE(Border2Class, L"РџРѕСЂРѕРі РєР»Р°СЃСЃ 1")
+	PARAM_TITLE(Border3Class, L"РџРѕСЂРѕРі РєР»Р°СЃСЃ 2")	
+	PARAM_TITLE(BorderDefect, L"РџРѕСЂРѕРі РєР»Р°СЃСЃ 3")	
 
 	MIN_EQUAL_VALUE(Border2Class, 2)
 	MAX_EQUAL_VALUE(Border2Class, 15)
@@ -22,59 +23,74 @@ namespace{
 	
 	template<class O, class P>struct __test__X: __test__<O, P>{};
 
-	template<class O, class T>double GetVal(T &t)
+	template<class O>struct GetVal
 	{
-		wchar_t buf[128];
-		GetWindowText(t->get<DlgItem<O>>().hWnd, buf, dimention_of(buf));
-		return Wchar_to<double>()(buf);
-	}
-	/// \brief добавлена проверка на соответствие BorderDefect	< Border3Class < Border2Class
-	template<class T>bool GrowthTestThresholds(T *t)
+		template<class T>double operator()(T &t)
+		{
+			wchar_t buf[128];
+			GetWindowText(t->get<O>().hWnd, buf, dimention_of(buf));
+			return Wchar_to<double>()(buf);
+		}
+	};
+	
+	template<class A, class B>struct __cmp__
 	{
-		double _d =  GetVal<BorderDefect>(t);
-		double _3 =  GetVal<Border3Class>(t);
-		double _2 =  GetVal<Border2Class>(t);
+		template<class T>bool operator()(T t)
+		{
+			if(GetVal<A>()(t) < GetVal<B>()(t))
+			{
+				wchar_t buf[128];
+				wsprintf(buf, L"РџР°СЂР°РјРµС‚СЂ \"%s\" РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ Р±РѕР»СЊС€Рµ РїР°СЂР°РјРµС‚СЂР° \"%s\""
+					, ParamTitle<typename TL::Inner<A>::Result>()()
+					, ParamTitle<typename TL::Inner<B>::Result>()()
+					);
+				MessageBox(t->get<A>().hWnd, buf, L"РћС€РёР±РєР°", MB_ICONERROR);
+				return false;
+			}
+			return true;
+		}
+	};
+	template<class A>struct __cmp__<A, NullType>
+	{
+		template<class T>bool operator()(T &t)
+		{
+			return true;
+		}
+	};
 
-		HWND h = t->get<DlgItem<BorderDefect>>().hWnd;
-		if(_d > _3)
+	template<class O, class P>struct __growth__
+	{
+		bool operator()(O *o, P *p)
 		{
-			MessageBox(h, L"Параметр \"Порог класс 2\" должен быть больше параметра \"Порог класс 3\""
-				, L"Ошибка", MB_ICONERROR);
-			return false;
+			return __cmp__<O, TL::NextInList<TL::Inner<P>::Result, O>::Result>()(p);
 		}
-		if(_3 > _2)
-		{
-			MessageBox(h, L"Параметр \"Порог класс 1\" должен быть больше параметра \"Порог класс 2\""
-				, L"Ошибка", MB_ICONERROR);
-			return false;
-		}
-		return true;
-	}
+	};	
 }
 
 namespace TL
 {
-	/// \brief перегруженна проверка достоверности ввода порогов толщины
+	/// \brief РїРµСЂРµРіСЂСѓР¶РµРЅРЅР° РїСЂРѕРІРµСЂРєР° РґРѕСЃС‚РѕРІРµСЂРЅРѕСЃС‚Рё РІРІРѕРґР° РїРѕСЂРѕРіРѕРІ С‚РѕР»С‰РёРЅС‹
 	template<>struct find<TemplDialog<typename ThresholdsTable>::list, __test__>
 	{
 		template<class O, class P>bool operator()(O *o, P *p)
 		{	
-			return find<TemplDialog<typename ThresholdsTable>::list, __test__X>()(o, p) && GrowthTestThresholds(o);
+			return find<TemplDialog<typename ThresholdsTable>::list, __test__X>()(o, p) 
+				&& TL::find<TemplDialog<typename ThresholdsTable>::list, __growth__>()(o, o);
 		}
 	};
 }
 
 void ThicknessDlg::Do(HWND h)
 {
-	TemplDialog<ThresholdsTable>(Singleton<ThresholdsTable>::Instance()).Do(h, L"Пороги"))
+	if(TemplDialog<ThresholdsTable>(Singleton<ThresholdsTable>::Instance()).Do(h, L"РџРѕСЂРѕРіРё"))
 	{
-		///\brief  можно выполнить когда парраметры изменются
+		///\brief  РјРѕР¶РЅРѕ РІС‹РїРѕР»РЅРёС‚СЊ РєРѕРіРґР° РїР°СЂСЂР°РјРµС‚СЂС‹ РёР·РјРµРЅСЋС‚СЃСЏ
 	}
 }
 
 namespace{
-	PARAM_TITLE(DeadAreaMM0, L"Начало трубы")
-	PARAM_TITLE(DeadAreaMM1, L"Конец трубы")	
+	PARAM_TITLE(DeadAreaMM0, L"РќР°С‡Р°Р»Рѕ С‚СЂСѓР±С‹")
+	PARAM_TITLE(DeadAreaMM1, L"РљРѕРЅРµС† С‚СЂСѓР±С‹")	
 
 	MIN_EQUAL_VALUE(DeadAreaMM0, 0)
 	MAX_EQUAL_VALUE(DeadAreaMM0, 500)
@@ -84,14 +100,14 @@ namespace{
 }
 void DeadAreaDlg::Do(HWND h)
 {
-	if(TemplDialog<DeadAreaTable>(Singleton<DeadAreaTable>::Instance()).Do(h, L"Мёртвые зоны (мм)"))
+	if(TemplDialog<DeadAreaTable>(Singleton<DeadAreaTable>::Instance()).Do(h, L"РњС‘СЂС‚РІС‹Рµ Р·РѕРЅС‹ (РјРј)"))
 	{
-		///\brief  можно выполнить когда парраметры изменются
+		///\brief  РјРѕР¶РЅРѕ РІС‹РїРѕР»РЅРёС‚СЊ РєРѕРіРґР° РїР°СЂСЂР°РјРµС‚СЂС‹ РёР·РјРµРЅСЋС‚СЃСЏ
 	}
 }
 namespace{
-	PARAM_TITLE(MinimumThicknessPipeWall, L"Минимальная толщина")
-	PARAM_TITLE(MaximumThicknessPipeWall, L"Максимальная толщина")	
+	PARAM_TITLE(MinimumThicknessPipeWall, L"РњРёРЅРёРјР°Р»СЊРЅР°СЏ С‚РѕР»С‰РёРЅР°")
+	PARAM_TITLE(MaximumThicknessPipeWall, L"РњР°РєСЃРёРјР°Р»СЊРЅР°СЏ С‚РѕР»С‰РёРЅР°")	
 
 	MIN_EQUAL_VALUE(MinimumThicknessPipeWall, 2)
 	MAX_EQUAL_VALUE(MinimumThicknessPipeWall, 15)
@@ -101,21 +117,21 @@ namespace{
 }
 void BorderCredibilityDlg::Do(HWND h)
 {
-	if(TemplDialog<BorderCredibilityTable>(Singleton<BorderCredibilityTable>::Instance()).Do(h, L"Допустимая толщина стенки трубы(мм)"))
+	if(TemplDialog<BorderCredibilityTable>(Singleton<BorderCredibilityTable>::Instance()).Do(h, L"Р”РѕРїСѓСЃС‚РёРјР°СЏ С‚РѕР»С‰РёРЅР° СЃС‚РµРЅРєРё С‚СЂСѓР±С‹(РјРј)"))
 	{
-		///\brief  можно выполнить когда парраметры изменются
+		///\brief  РјРѕР¶РЅРѕ РІС‹РїРѕР»РЅРёС‚СЊ РєРѕРіРґР° РїР°СЂСЂР°РјРµС‚СЂС‹ РёР·РјРµРЅСЋС‚СЃСЏ
 	}
 }
 namespace {
-	PARAM_TITLE(TestBit<SpeedRLBitOut>, L"Скорость RL")
-	PARAM_TITLE(TestBit<SpeedRMBitOut>, L"Скорость RM")
-	PARAM_TITLE(TestBit<SpeedRHBitOut>, L"Скорость RH")
+	PARAM_TITLE(TestBit<SpeedRLBitOut>, L"РЎРєРѕСЂРѕСЃС‚СЊ RL")
+	PARAM_TITLE(TestBit<SpeedRMBitOut>, L"РЎРєРѕСЂРѕСЃС‚СЊ RM")
+	PARAM_TITLE(TestBit<SpeedRHBitOut>, L"РЎРєРѕСЂРѕСЃС‚СЊ RH")
 }
 void RotationalSpeedDlg::Do(HWND h)
 {
-	if(TemplDialog<RotationalSpeedSensorsTable>(Singleton<RotationalSpeedSensorsTable>::Instance()).Do(h, L"Скорость вращения блока датчиков"))
+	if(TemplDialog<RotationalSpeedSensorsTable>(Singleton<RotationalSpeedSensorsTable>::Instance()).Do(h, L"РЎРєРѕСЂРѕСЃС‚СЊ РІСЂР°С‰РµРЅРёСЏ Р±Р»РѕРєР° РґР°С‚С‡РёРєРѕРІ"))
 	{
-		///\brief  можно выполнить когда парраметры изменются
+		///\brief  РјРѕР¶РЅРѕ РІС‹РїРѕР»РЅРёС‚СЊ РєРѕРіРґР° РїР°СЂСЂР°РјРµС‚СЂС‹ РёР·РјРµРЅСЋС‚СЃСЏ
 	}
 }
 //--------------------------------------------------------------------------------------------
@@ -127,7 +143,7 @@ namespace{
 		static const int width = 120;
 		static const int height = 30;
 		static const int ID = IDOK;
-		wchar_t *Title(){return L"Применить";}
+		wchar_t *Title(){return L"РџСЂРёРјРµРЅРёС‚СЊ";}
 		template<class Owner>void BtnHandler(Owner &owner, HWND h)
 		{
 			if(TypesizePasswordDlg().Do(h))
@@ -139,13 +155,13 @@ namespace{
 					GetWindowText(owner.items.get<DlgItem<InputText> >().hWnd, name.buffer, dimention_of(name.buffer));
 					if(0 == wcslen(name.buffer))
 					{
-						MessageBox(h, L"Необходимо определить название типоразмера", L"Ошибка", MB_ICONERROR);
+						MessageBox(h, L"РќРµРѕР±С…РѕРґРёРјРѕ РѕРїСЂРµРґРµР»РёС‚СЊ РЅР°Р·РІР°РЅРёРµ С‚РёРїРѕСЂР°Р·РјРµСЂР°", L"РћС€РёР±РєР°", MB_ICONERROR);
 						return;
 					}
 					int id = Select<ParametersTable>(base).eq<NameParam>(name).Execute();
 					if(id != 0)
 					{
-						MessageBox(h, L"Название типоразмера есть в базе данных", L"Ошибка", MB_ICONERROR);
+						MessageBox(h, L"РќР°Р·РІР°РЅРёРµ С‚РёРїРѕСЂР°Р·РјРµСЂР° РµСЃС‚СЊ РІ Р±Р°Р·Рµ РґР°РЅРЅС‹С…", L"РћС€РёР±РєР°", MB_ICONERROR);
 						return;
 					}
 
@@ -168,7 +184,7 @@ namespace{
 					EndDialog(h, TRUE);
 					return; 
 				}
-				MessageBox(h, L"Не могу открыть базу данных", L"Ошибка", MB_ICONERROR);
+				MessageBox(h, L"РќРµ РјРѕРіСѓ РѕС‚РєСЂС‹С‚СЊ Р±Р°Р·Сѓ РґР°РЅРЅС‹С…", L"РћС€РёР±РєР°", MB_ICONERROR);
 				return; 
 			}
 		}
@@ -193,7 +209,7 @@ namespace{
 void SelectTypeSizeNewDlg::Do(HWND h)
 {	
 	NewTypesizeTable t;
-	if(TemplDialog<NewTypesizeTable, TL::MkTlst<putsDlg_OkBtn, CancelBtn>::Result>(t).Do(h, L"Введите типоразмер"))
+	if(TemplDialog<NewTypesizeTable, TL::MkTlst<putsDlg_OkBtn, CancelBtn>::Result>(t).Do(h, L"Р’РІРµРґРёС‚Рµ С‚РёРїРѕСЂР°Р·РјРµСЂ"))
 	{
 	}
 }
@@ -247,7 +263,7 @@ void SelectTypeSizeDeleteDlg::Do(HWND hWnd)
 		}
 		else
 		{
-			MessageBox(hWnd, L"Количество типоразмеров должно быть больше 1", L"Сообщение", MB_ICONINFORMATION);
+			MessageBox(hWnd, L"РљРѕР»РёС‡РµСЃС‚РІРѕ С‚РёРїРѕСЂР°Р·РјРµСЂРѕРІ РґРѕР»Р¶РЅРѕ Р±С‹С‚СЊ Р±РѕР»СЊС€Рµ 1", L"РЎРѕРѕР±С‰РµРЅРёРµ", MB_ICONINFORMATION);
 		}
 	}
 }

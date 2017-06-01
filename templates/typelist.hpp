@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 template<class T, int N>char (&__length_array_of_T_type_same_as_length_array_of_char__(T (&)[N]))[N];
 #define dimention_of(x) sizeof(__length_array_of_T_type_same_as_length_array_of_char__(x))
 
@@ -411,4 +411,23 @@ namespace TL
 		typedef NullType Result;
 	};
 //------------------------------------------------------------------------------------------------------
+	template<class T>struct InNotNullType
+	{
+		typedef typename T::Head Result;
+	};
+	template<>struct InNotNullType<NullType>
+	{
+		typedef NullType Result;
+	};
+	/// \brief получение следующего типа из списка
+	template<class List, class T>struct NextInList;
+	template<class Head, class Tail, class T>struct NextInList<Tlst<Head, Tail>, T>
+	{
+	   typedef typename NextInList<Tail, T>::Result Result;
+	};
+	template<class Tail, class T>struct NextInList<Tlst<T, Tail>, T>
+	{
+	   typedef typename InNotNullType<Tail>::Result Result;
+	};
+//--------------------------------------------------------------------------------------------------------------
 }

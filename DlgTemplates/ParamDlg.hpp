@@ -13,7 +13,7 @@ extern HINSTANCE hInstance;
 //-----------------------------------------------------------------------
 template<class T>struct ParamTitle
 {
-	typedef typename T::__template_must_be_overridded__ noused;
+	typedef typename T::__ParamTitle_template_must_be_overridded__ noused;
 };
 
 template<class T, class X>struct DlgSubItems
