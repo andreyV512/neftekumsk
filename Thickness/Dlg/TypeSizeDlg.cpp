@@ -6,36 +6,81 @@
 
 #include "MainWindow.h"
 namespace{
-PARAM_TITLE(Border2Class, L"Порог класс 1")
-PARAM_TITLE(Border3Class, L"Порог класс 2")	
-PARAM_TITLE(BorderDefect, L"Порог класс 3")	
+	PARAM_TITLE(Border2Class, L"Порог класс 1")
+	PARAM_TITLE(Border3Class, L"Порог класс 2")	
+	PARAM_TITLE(BorderDefect, L"Порог класс 3")	
 
-MIN_EQUAL_VALUE(Border2Class, 2)
-MAX_EQUAL_VALUE(Border2Class, 15)
+	MIN_EQUAL_VALUE(Border2Class, 2)
+	MAX_EQUAL_VALUE(Border2Class, 15)
 
-MIN_EQUAL_VALUE(Border3Class, 2)
-MAX_EQUAL_VALUE(Border3Class, 15)
+	MIN_EQUAL_VALUE(Border3Class, 2)
+	MAX_EQUAL_VALUE(Border3Class, 15)
 
-MIN_EQUAL_VALUE(BorderDefect, 2)
-MAX_EQUAL_VALUE(BorderDefect, 15)
+	MIN_EQUAL_VALUE(BorderDefect, 2)
+	MAX_EQUAL_VALUE(BorderDefect, 15)
+
+	
+	template<class O, class P>struct __test__X: __test__<O, P>{};
+
+	template<class O, class T>double GetVal(T &t)
+	{
+		wchar_t buf[128];
+		GetWindowText(t->get<DlgItem<O>>().hWnd, buf, dimention_of(buf));
+		return Wchar_to<double>()(buf);
+	}
+	/// \brief добавлена проверка на соответствие BorderDefect	< Border3Class < Border2Class
+	template<class T>bool GrowthTestThresholds(T *t)
+	{
+		double _d =  GetVal<BorderDefect>(t);
+		double _3 =  GetVal<Border3Class>(t);
+		double _2 =  GetVal<Border2Class>(t);
+
+		HWND h = t->get<DlgItem<BorderDefect>>().hWnd;
+		if(_d > _3)
+		{
+			MessageBox(h, L"Параметр \"Порог класс 2\" должен быть больше параметра \"Порог класс 3\""
+				, L"Ошибка", MB_ICONERROR);
+			return false;
+		}
+		if(_3 > _2)
+		{
+			MessageBox(h, L"Параметр \"Порог класс 1\" должен быть больше параметра \"Порог класс 2\""
+				, L"Ошибка", MB_ICONERROR);
+			return false;
+		}
+		return true;
+	}
 }
+
+namespace TL
+{
+	/// \brief перегруженна проверка достоверности ввода порогов толщины
+	template<>struct find<TemplDialog<typename ThresholdsTable>::list, __test__>
+	{
+		template<class O, class P>bool operator()(O *o, P *p)
+		{	
+			return find<TemplDialog<typename ThresholdsTable>::list, __test__X>()(o, p) && GrowthTestThresholds(o);
+		}
+	};
+}
+
 void ThicknessDlg::Do(HWND h)
 {
-	if(TemplDialog<ThresholdsTable>(Singleton<ThresholdsTable>::Instance()).Do(h, L"Пороги"))
+	TemplDialog<ThresholdsTable>(Singleton<ThresholdsTable>::Instance()).Do(h, L"Пороги"))
 	{
-	   ///\brief  можно выполнить когда парраметры изменются
+		///\brief  можно выполнить когда парраметры изменются
 	}
 }
 
 namespace{
-PARAM_TITLE(DeadAreaMM0, L"Начало трубы")
-PARAM_TITLE(DeadAreaMM1, L"Конец трубы")	
+	PARAM_TITLE(DeadAreaMM0, L"Начало трубы")
+	PARAM_TITLE(DeadAreaMM1, L"Конец трубы")	
 
-MIN_EQUAL_VALUE(DeadAreaMM0, 0)
-MAX_EQUAL_VALUE(DeadAreaMM0, 500)
+	MIN_EQUAL_VALUE(DeadAreaMM0, 0)
+	MAX_EQUAL_VALUE(DeadAreaMM0, 500)
 
-MIN_EQUAL_VALUE(DeadAreaMM1, 0)
-MAX_EQUAL_VALUE(DeadAreaMM1, 500)
+	MIN_EQUAL_VALUE(DeadAreaMM1, 0)
+	MAX_EQUAL_VALUE(DeadAreaMM1, 500)
 }
 void DeadAreaDlg::Do(HWND h)
 {
@@ -45,14 +90,14 @@ void DeadAreaDlg::Do(HWND h)
 	}
 }
 namespace{
-PARAM_TITLE(MinimumThicknessPipeWall, L"Минимальная толщина")
-PARAM_TITLE(MaximumThicknessPipeWall, L"Максимальная толщина")	
+	PARAM_TITLE(MinimumThicknessPipeWall, L"Минимальная толщина")
+	PARAM_TITLE(MaximumThicknessPipeWall, L"Максимальная толщина")	
 
-MIN_EQUAL_VALUE(MinimumThicknessPipeWall, 2)
-MAX_EQUAL_VALUE(MinimumThicknessPipeWall, 15)
+	MIN_EQUAL_VALUE(MinimumThicknessPipeWall, 2)
+	MAX_EQUAL_VALUE(MinimumThicknessPipeWall, 15)
 
-MIN_EQUAL_VALUE(MaximumThicknessPipeWall, 2)
-MAX_EQUAL_VALUE(MaximumThicknessPipeWall, 15)
+	MIN_EQUAL_VALUE(MaximumThicknessPipeWall, 2)
+	MAX_EQUAL_VALUE(MaximumThicknessPipeWall, 15)
 }
 void BorderCredibilityDlg::Do(HWND h)
 {
@@ -62,9 +107,9 @@ void BorderCredibilityDlg::Do(HWND h)
 	}
 }
 namespace {
-PARAM_TITLE(TestBit<SpeedRLBitOut>, L"Скорость RL")
-PARAM_TITLE(TestBit<SpeedRMBitOut>, L"Скорость RM")
-PARAM_TITLE(TestBit<SpeedRHBitOut>, L"Скорость RH")
+	PARAM_TITLE(TestBit<SpeedRLBitOut>, L"Скорость RL")
+	PARAM_TITLE(TestBit<SpeedRMBitOut>, L"Скорость RM")
+	PARAM_TITLE(TestBit<SpeedRHBitOut>, L"Скорость RH")
 }
 void RotationalSpeedDlg::Do(HWND h)
 {
@@ -140,9 +185,9 @@ namespace{
 		const wchar_t *name(){return L"NewTypesizeTable";}
 	};
 	PARAM_TITLE(InputText, L"")
-	DO_NOT_CHECK(InputText)
+		DO_NOT_CHECK(InputText)
 
-	template<int N>struct DlgSubItems<InputText, Holder<N> >: EditItems<InputText, 420>{};
+		template<int N>struct DlgSubItems<InputText, Holder<N> >: EditItems<InputText, 420>{};
 }
 //-----------------------------------------------------------------
 void SelectTypeSizeNewDlg::Do(HWND h)
