@@ -15,15 +15,15 @@ DebugMess::DebugMess()
 		0,                       // max. object size 
 		sizeof(TMapData),                // buffer size  
 		name);                 // name of mapping object
-/*
+	/*
 	if (hMapFile == NULL || hMapFile == INVALID_HANDLE_VALUE) 
 	{ 
-		d_mess("Could not create file mapping object (%d).\n", 
-			GetLastError());
-		return;
+	d_mess("Could not create file mapping object (%d).\n", 
+	GetLastError());
+	return;
 	}
 	*/
-    int res = GetLastError();
+	int res = GetLastError();
 	map = (TMapData *) MapViewOfFile(hMapFile,   // handle to map object
 		FILE_MAP_ALL_ACCESS, // read/write permission
 		0,                   
@@ -36,10 +36,10 @@ DebugMess::DebugMess()
 			GetLastError()); 
 		return;
 	}
-	if(res = 0)
+	if(res == 0)
 	{
-	map->head = 0;
-	map->tail = 0;
+		map->head = 0;
+		map->tail = 0;
 	}
 }
 
@@ -53,7 +53,7 @@ void DebugMess::print(char *c, ...)
 {
 	if(NULL != map)
 	{
-        LONG i = InterlockedIncrement(&map->head);
+		LONG i = InterlockedIncrement(&map->head);
 		--i;
 		i &= 0xff;
 		char *b = map->data[i];
