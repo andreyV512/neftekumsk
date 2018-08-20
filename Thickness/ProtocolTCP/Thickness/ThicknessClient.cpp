@@ -91,7 +91,7 @@ namespace ThicknessProtocol
 		static void operator delete(void *, void *){}
 	};
 
-	void Client::Do(wchar_t *addr, int port)
+	bool Client::Do(wchar_t *addr, int port)
 	{
 	    Frame *f = Frame::Get();
 
@@ -100,12 +100,13 @@ namespace ThicknessProtocol
 		if(s->Do())
 		{
 			dprint("start client \n");
-			NetClient::Connect(addr, port, f);
+			return NetClient::Connect(addr, port, f);
 		}
 		else
 		{
 			Frame::Drop(&f);
 		}
+		return false;
 	}
 }
 
