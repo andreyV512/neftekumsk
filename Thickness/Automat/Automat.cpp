@@ -388,15 +388,12 @@ void Automat::Do()
 		int stopTimeTube = (timeSQ3 - timeSQ1) / 2;//время в середине сканирующего устройства
 		ClearOutBits();
 
-		switch(WaitForSingleObject(App::hEventStrobes, 5 * 60000))
-		{
-		case WAIT_OBJECT_0:
-			{
-				compute.Recalculation();
-				SendThickhess();
-			}
-			break;
-		}
+		Log::Mess<LogMess::WaitStrobes>(0);
+		WaitForSingleObject(App::hEventStrobes, INFINITE);		
+		compute.Recalculation();
+		SendThickhess();
+		ResetEvent(App::hEventStrobes);
+
 		Log::Mess<LogMess::InfoDataCollectionComplete>(0);
 		dprint("stop sycleXXX");
 	}

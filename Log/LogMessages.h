@@ -91,6 +91,7 @@ namespace LogMess
 		, ReadyBitOut        
 		, ControlBitOut      
 		, ResultBitOut  
+		, WaitStrobes
 
 		//, InfoRotationScanningModule
 
@@ -174,6 +175,8 @@ namespace LogMess
 	MESS(ReadyBitOut          , bool, "ReadyBitOut         ", white, black)
 	MESS(ControlBitOut        , bool, "ControlBitOut       ", white, black)
 	MESS(ResultBitOut   	  , bool, "ResultBitOut   	 "  , white, black)
+
+	MESS(WaitStrobes, void, "Ожидание стробов с дефектоскопа", blue, yellow)
 
 	//MESS(InfoRotationScanningModule, void, "Вращение датчиков толщиномера", red  , yellow)
 	//MESS(AlarmRotationScanningModule, void, "Вращение датчиков толщиномера", red  , yellow)

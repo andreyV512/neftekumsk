@@ -38,7 +38,6 @@ bool TcpServerTypeSize(wchar_t *receiveData)
 bool SendThickhess()
 {
 	ThicknessProtocol::Client().Do(
-		//IntToIPAddr()(Singleton<IPAddressTable>::Instance().items.get<IPAddr>().value)
 		GetHostByName()(Singleton<IPAddressTable>::Instance().items.get<IPName>().value)
 		, Singleton<IPAddressTable>::Instance().items.get<IPPort>().value
 		);

@@ -43,7 +43,7 @@ void App::Init()
 {
 	zprint("%s %s", __DATE__, __TIME__);
 	ProgrammExitEvent = CreateEvent(NULL, TRUE, FALSE, NULL);
-	hEventStrobes = CreateEvent(NULL, FALSE, FALSE, NULL);
+	hEventStrobes = CreateEvent(NULL, TRUE, FALSE, NULL);
 
 #ifdef DEBUG_ITEMS
 	mapped.Init();
