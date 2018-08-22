@@ -43,3 +43,5 @@ Thickness/NumVerOld.txt
 Thickness/Version.h
 
 *.suo
+*.sdf
+*.opensdf

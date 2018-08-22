@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{423AA288-2006-4C99-B44C-AAEF890FA5A7}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>TestClientTCP</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)Thickness\CommunicationWapper;$(ProjectDir)CommunicationWapper;$(SolutionDir)window_tool;$(SolutionDir)Thickness\Lan\Include\;$(SolutionDir)Thickness\ProtocolTCP\Thickness;$(SolutionDir)Thickness\Automat;$(SolutionDir)Thickness\Lan;$(SolutionDir)Base;$(SolutionDir)Thickness\ItemsData;$(SolutionDir)templates;$(SolutionDir)Thickness\TCPServer;$(SolutionDir)Thickness\ProtocolTCP;$(ProjectDir)App;$(SolutionDir)debug_tools;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)Thickness\CommunicationWapper;$(ProjectDir)CommunicationWapper;$(SolutionDir)window_tool;$(SolutionDir)Thickness\Lan\Include\;$(SolutionDir)Thickness\ProtocolTCP\Thickness;$(SolutionDir)Thickness\Automat;$(SolutionDir)Thickness\Lan;$(SolutionDir)Base;$(SolutionDir)Thickness\ItemsData;$(SolutionDir)templates;$(SolutionDir)Thickness\TCPServer;$(SolutionDir)Thickness\ProtocolTCP;$(ProjectDir)App;$(SolutionDir)debug_tools;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Base\Base.hpp" />
+    <ClInclude Include="..\..\Base\ExpressBase.hpp" />
+    <ClInclude Include="..\..\Base\tables.hpp" />
+    <ClInclude Include="..\..\debug_tools\DebugMess.h" />
+    <ClInclude Include="..\..\templates\typelist.hpp" />
+    <ClInclude Include="..\..\Thickness\CommunicationWapper\CommunicationWapper.h" />
+    <ClInclude Include="..\..\Thickness\ItemsData\PrimaryData.h" />
+    <ClInclude Include="..\..\Thickness\ItemsData\ThicknessData.h" />
+    <ClInclude Include="..\..\Thickness\Lan\Include\IRshDevice.h" />
+    <ClInclude Include="..\..\Thickness\Lan\Include\RshApi.h" />
+    <ClInclude Include="..\..\Thickness\Lan\Include\RshDllClient.h" />
+    <ClInclude Include="..\..\Thickness\Lan\Lan.h" />
+    <ClInclude Include="..\..\Thickness\Lan\LanParameters.h" />
+    <ClInclude Include="..\..\Thickness\ProtocolTCP\CommonTCP.h" />
+    <ClInclude Include="..\..\Thickness\ProtocolTCP\Frame.h" />
+    <ClInclude Include="..\..\Thickness\ProtocolTCP\GetHostByName.h" />
+    <ClInclude Include="..\..\Thickness\ProtocolTCP\InitTcp.h" />
+    <ClInclude Include="..\..\Thickness\ProtocolTCP\NetClient.h" />
+    <ClInclude Include="..\..\Thickness\ProtocolTCP\NetFrame.h" />
+    <ClInclude Include="..\..\Thickness\ProtocolTCP\StopCycle\StopCycleProtocol.h" />
+    <ClInclude Include="..\..\Thickness\ProtocolTCP\Strobes\StrobesProtocol.h" />
+    <ClInclude Include="..\..\Thickness\ProtocolTCP\Thickness\ThicknessProtocol.h" />
+    <ClInclude Include="..\..\Thickness\ProtocolTCP\TypeSize\TypeSizeProtocol.h" />
+    <ClInclude Include="..\..\Thickness\TCPServer\ServerHandler.h" />
+    <ClInclude Include="..\..\window_tool\message.h" />
+    <ClInclude Include="App\App.h" />
+    <ClInclude Include="App\AppBase.h" />
+    <ClInclude Include="App\config.h" />
+    <ClInclude Include="App\MainWindow.h" />
+    <ClInclude Include="Automat\Automat.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\debug_tools\DebugMess.cpp" />
+    <ClCompile Include="..\..\Thickness\CommunicationWapper\CommunicationWapper.cpp">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)Thickness\CommunicationWapper;$(ProjectDir)CommunicationWapper;$(SolutionDir)window_tool;$(SolutionDir)Thickness\Lan\Include\;$(SolutionDir)Thickness\ProtocolTCP\Thickness;$(SolutionDir)Thickness\Automat;$(SolutionDir)Thickness\Lan;$(SolutionDir)Base;$(SolutionDir)Thickness\ItemsData;$(SolutionDir)templates;$(SolutionDir)Thickness\TCPServer;$(SolutionDir)Thickness\ProtocolTCP;$(ProjectDir)App;$(SolutionDir)debug_tools;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)Thickness\CommunicationWapper;$(ProjectDir)CommunicationWapper;$(SolutionDir)window_tool;$(SolutionDir)Thickness\Lan\Include\;$(SolutionDir)Thickness\ProtocolTCP\Thickness;$(SolutionDir)Thickness\Automat;$(SolutionDir)Thickness\Lan;$(SolutionDir)Base;$(SolutionDir)Thickness\ItemsData;$(SolutionDir)templates;$(SolutionDir)Thickness\TCPServer;$(SolutionDir)Thickness\ProtocolTCP;$(ProjectDir)App;$(SolutionDir)debug_tools;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClCompile Include="..\..\Thickness\ItemsData\PrimaryData.cpp" />
+    <ClCompile Include="..\..\Thickness\ItemsData\ThicknessData.cpp" />
+    <ClCompile Include="..\..\Thickness\Lan\Include\RshApi.cpp" />
+    <ClCompile Include="..\..\Thickness\Lan\Include\RshDllClient.cpp" />
+    <ClCompile Include="..\..\Thickness\Lan\Lan.cpp" />
+    <ClCompile Include="..\..\Thickness\ProtocolTCP\CommonTCP.cpp" />
+    <ClCompile Include="..\..\Thickness\ProtocolTCP\Frame.cpp" />
+    <ClCompile Include="..\..\Thickness\ProtocolTCP\GetHostByName.cpp" />
+    <ClCompile Include="..\..\Thickness\ProtocolTCP\InitTcp.cpp" />
+    <ClCompile Include="..\..\Thickness\ProtocolTCP\NetClient.cpp" />
+    <ClCompile Include="..\..\Thickness\ProtocolTCP\NetFrame.cpp" />
+    <ClCompile Include="..\..\Thickness\ProtocolTCP\StopCycle\StopCycleClient.cpp" />
+    <ClCompile Include="..\..\Thickness\ProtocolTCP\StopCycle\StopCycleServer.cpp" />
+    <ClCompile Include="..\..\Thickness\ProtocolTCP\Strobes\StrobesClient.cpp" />
+    <ClCompile Include="..\..\Thickness\ProtocolTCP\Strobes\StrobesServer.cpp" />
+    <ClCompile Include="..\..\Thickness\ProtocolTCP\Thickness\ThicknessClient.cpp" />
+    <ClCompile Include="..\..\Thickness\ProtocolTCP\Thickness\ThicknessServer.cpp" />
+    <ClCompile Include="..\..\Thickness\ProtocolTCP\TypeSize\TypeSizeClient.cpp" />
+    <ClCompile Include="..\..\Thickness\ProtocolTCP\TypeSize\TypeSizeServer.cpp" />
+    <ClCompile Include="..\..\Thickness\TCPServer\ServerHandler.cpp" />
+    <ClCompile Include="App\App.cpp" />
+    <ClCompile Include="App\AppBase.cpp" />
+    <ClCompile Include="Automat\Automat.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="TestClientTCP.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
