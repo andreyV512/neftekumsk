@@ -457,11 +457,6 @@ template<class T>void UpdateId(CBase &base, int num)
    Update<ParametersTable>(base).set<T>(num).Where().ID(current.items.get<CurrentID>().value).Execute();
 }
 
-template<class T>struct Singleton
-{
-	static T& Instance(){static T x; return x;}
-};
-
 
 
 

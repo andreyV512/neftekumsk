@@ -15,6 +15,7 @@
 #include "Lan.h"
 #include "AsyncServer.h"
 #include "Config.h"
+#include "typelist.hpp"
 //D:\Projects\EmptyProject\emul\emulLan\EmulLan.cpp
 //D:\Projects\EmptyProject\Thickness\App\App.cpp
 #include "WindowsPosition.h"

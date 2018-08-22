@@ -8,22 +8,7 @@
 #include "GetHostByName.h"
 #include "MainWindow.h"
 
-#include "ProtocolTCP\Thickness\ThicknessProtocol.h"
-
-//struct IntToIPAddr
-//{
-//	wchar_t buf[16];
-//	wchar_t *operator()(int addr)
-//	{
-//		wsprintf(buf, L"%d.%d.%d.%d"
-//		, ((unsigned char *)&addr)[3]
-//		, ((unsigned char *)&addr)[2]
-//		, ((unsigned char *)&addr)[1]
-//		, ((unsigned char *)&addr)[0]
-//		);
-//		return buf;
-//	}
-//};
+#include "ThicknessProtocol.h"
 
 bool TcpServerTypeSize(wchar_t *receiveData)
 {	

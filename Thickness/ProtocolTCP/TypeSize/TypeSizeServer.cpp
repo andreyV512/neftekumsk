@@ -2,7 +2,7 @@
 #include "TypeSizeProtocol.h"
 #include "../Frame.h"
 #include "../NetFrame.h"
-#include "CommunicationWapper\CommunicationWapper.h"
+#include "CommunicationWapper.h"
 #include "DebugMess.h"
 #include "AppBase.h"
 

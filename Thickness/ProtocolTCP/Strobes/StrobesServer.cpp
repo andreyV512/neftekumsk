@@ -2,7 +2,7 @@
 #include "StrobesProtocol.h"
 #include "../Frame.h"
 #include "../NetFrame.h"
-#include "CommunicationWapper\CommunicationWapper.h"
+//#include "CommunicationWapper\CommunicationWapper.h"
 #include "DebugMess.h"
 #include "ThicknessData.h"
 #include "PrimaryData.h"

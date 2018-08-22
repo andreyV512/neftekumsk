@@ -8,7 +8,7 @@
 #include "IPprotocolProcedureList.hpp"
 #include "typelist.hpp"
 #include "DebugMess.h"
-#include "Thickness\ItemsData\ThicknessData.h"
+#include "ThicknessData.h"
 #include "PrimaryData.h"
 
 namespace{

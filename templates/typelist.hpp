@@ -30,7 +30,7 @@ namespace TL
 #undef c
 #undef a
 #undef b
-//-----------------------------------------------------------------------------------------------------------
+	//-----------------------------------------------------------------------------------------------------------
 #pragma warning(disable : 4503)
 	template<class List, class T>struct IndexOf;
 	template<class Head, class Tail, class T>struct IndexOf<Tlst<Head, Tail>, T>
@@ -41,7 +41,7 @@ namespace TL
 	{
 		static const int value = 0;
 	};
-//-------------------------------------------------------------------------------------------------------------
+	//-------------------------------------------------------------------------------------------------------------
 	template<class List>struct Length;
 	template<class Head, class Tail>struct Length<Tlst<Head, Tail> >
 	{
@@ -51,7 +51,7 @@ namespace TL
 	{
 		static const int value = 1;
 	};
-//--------------------------------------------------------------------------------------------------------------
+	//--------------------------------------------------------------------------------------------------------------
 	template<class List, int N>struct TypeAt;
 	template<class Head, class Tail, int N>struct TypeAt<Tlst<Head, Tail>, N>
 	{
@@ -65,7 +65,7 @@ namespace TL
 	{
 		typedef NullType Result;
 	};
-//-------------------------------------------------------------------------------------------------------------
+	//-------------------------------------------------------------------------------------------------------------
 	template<class List, template<class>class Wapper>struct ListToWapperList;
 	template<class Head, class Tail, template<class>class Wapper>struct ListToWapperList<Tlst<Head, Tail>, Wapper>
 	{
@@ -75,8 +75,8 @@ namespace TL
 	{
 		typedef Tlst<Wapper<Head>, NullType> Result;
 	};
-//---------------------------------------------------------------------------
-    template<template<int>class Wapper, int count, int max = count>struct CreateNumList
+	//---------------------------------------------------------------------------
+	template<template<int>class Wapper, int count, int max = count>struct CreateNumList
 	{
 		typedef Tlst<Wapper<max - count>, typename CreateNumList<Wapper, count - 1, max>::Result> Result;
 	};
@@ -84,7 +84,7 @@ namespace TL
 	{
 		typedef Tlst<Wapper<max - 1>, NullType> Result;
 	};
-//--------------------------------------------------------------------------------------------------------------
+	//--------------------------------------------------------------------------------------------------------------
 	template<typename T, typename tmp = NullType>struct Reverse;
 	template<typename Head, typename Tail, typename tmp>struct Reverse<Tlst<Head, Tail>, tmp>
 	{
@@ -94,7 +94,7 @@ namespace TL
 	{
 		typedef Tlst<Head, tmp> Result;
 	};
-//-------------------------------------------------------------------------------------------------------------
+	//-------------------------------------------------------------------------------------------------------------
 	template<class List>struct Factory;
 	template<class Head, class Tail>struct Factory<Tlst<Head, Tail> >: Head, Factory<Tail>
 	{
@@ -110,7 +110,7 @@ namespace TL
 		template<class T>Factory(T *t) : Head(t){}
 		template<class T>T &get(){return *this;}
 	};
-//-------------------------------------------------------------------------------------------------------------
+	//-------------------------------------------------------------------------------------------------------------
 #pragma warning(disable : 4503)
 	template<class List, template<class, class>class Proc>struct foreach;
 	template<class Head, class Tail, template<class, class>class Proc>struct foreach<Tlst<Head, Tail>, Proc>
@@ -128,7 +128,7 @@ namespace TL
 			Proc<Head, P>()(o, p);
 		}
 	};
-//-------------------------------------------------------------------------------------------------------------
+	//-------------------------------------------------------------------------------------------------------------
 	template<class List, template<class, class>class Proc>struct find;
 	template<class Head, class Tail, template<class, class>class Proc>struct find<Tlst<Head, Tail>, Proc>
 	{
@@ -145,7 +145,7 @@ namespace TL
 			return Proc<Head, P>()(o, p);
 		}
 	};
-//-------------------------------------------------------------------------------------------------------------
+	//-------------------------------------------------------------------------------------------------------------
 	template<class List, template<class, class>class Proc>struct find_ret;
 	template<class Head, class Tail, template<class, class>class Proc>struct find_ret<Tlst<Head, Tail>, Proc>
 	{
@@ -163,7 +163,7 @@ namespace TL
 			return Proc<Head, P>()(o, p);
 		}
 	};
-//-------------------------------------------------------------------------------------------------------------
+	//-------------------------------------------------------------------------------------------------------------
 	template<class List, class Param>struct FactoryToArray
 	{
 	private:
@@ -202,59 +202,59 @@ namespace TL
 			return objects[index](param);
 		}
 	};
-//-------------------------------------------------------------------------------------------------------------
-        template<class List, class T>struct Append;
-        template<class Head, class Tail, class T>struct Append<Tlst<Head, Tail>, T>
-        {
-          typedef Tlst<Head, typename Append<Tail, T>::Result> Result;
-        };
-        template<class T>struct Append<NullType, T>
-        {
-          typedef Tlst<T, NullType> Result;
-        };
-		 template<class Head, class Tail>struct Append<Tlst<Head, Tail>, NullType>
-        {
-          typedef Tlst<Head, Tail> Result;
-        };
-		 template<>struct Append<NullType, NullType>
-        {
-          typedef NullType Result;
-        };
-//-------------------------------------------------------------------------------------------------------------  
-        template<class A, class B>struct AppendList;
-        template<class A, class Head, class Tail>struct AppendList<A, Tlst<Head, Tail> >
-        {
-          typedef typename AppendList<typename Append<A, Head>::Result, Tail>::Result Result;
-        };
-        template<class A>struct AppendList<A, NullType>
-        {
-          typedef A Result;
-        };
-//-------------------------------------------------------------------------------------------------------------
-		template<class List, class tmp = NullType>struct MultyListToList;
-        template<class Head, class Tail, class tmp>struct MultyListToList<Tlst<Head, Tail>, tmp>
-		{
-			typedef typename TL::MultyListToList<Tail, typename AppendList<tmp, Head>::Result>::Result Result;
-		};
-		template<class tmp>struct MultyListToList<NullType, tmp>
-		{
-			typedef tmp Result;
-		};
-//-------------------------------------------------------------------------------------------------------------     
-    template<bool t, class A, class B>struct _if
+	//-------------------------------------------------------------------------------------------------------------
+	template<class List, class T>struct Append;
+	template<class Head, class Tail, class T>struct Append<Tlst<Head, Tail>, T>
 	{
-          typedef A Result;
+		typedef Tlst<Head, typename Append<Tail, T>::Result> Result;
+	};
+	template<class T>struct Append<NullType, T>
+	{
+		typedef Tlst<T, NullType> Result;
+	};
+	template<class Head, class Tail>struct Append<Tlst<Head, Tail>, NullType>
+	{
+		typedef Tlst<Head, Tail> Result;
+	};
+	template<>struct Append<NullType, NullType>
+	{
+		typedef NullType Result;
+	};
+	//-------------------------------------------------------------------------------------------------------------  
+	template<class A, class B>struct AppendList;
+	template<class A, class Head, class Tail>struct AppendList<A, Tlst<Head, Tail> >
+	{
+		typedef typename AppendList<typename Append<A, Head>::Result, Tail>::Result Result;
+	};
+	template<class A>struct AppendList<A, NullType>
+	{
+		typedef A Result;
+	};
+	//-------------------------------------------------------------------------------------------------------------
+	template<class List, class tmp = NullType>struct MultyListToList;
+	template<class Head, class Tail, class tmp>struct MultyListToList<Tlst<Head, Tail>, tmp>
+	{
+		typedef typename TL::MultyListToList<Tail, typename AppendList<tmp, Head>::Result>::Result Result;
+	};
+	template<class tmp>struct MultyListToList<NullType, tmp>
+	{
+		typedef tmp Result;
+	};
+	//-------------------------------------------------------------------------------------------------------------     
+	template<bool t, class A, class B>struct _if
+	{
+		typedef A Result;
 	};
 	template<class A, class B>struct _if<false, A, B>
 	{
-          typedef B Result;
+		typedef B Result;
 	};
-//---------------------------------------------------------------------------------------------------------------- 
+	//---------------------------------------------------------------------------------------------------------------- 
 	template<int num>struct IntToType
 	{
 		static const int value = num;
 	};
-//-----------------------------------------------------------------------------------------------------------------
+	//-----------------------------------------------------------------------------------------------------------------
 	template<class List, template<class>class Wapper>struct TypeToTypeLst;
 	template<class Head, class Tail, template<class>class Wapper>struct TypeToTypeLst<Tlst<Head, Tail>, Wapper>
 	{
@@ -264,7 +264,7 @@ namespace TL
 	{
 		typedef Tlst<Wapper<Head>, NullType> Result;
 	};
-//--------------------------------------------------------------------------------------------------------------------------
+	//--------------------------------------------------------------------------------------------------------------------------
 	template<typename List, template<class>class T>struct EraseAllParam;
 	template<template<class>class T>struct EraseAllParam<NullType, T>
 	{
@@ -278,13 +278,13 @@ namespace TL
 			, typename EraseAllParam<Tail, T>::Result
 		>::Result Result;
 	};	
-//----------------------------------------------------------------------------------------------------------
+	//----------------------------------------------------------------------------------------------------------
 	template<class T>struct Inner;
 	template<template<class>class Wapper, class T>struct Inner<Wapper<T> >
 	{
 		typedef T Result;
 	};
-//-------------------------------------------------------------------------------------------
+	//-------------------------------------------------------------------------------------------
 	template<class List, class T>struct TypeInList;
 	template<class Head, class Tail, class T>struct TypeInList<Tlst<Head, Tail>, T>
 	{
@@ -355,7 +355,7 @@ namespace TL
 			return *arr[i];
 		}
 	};
-//----------------------------------------------------------------------------------------------
+	//----------------------------------------------------------------------------------------------
 	template<class T, template<class>class W>struct TestWapper
 	{
 		template<class Q, Q>struct inner{};
@@ -363,7 +363,7 @@ namespace TL
 		template<class Z>static char   Is(...);
 		static const bool value = sizeof(double) == sizeof(Is<W<T> >((W<T> *)0));
 	};
-//--------------------------------------------------------------------------------------------------
+	//--------------------------------------------------------------------------------------------------
 	template<class T>struct TestType
 	{
 		template<class Q, Q>struct inner{};
@@ -371,7 +371,7 @@ namespace TL
 		template<class Z>static char   Is(...);
 		static const bool value = sizeof(double) == sizeof(Is<T>((T *)0));
 	};
-//----------------------------------------------------------------------------------------------------------
+	//----------------------------------------------------------------------------------------------------------
 	template<class List>struct TypeExist;
 	template<class Head, class Tail>struct TypeExist<Tlst<Head, Tail> >
 	{
@@ -381,7 +381,7 @@ namespace TL
 	{
 		typedef NullType Result;
 	};
-//----------------------------------------------------------------------------------------------------------
+	//----------------------------------------------------------------------------------------------------------
 	template<class T>struct GetInnerType
 	{
 		typedef T Result;
@@ -391,7 +391,7 @@ namespace TL
 	{
 		typedef T Result;
 	};
-//----------------------------------------------------------------------------------------------------------
+	//----------------------------------------------------------------------------------------------------------
 	template<class T>struct NoWapperType
 	{
 		typedef T Result;
@@ -400,7 +400,7 @@ namespace TL
 	{
 		typedef typename NoWapperType<T>::Result Result;
 	};
-//------------------------------------------------------------------------
+	//------------------------------------------------------------------------
 	template<class List>struct NoWapperList;
 	template<class Head, class Tail>struct NoWapperList<Tlst<Head, Tail> >
 	{
@@ -410,7 +410,7 @@ namespace TL
 	{
 		typedef NullType Result;
 	};
-//------------------------------------------------------------------------------------------------------
+	//------------------------------------------------------------------------------------------------------
 	template<class T>struct InNotNullType
 	{
 		typedef typename T::Head Result;
@@ -423,11 +423,24 @@ namespace TL
 	template<class List, class T>struct NextInList;
 	template<class Head, class Tail, class T>struct NextInList<Tlst<Head, Tail>, T>
 	{
-	   typedef typename NextInList<Tail, T>::Result Result;
+		typedef typename NextInList<Tail, T>::Result Result;
 	};
 	template<class Tail, class T>struct NextInList<Tlst<T, Tail>, T>
 	{
-	   typedef typename InNotNullType<Tail>::Result Result;
+		typedef typename InNotNullType<Tail>::Result Result;
 	};
-//--------------------------------------------------------------------------------------------------------------
+	//--------------------------------------------------------------------------------------------------------------	
 }
+template<class T>struct Singleton
+{
+	static T& Instance(){return x;}
+private:
+	typedef T type_item;
+	static type_item x;
+	Singleton();
+	~Singleton();
+	// необходимо также запретить копирование
+	Singleton(Singleton const&); // реализаци¤ не нужна
+	Singleton& operator= (Singleton const&);  // и тут
+};
+template<class T>typename Singleton<T>::type_item Singleton<T>::x;
