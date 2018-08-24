@@ -32,7 +32,7 @@ bool SendThickhess()
 		if(i > 5)
 		{
 			i = 0;
-			if(IDNO == MessageBox(app.mainWindow.hWnd, L"Продолжить?", L"Ошибка передачи типоразмера", MB_ICONINFORMATION | MB_YESNO)) return false;
+			if(IDNO == MessageBox(app.mainWindow.hWnd, L"Нет подключения по локальной сети, Продолжить?", L"Ошибка!!!", MB_ICONINFORMATION | MB_YESNO)) return false;
 		}
 		Sleep(1000);
 	}

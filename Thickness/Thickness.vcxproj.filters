@@ -381,9 +381,6 @@
     <ClInclude Include="ProtocolTCP\Frame.h">
       <Filter>ProtocolTCP</Filter>
     </ClInclude>
-    <ClInclude Include="ProtocolTCP\InitTcp.h">
-      <Filter>ProtocolTCP</Filter>
-    </ClInclude>
     <ClInclude Include="ProtocolTCP\IPprotocolProcedureList.hpp">
       <Filter>ProtocolTCP</Filter>
     </ClInclude>
@@ -419,6 +416,9 @@
     </ClInclude>
     <ClInclude Include="..\debug_tools\DebugMess.h">
       <Filter>debug_tools</Filter>
+    </ClInclude>
+    <ClInclude Include="ProtocolTCP\InitTcp.h">
+      <Filter>ProtocolTCP</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -635,9 +635,6 @@
     <ClCompile Include="ProtocolTCP\Frame.cpp">
       <Filter>ProtocolTCP</Filter>
     </ClCompile>
-    <ClCompile Include="ProtocolTCP\InitTcp.cpp">
-      <Filter>ProtocolTCP</Filter>
-    </ClCompile>
     <ClCompile Include="ProtocolTCP\NetClient.cpp">
       <Filter>ProtocolTCP</Filter>
     </ClCompile>
@@ -688,6 +685,9 @@
     </ClCompile>
     <ClCompile Include="..\debug_tools\DebugMess.cpp">
       <Filter>debug_tools</Filter>
+    </ClCompile>
+    <ClCompile Include="ProtocolTCP\InitTcp.cpp">
+      <Filter>ProtocolTCP</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

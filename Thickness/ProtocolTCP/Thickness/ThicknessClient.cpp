@@ -39,8 +39,8 @@ namespace ThicknessProtocol
 				char res = 0;
 				switch(thickness.status[i])
 				{
-				case PrimaryData::Defect        : res = 5; break;
-				case PrimaryData::Treshold2Class: res = 4; break;
+				case PrimaryData::Defect        : res = 9; break;
+				case PrimaryData::Treshold2Class: res = 3; break;
 				case PrimaryData::Nominal       : res = 1; break;
 				case PrimaryData::DeathZone     : res = 2; break;
 				case PrimaryData::Treshold3Class: res = 6; break;
