@@ -191,9 +191,9 @@ void Compute::InitParam()
 		filtre[i].SetLength(medianFiltreLength);
 		filtre[i].Clear();
 	}
-	defectBorderMin = tresholdDefect;
-	defectBorderMax = treshold2Class;
-	defectBorder3 = treshold3Class;
+	//defectBorderMin = tresholdDefect;
+	//defectBorderMax = treshold2Class;
+	//defectBorder3 = treshold3Class;
 	
 }
 //-----------------------------------------------------------------------------------------
@@ -591,16 +591,16 @@ void Compute::CalculationOneFrame(int sensorIndex, char *sensorData, double &res
 	
 
 	char s = PrimaryData::Nominal;
-
-	if(result < defectBorderMin)
+	
+	if(result < tresholdDefect)
 	{
 		s = PrimaryData::Defect;
 	}
-	else if(result < defectBorder3) 
+	else if(result < treshold3Class) 
 	{
 		s = PrimaryData::Treshold3Class;
 	}
-	else if(result < defectBorderMax) 
+	else if(result < treshold2Class) 
 	{
 		s = PrimaryData::Treshold2Class;
 	}
@@ -657,9 +657,9 @@ void Compute::Recalculation()
 {
 	compute.InitParam();
 	unsigned startTime = GetTickCount();
-	defectBorderMin = tresholdDefect;
-	defectBorderMax = treshold2Class;
-	defectBorder3 =  treshold3Class;
+	//defectBorderMin = tresholdDefect;
+	//defectBorderMax = treshold2Class;
+	//defectBorder3 =  treshold3Class;
 
 	ZeroMemory(&thicknessData, sizeof(thicknessData));
 	ZeroMemory(&sensorsData, sizeof(sensorsData));

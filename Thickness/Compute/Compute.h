@@ -74,9 +74,9 @@ public:
 	int cuttingZone0;
 	int cuttingZone1;
 	char usefulPiecePipeOk;
-	double defectBorderMin;
-	double defectBorderMax;
-	double defectBorder3;
+	//double defectBorderMin;
+	//double defectBorderMax;
+	//double defectBorder3;
 	static void ThreadProc(Compute *);	
 public:
 	

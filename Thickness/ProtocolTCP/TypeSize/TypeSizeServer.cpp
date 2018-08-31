@@ -11,9 +11,9 @@ namespace TypeSizeProtocol
 	struct Data
 	{
 		wchar_t Ok[4];
-		double tresholdKlass1;
 		double tresholdKlass2;
 		double tresholdKlass3;
+		double brak;
 	};
 	bool Server::Do(Frame *f)
 	{
@@ -23,9 +23,9 @@ namespace TypeSizeProtocol
 		{
 			ThresholdsTable::TItems &i = Singleton<ThresholdsTable>::Instance().items;
 			wcsncpy_s(d->Ok , L"Ok", 3);
-			d->tresholdKlass1 = i.get<Border2Class>().value;
-			d->tresholdKlass2 = i.get<Border3Class>().value;
-			d->tresholdKlass3 = i.get<BorderDefect>().value;
+			d->tresholdKlass2 = i.get<Border2Class>().value;
+			d->tresholdKlass3 = i.get<Border3Class>().value;
+			d->brak = i.get<BorderDefect>().value;
 		}
 		else
 		{
