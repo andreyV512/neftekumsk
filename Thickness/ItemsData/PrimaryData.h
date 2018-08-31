@@ -7,13 +7,15 @@ public:
 	int current__;
 	
 public:
+
 	template<int NUM>struct Mess{static const int value = NUM;};	
 
 	static const unsigned DeathZone              = 1 << 0;
 	static const unsigned Defect                 = 1 << 1;
-	static const unsigned Treshold2Class         = 1 << 2;
-	static const unsigned Nominal                = 1 << 3;
-	static const unsigned Treshold3Class         = 1 << 4;
+	static const unsigned Treshold3Class         = 1 << 2;
+	static const unsigned Treshold2Class         = 1 << 3;
+	static const unsigned Nominal                = 1 << 4;
+
 
 	static const unsigned Undefined              = 1 << 5;
 	static const unsigned LessMinimumEnergy      = 2 << 5;
