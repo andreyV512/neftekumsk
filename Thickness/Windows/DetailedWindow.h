@@ -14,7 +14,7 @@ class DetailedWindow
 		SensorViewerItem(TopLabelViewer &l) : SensorViewer(Num, l) {} 
 	};
 public:
-	typedef TL::CreateNumList<SensorViewerItem, 1, count_sensors>::Result sensors_list;
+	typedef TL::CreateNumList<SensorViewerItem, count_sensors>::Result sensors_list;
 
 	TL::Factory<sensors_list> sensorsWindow;
 	TopLabelViewer topLabelViewer;
