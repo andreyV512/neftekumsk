@@ -33,7 +33,7 @@ bool ThicknessViewer::CursorLabel::Draw(TMouseMove &l, VGraphics &g)
 			double yMin = thicknessData.zonesMin[leftOffs - 1];
 			double yMax = thicknessData.zonesMax[leftOffs - 1];
 			double delta = yMax - yMin;
-			sprintf(buf, "<ff>Зона <0xff0000>%d <ff>Смещение <ff0000>%.2f <ff>м толщ <0xff0000>%0.2f %s <ff>\"1 класс\" %.1f  <ff>\"2 класс\" %.1f <ff>\"3 класс\" %.1f"
+			sprintf(buf, "<ff>Зона <0xff0000>%d <ff>Смещение <ff0000>%.2f <ff>м толщ <0xff0000>%0.2f %s <ff>\"2 класс\" %.1f  <ff>\"3 класс\" %.1f <ff>\"брак\" %.1f"
 				, leftOffs
 				, 0.001 * zone_length * leftOffs 
 				, yMin

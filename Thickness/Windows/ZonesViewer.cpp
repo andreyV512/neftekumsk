@@ -31,7 +31,7 @@ bool ZonesViewer::CursorLabel::Draw(TMouseMove &l, VGraphics &g)
 		offset = leftOffs;
 		if(status == PrimaryData::Nominal || status == PrimaryData::Defect || status == PrimaryData::Treshold2Class || status == PrimaryData::Treshold3Class)
 		{
-			sprintf(buf, "<0xff>Смещение <0xff0000>%d   <0xff>толщина <0xff0000>%0.2f %s   <ff>\"1 класс\" %.2f \"2 класс\" <ffff00>%.2f  <ff>\"3 класс\" <ff0000>%.2f"
+			sprintf(buf, "<0xff>Смещение <0xff0000>%d   <0xff>толщина <0xff0000>%0.2f %s   <ff>\"2 класс\" %.2f \"3 класс\" <ffff00>%.2f  <ff>\"брак\" <ff0000>%.2f"
 				, offset + owner.zonesOffset
 				, data.zones[offset]
 			    , StatusLabel(status).text
