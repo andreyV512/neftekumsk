@@ -93,7 +93,6 @@ COLOR_DATA(LessMinimumEnergy)
 COLOR_DATA(GreaterMaximumEnergy)
 COLOR_DATA(ValueLessThreshold)
 COLOR_DATA(ThicknessLessThreshold)
-//COLOR_DATA(ThicknessGreaterThreshold)
 COLOR_DATA(Undefined)
 COLOR_DATA(DeathZone)
 
@@ -102,12 +101,6 @@ COLOR(Nominal)
 COLOR(Defect)
 COLOR(Treshold2Class)
 COLOR(Treshold3Class)
-//COLOR(DefectMinMax)
-//COLOR(DefectDifferentWall)
-//
-//COLOR(DefectDifferentWallMin)
-//COLOR(DefectDifferentWallMax   )
-//COLOR(DefectDifferentWallMinMax)
 
 #undef COLOR
 #undef COLOR_DATA

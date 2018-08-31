@@ -516,67 +516,8 @@ void Compute::CalculationOneFrame(int sensorIndex, char *sensorData, double &res
 			val = t;
 			offsVal = z;
 		}
-
-		//if(data[z] >= data[z - 1] && data[z] > data[z + 1])
-		//{
-		//	offsVal = z;
-		//	if(val > tresh) break;
-		//}
-
 	}
 
-	//if(offsVal < (int)minOffset[sensorIndex])
-	//{
-	//	status = PrimaryData::Undefined;
-	//	return;
-	//}
-	
-/*
-	double max = data[z];
-	//int offsMax = z;
-
-	int min = max;
-	//int offsMin = z; 
-
-	min_max buffer[1024];
-	int index = 0;
-
-	bool insert = false;
-
-	
-	for(int i = z; i < maxOffs;)
-	{
-		while(data[i] < max)
-		{
-            //offsMin = offsMax = i;
-			min = max = data[i];
-			++i;
-		}
-		buffer[index].valMax = max;
-		while(data[i] > min)
-		{
-			//offsMin = offsMax = i;
-			min = max = data[i];
-			++i;
-		}
-		buffer[index].valMin = min;
-		buffer[index].offs = i;
-		
-	}
-
-	*/
-
-	//for(; z < maxOffs; ++z)
-	//{
-    //   if(data[z] > tresh) 
-	//   {
-	//		   //val = data[z];
-	//		   offsVal = z;
-	//		   break;
-	//   }
-	//}
-
-	//if(val < data[0] * peak[sensorIndex])
 	if(val < data[0] * peak[sensorIndex])
 	{
 		 status = PrimaryData::ValueLessThreshold;//меньше допустимого порога
@@ -587,8 +528,6 @@ void Compute::CalculationOneFrame(int sensorIndex, char *sensorData, double &res
 	result = offsVal;
 	result *= coefficientA[sensorIndex];
 	result += coefficientB[sensorIndex];
-
-	
 
 	char s = PrimaryData::Nominal;
 	
