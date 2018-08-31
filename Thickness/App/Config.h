@@ -2,7 +2,7 @@
 #pragma message("ПОДКЛЮЧЕНИЕ ПЛАТ РАСШИРЕНИЯ!!!")
 //undef DEBUG_ITEMS - ПОДключение платы: 1730
 //define DEBUG_ITEMS - ОТключение платы: 1730
-#define DEBUG_ITEMS
+#undef DEBUG_ITEMS
 
 #ifndef DEBUG_ITEMS
 #pragma message("подключена плата 1730")

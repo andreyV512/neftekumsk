@@ -22,9 +22,9 @@ struct CurrentParametersTable
 };
 STR_PARAM(NameParam, 128, L"NONAME")
 
-DEFINE_PARAM(Border2Class, double, 5.8)
-DEFINE_PARAM(Border3Class, double, 5.0)
-DEFINE_PARAM(BorderDefect, double, 4.5)
+DEFINE_PARAM(Border2Class, double, 5.5)
+DEFINE_PARAM(Border3Class, double, 4.8)
+DEFINE_PARAM(BorderDefect, double, 3.2)
 
 struct ThresholdsTable
 {
@@ -143,43 +143,15 @@ struct AxesTable
 	TItems items;
 	const wchar_t *name(){return L"AxesTable";}
 };
-//-------------------------------------------------------------------------------------- 
-/*
-DEFINE_PARAM(SupplySensorDelay, int, 150)
-DEFINE_PARAM(RemoveSensorDelay, int,  150)
-DEFINE_PARAM(FrequencyFrames, int,  100)
-
-DEFINE_PARAM(ReferenceOffset1, unsigned, 1750)
-DEFINE_PARAM(ReferenceOffset2, unsigned, 4600)
-
-DEFINE_PARAM(ReferenceOffset3, unsigned, 1260)
-DEFINE_PARAM(ReferenceOffset4, unsigned, 3030)
-struct AdditionalSettingsTable
-{
-	typedef TL::MkTlst<	
-		ReferenceOffset1
-		, ReferenceOffset2
-		, ReferenceOffset3
-		, ReferenceOffset4
-		, SupplySensorDelay
-		, RemoveSensorDelay
-		, FrequencyFrames
-	>::Result items_list;
-	typedef NullType unique_list;
-	typedef TL::Factory<items_list> TItems;
-	TItems items;
-	const wchar_t *name(){return L"AdditionalSettingsTable";}
-};
-*/
 //--------------------------------------------------------------------------------------
 template<int>struct ACFBorderLeft ;
 template<int>struct ACFBorderRight;
-DEFINE_PARAM_NUM(ACFBorderLeft , 0, int, 45)
-DEFINE_PARAM_NUM(ACFBorderRight, 0, int, 80)
-DEFINE_PARAM_NUM(ACFBorderLeft , 1, int, 45)
-DEFINE_PARAM_NUM(ACFBorderRight, 1, int, 80)
-DEFINE_PARAM_NUM(ACFBorderLeft , 2, int, 45)
-DEFINE_PARAM_NUM(ACFBorderRight, 2, int, 80)
+DEFINE_PARAM_NUM(ACFBorderLeft , 0, int, 20)
+DEFINE_PARAM_NUM(ACFBorderRight, 0, int, 60)
+DEFINE_PARAM_NUM(ACFBorderLeft , 1, int, 20)
+DEFINE_PARAM_NUM(ACFBorderRight, 1, int, 60)
+DEFINE_PARAM_NUM(ACFBorderLeft , 2, int, 20)
+DEFINE_PARAM_NUM(ACFBorderRight, 2, int, 60)
 struct ACFBorderTable
 {
 	typedef TL::MkTlst<
@@ -261,7 +233,7 @@ struct OutputBitsTable
  struct SignalParametersTable
  {
 	 typedef TL::MkTlst<		
-		 PEAK(0), PEAK(1), PEAK(2)//, PEAK(3), PEAK(4), PEAK(5)
+		 PEAK(0), PEAK(1), PEAK(2)
 	 >::Result items_list;
 	 typedef NullType unique_list;
 	 typedef TL::Factory<items_list> TItems;
@@ -278,12 +250,6 @@ struct OutputBitsTable
  DEFINE_PARAM_NUM(CoefficientB, 2, double, -0.069)
  DEFINE_PARAM_NUM(CoefficientA, 3, double, 0.066)
  DEFINE_PARAM_NUM(CoefficientB, 3, double, -0.069)
- //DEFINE_PARAM_NUM(CoefficientA, 4, double, 0.066)
- //DEFINE_PARAM_NUM(CoefficientB, 4, double, -0.069)
- //DEFINE_PARAM_NUM(CoefficientA, 5, double, 0.066)
- //DEFINE_PARAM_NUM(CoefficientB, 5, double,- 0.069)
- //DEFINE_PARAM_NUM(CoefficientA, 6, double, 0.066)
- //DEFINE_PARAM_NUM(CoefficientB, 6, double, -0.069)
 
  struct CoefficientParametersTable
  {
@@ -294,12 +260,6 @@ struct OutputBitsTable
 		 , CoefficientB<2>
 		 , CoefficientA<3>
 		 , CoefficientB<3>
-		 //, CoefficientA<4>
-		 //, CoefficientB<4>
-		 //, CoefficientA<5>
-		 //, CoefficientB<5>
-		 //, CoefficientA<6>
-		 //, CoefficientB<6>
 	 >::Result items_list;
 	 typedef NullType unique_list;
 	 typedef TL::Factory<items_list> TItems;
@@ -364,9 +324,6 @@ DEFINE_PARAM_ID(ColorTable, int, 1)
  };
 //----------------------------------------------------------------------------
  DEFINE_PARAM(IPPort, int, 8888)
-//#define ip_address() ((192 << 24) | (168 << 16) | (1 << 8) | (8 << 0))
-//DEFINE_PARAM(IPAddr, int, ip_address())
-//#undef ip_address
 STR_PARAM(IPName, 64, L"A3")
 struct IPAddressTable
 {
@@ -388,7 +345,6 @@ struct IPAddressTable
 		 , PointsOptionsTable			
 		 , GraphicSignalOptionsTable	   
 		 , LanParametersTable		   
-		// , AdditionalSettingsTable
 		 , InputBitsTable
 		 , OutputBitsTable 
 		 
@@ -404,7 +360,6 @@ struct IPAddressTable
 		 , DeadAreaTable				  
 		 , BorderCredibilityTable	 
 		 , RotationalSpeedSensorsTable
-		// , DiameterTubeTable
 		, AxesTable
 		, ACFBorderTable
 		, ColorTable
