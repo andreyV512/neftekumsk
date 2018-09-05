@@ -111,7 +111,7 @@ bool App::ChangeTypeSize(wchar_t *txt)
 	HWND h = mainWindow.select.hWnd;
 	wchar_t buf[512];
 	ComboBox_GetText(h, buf, 512);
-	if(0 == wcscmp(buf, txt)) return true;
+	if(0 == wcsncmp(buf, txt, 512)) return true;
 	int res = ComboBox_FindString(h, -1, txt);
 	if(res != CB_ERR)
 	{

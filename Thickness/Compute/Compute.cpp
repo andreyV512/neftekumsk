@@ -518,7 +518,7 @@ void Compute::CalculationOneFrame(int sensorIndex, char *sensorData, double &res
 		}
 	}
 
-	if(val < data[0] * peak[sensorIndex])
+	if(val < tresh)
 	{
 		 status = PrimaryData::ValueLessThreshold;//меньше допустимого порога
 		 return;
