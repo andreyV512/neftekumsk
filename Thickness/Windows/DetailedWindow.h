@@ -20,6 +20,7 @@ public:
 	TopLabelViewer topLabelViewer;
 public:
 	HWND hWnd;
+	HWND hStatusWindow;
 	DetailedWindow();
 	void operator()(TSize &);
 	void operator()(TGetMinMaxInfo &);

@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include <windowsx.h>
+#include "Compute/Compute.h"
 #include "DetailedWindow.h"
 #include <typeinfo.h>
 #include "SensorViewer.h"
@@ -33,11 +34,14 @@ template<class O, class P>struct __detailed_window_size__
 void DetailedWindow::operator()(TSize &m)
 {
 	if(m.resizing == SIZE_MINIMIZED || 0 == m.Width || 0 == m.Height) return;
+	MoveWindow(hStatusWindow, 0, 0, 0, 0, false);
+	RECT st;
+	GetClientRect(hStatusWindow, &st);	
 	int dy = 30;
 	RECT r;
 	GetClientRect(m.hwnd, &r);	
 	TL::foreach<sensors_list, __detailed_window_size__>()(&sensorsWindow
-		, &__detailed_window_size_data__(dy, (r.bottom - dy) / TL::Length<sensors_list>::value + 1, r.right)
+		, &__detailed_window_size_data__(dy, (r.bottom - st.bottom - dy) / TL::Length<sensors_list>::value + 1, r.right)
 		);
 	 MoveWindow(topLabelViewer.hWnd , 0, 0, r.right, dy, true);
 }
@@ -62,6 +66,10 @@ unsigned DetailedWindow::operator()(TCreate &m)
 		);
 	topLabelViewer.label = buf;
 	topLabelViewer.label.fontHeight = 15;
+	
+	hStatusWindow = CreateStatusWindow(WS_CHILD | WS_VISIBLE, NULL, m.hwnd, 0);
+	int pParts[] = {550,900, 3000};
+	SendMessage(hStatusWindow, SB_SETPARTS, 3, (LPARAM)pParts);
 	return 0;
 }
 //-------------------------------------------------------------------------
@@ -116,6 +124,16 @@ void DetailedWindow::Update()
 	}
 	SendMessage(hWnd, WM_SYSCOMMAND, SC_RESTORE, 0);
 	SetForegroundWindow(hWnd);
+
+	wchar_t txt[128];
+	wsprintf(txt, L"%d %d %d"
+		, int(100.0 * compute.goodData[0] / compute.allData[0])
+		, int(100.0 * compute.goodData[1] / compute.allData[1])
+		, int(100.0 * compute.goodData[2] / compute.allData[2])
+	);
+	//wchar_t txt[128];
+	//mbstowcs(txt, buf, 1 + strlen(buf));
+	SendMessage(hStatusWindow, SB_SETTEXT, 0, (LONG)txt);
 }
 //------------------------------------------------------------------------------
 DetailedWindow &DetailedWindow::Instance()
