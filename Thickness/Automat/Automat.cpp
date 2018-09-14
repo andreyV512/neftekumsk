@@ -11,6 +11,7 @@
 #include "DataExchange.h"
 #include "Config.h"
 #include "CommunicationWapper\CommunicationWapper.h"
+#include "Windows\MainWindowToolBar.h"
 
 #pragma warning(disable : 4995)
 
@@ -279,6 +280,7 @@ void Automat::Do()
 		ClearOutBits();
 		Sleep(1111);
 		Lan::Stop();
+		MainWindowToolBar::NoCycle();
 		StartWaitEvent(hAutomaticMode, hSingleMode, App::ProgrammExitEvent);
 		switch(state)
 		{
@@ -322,7 +324,7 @@ void Automat::Do()
 			ErrStop();
 			continue;
 		}
-
+		MainWindowToolBar::Cycle();
 		Log::Mess<LogMess::InfoOnWorkBitIn>(0);//"Ожидание сигнала \"Работа\"");	//5
 		WaitEvent(__5_minutes__, hOnWorkBitIn)
 
@@ -477,6 +479,7 @@ void Automat::DoTest()
 		Delay(1000);
 	}
 	Lan::Stop();
+	MainWindowToolBar::NoCycle();
 }
 
 DWORD WINAPI Automat::ProcExitTube(PVOID x)

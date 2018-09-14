@@ -3,7 +3,9 @@ class	CFFT
 {
 	int    h[1024];
 	double c[512];
+public:
 	int		n;
+private:
 	int		m;
 	int		nv;
 	double *x;

@@ -42,7 +42,7 @@ App::App()
 
 void App::Init()
 {
-	zprint("%s %s", __DATE__, __TIME__);
+	zprint("%s %s\n", __DATE__, __TIME__);
 	ProgrammExitEvent = CreateEvent(NULL, TRUE, FALSE, NULL);
 	hEventStrobes = CreateEvent(NULL, TRUE, FALSE, NULL);
 
@@ -64,7 +64,7 @@ void App::Init()
 		MessageBox(0, L"Не могу инициировать плату 1730", L"Ошибка !!!", MB_ICONERROR);
 		initOk = false;
 	}
-	dprint("num 1730 %d", num);
+	dprint("num 1730 %d\n", num);
 	unsigned res = Lan::Init();
 	if(0 != res)
 	{

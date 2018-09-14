@@ -12,7 +12,7 @@ namespace
 		void operator()(O *o, P *p)
 		{
 			o->hEvent = CreateEvent(NULL, false, false, o->Name());
-			zprint("FALSE, FALSE");
+			//zprint("FALSE, FALSE");
 		}
 	};
 	template<class P>struct __init__<SQEvents::Event<SQEvents::AutomaticMode>, P>
@@ -21,7 +21,7 @@ namespace
 		void operator()(O *o, P *p)
 		{
 			o->hEvent = CreateEvent(NULL, TRUE, FALSE, o->Name());
-			zprint("TRUE, FALSE");
+			//zprint("TRUE, FALSE");
 		}
 	};
 	template<class T, class P>struct __init__<SQEvents::Event<SQEvents::On<T> >, P>
@@ -30,7 +30,7 @@ namespace
 		void operator()(O *o, P *p)
 		{
 			o->hEvent = CreateEvent(NULL, TRUE, FALSE, o->Name());
-			zprint("TRUE, FALSE");
+			//zprint("TRUE, FALSE");
 		}
 	};
 	template<class T, class P>struct __init__<SQEvents::Event<SQEvents::Off<T> >, P>
@@ -39,7 +39,7 @@ namespace
 		void operator()(O *o, P *p)
 		{
 			o->hEvent = CreateEvent(NULL, TRUE, FALSE, o->Name());
-			zprint("TRUE, FALSE");
+			//zprint("TRUE, FALSE");
 		}
 	};
 //------------------------------------------------------------------------------------
@@ -92,14 +92,14 @@ namespace
 				{
 					o->Do();
 					p->last |= o->bit;
-					dprint("on %s %d", typeid(O).name(), o->bit);
+					//dprint("on %s %d", typeid(O).name(), o->bit);
 				}
 				else
 				{
 					typedef SQEvents::Event<SQEvents::Off<typename O::inner_type> > T;
 					p->items.get<T>().Do();
 					p->last &= ~o->bit;
-					dprint("off %s %d", typeid(O).name(), o->bit);
+				//	dprint("off %s %d", typeid(O).name(), o->bit);
 				}
 				p->msk &= ~o->bit;
 			}
@@ -139,7 +139,7 @@ void SQEvents::Do()
 			if(0 != msk)
 			{
 				TL::find<__on_list__<type_items>::Result, __do__>()(&items, this);
-				dprint("input %8x", input);
+				//dprint("input %8x", input);
 			}
 			break;
 		case WAIT_OBJECT_0: return;
