@@ -79,7 +79,8 @@ public:
 	//double defectBorder3;
 	static void ThreadProc(Compute *);	
 public:
-	
+	int allData[count_sensors];
+	int goodData[count_sensors];
 	Compute(PrimaryData &);
 	unsigned deltaTimeZoneStart;
 	unsigned deltaTimeZoneStop1;

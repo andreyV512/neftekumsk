@@ -59,6 +59,11 @@ Compute::Compute(PrimaryData &pd)
 	
 	hThread[0] = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadProc, this, CREATE_SUSPENDED, NULL);
 	hThread[1] = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadProc, this, CREATE_SUSPENDED, NULL);	
+	for(int i = 0; i < count_sensors; ++i)
+	{
+		goodData[i] = 0;
+		allData[i] = 1;
+	}
 }
 //--------------------------------------------------------------------
 void Compute::MeshuringBaseStart()
@@ -170,6 +175,11 @@ void Compute::ThreadProc(Compute *d)
 
 void Compute::InitParam()
 {
+	for(int i = 0; i < count_sensors; ++i)
+	{
+		goodData[i] = 0;
+		allData[i] = 1;
+	}
 	fft.Init(frameSize);
 
 	TL::foreach<num_list, Compute::__init_offset__>()((TL::Factory<num_list> *)0, this);
@@ -428,7 +438,7 @@ struct DebugStatus
 	{}
 	~DebugStatus()
 	{
-		dprint("result %f status %d", result, status);
+		dprint("result %f status %d\n", result, status);
 		if(0 == status) Sleep(1000);
 	}
 };
@@ -441,20 +451,43 @@ struct  min_max
 
 void Compute::CalculationOneFrame(int sensorIndex, char *sensorData, double &result, char &status)
 {
+	InterlockedIncrement((unsigned *)&allData[sensorIndex]);
 	result = result_undefined;
 	double data[1024] = {};
 	double t = 0;
 	int j = 0;
+	int dx = frameSize / 2;
+	double dy = 1.0 / dx;
+	for(; j < dx; ++j)
+	{
+		data[j] = sensorData[j] * dy * j;
+	}
 	for(; j < frameSize; ++j)
 	{
-		data[j] = sensorData[j];
+		data[j] = sensorData[j] * (1.0 - dy * (j - dx));
 	}
 ///------------------------------------------
 	fft.Direct(data);
-	fft.Spectrum(data);	
+	fft.Spectrum(data);		
 //--------------------------------------отсечение в частотной области
 	ZeroMemory(data, sizeof(double) * acfBorderLeft[sensorIndex]);
 	ZeroMemory(&data[acfBorderRight[sensorIndex]], sizeof(double) * (fft.bufferSize - acfBorderRight[sensorIndex]));
+	dx = (acfBorderRight[sensorIndex] - acfBorderLeft[sensorIndex]) / 2;
+	dy = 1.0 / dx;
+	int middle = acfBorderLeft[sensorIndex] + dx;
+
+	j = acfBorderLeft[sensorIndex];
+	int offs = j;
+	int right = acfBorderRight[sensorIndex];
+	for(; j < middle; ++j)
+	{
+		data[j] *= dy * (j - offs);
+	}
+	offs = j;
+	for(; j < right; ++j)
+	{
+		data[j] *= (1.0 - dy * (j - offs));
+	}
 //---------------------------------------------------------------------------------------
 	fft.Direct(data);
 	fft.Spectrum(data);
@@ -477,8 +510,6 @@ void Compute::CalculationOneFrame(int sensorIndex, char *sensorData, double &res
 	int z = minOffset[sensorIndex];
 	if(maxOffs > frameSize) maxOffs = frameSize;
 	if(z > frameSize / 2) z = 0;
-	//double minVal = data[z];
-	//double maxVal = minVal;
 	double val = 0;
 	int offsMin = z;
 	int offsMax = z;
@@ -492,6 +523,8 @@ void Compute::CalculationOneFrame(int sensorIndex, char *sensorData, double &res
 	double maxVal = minVal;
 
 	double tresh = data[0] * peak[sensorIndex];
+
+	bool ext = false;
 
 	for(; z < maxOffs; ++z)
 	{
@@ -515,6 +548,14 @@ void Compute::CalculationOneFrame(int sensorIndex, char *sensorData, double &res
 		{
 			val = t;
 			offsVal = z;
+		}
+		if(data[z] > tresh)
+		{
+			ext = true;
+		}
+		else if(ext)
+		{
+				break;
 		}
 	}
 
@@ -545,6 +586,7 @@ void Compute::CalculationOneFrame(int sensorIndex, char *sensorData, double &res
 	}
 
 	status = s;
+	InterlockedIncrement((unsigned *)&goodData[sensorIndex]);
 }
 //-----------------------------------------------------------------------
 VOID CALLBACK APCProc(_In_  ULONG_PTR dwParam){}
@@ -607,15 +649,31 @@ void Compute::Recalculation()
 	int count = primaryData.GetCurrentOffset();
 	if(count > 0)
 	{
-		count /= 2;
+		count /= 6;
 		int o = 0;
 		__Recalculation__ _0(*this, o, o + count);
+		_0.Proc(&_0);
 		o += count;
 		__Recalculation__ _1(*this, o, o + count);
+
+		o += count;
+		__Recalculation__ _2(*this, o, o + count);
+		o += count;
+		__Recalculation__ _3(*this, o, o + count);
+		o += count;
+		__Recalculation__ _4(*this, o, o + count);
+
+		o += count;
+		__Recalculation__ _5(*this, o, o + count);
 		
 		HANDLE h[] = {
 			CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)__Recalculation__::Proc, &_0, 0,NULL)
 			,  CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)__Recalculation__::Proc, &_1, 0,NULL)
+
+			,  CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)__Recalculation__::Proc, &_2, 0,NULL)
+			,  CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)__Recalculation__::Proc, &_3, 0,NULL)
+			,  CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)__Recalculation__::Proc, &_4, 0,NULL)
+			,  CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)__Recalculation__::Proc, &_5, 0,NULL)
 		};
 		WaitForMultipleObjects(dimention_of(h), h, TRUE, INFINITE);
 
@@ -644,6 +702,12 @@ void Compute::Recalculation()
 		}
 	}
 	thicknessViewer.Update();
+	if(0 == allData[0]) ++allData[0];
+	dprint("all %d good %d persents %f\n", allData[0], goodData[0], (double )goodData[0] / allData[0]);
+	if(0 == allData[1]) ++allData[1];
+	dprint("all %d good %d persents %f\n", allData[1], goodData[1], (double )goodData[1] / allData[1]);
+	if(0 == allData[2]) ++allData[2];
+	dprint("all %d good %d persents %f\n", allData[2], goodData[2], (double )goodData[2] / allData[2]);
 }
 
 void Compute::CalculationZones()
@@ -659,7 +723,7 @@ void Compute::CalculationZones()
 	{
 		sensorsData[i].countZones = primaryData.countZones;
 	}	
-	thicknessViewer.Update();
+	thicknessViewer.Update();	
 }
 
 void Compute::DeathZoneFront(int x)
