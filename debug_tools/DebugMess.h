@@ -2,6 +2,7 @@
 #define XDEBUG
 #ifdef XDEBUG
 #include <windows.h>
+#include <typeinfo> 
 struct TMapData
 {
 	LONG head;

@@ -5,9 +5,12 @@
 #define d_mess debug.print
 namespace {
 	wchar_t name[] = L"Parallel hatch in space";
+	wchar_t eventName[] = L"debug event 2015 12 16 08 29";
+	HANDLE h;
 }
 DebugMess::DebugMess()
 {
+	h = CreateEvent(NULL, TRUE, FALSE, eventName);
 	hMapFile = CreateFileMapping(
 		INVALID_HANDLE_VALUE,    // use paging file
 		NULL,                    // default security 
@@ -15,14 +18,7 @@ DebugMess::DebugMess()
 		0,                       // max. object size 
 		sizeof(TMapData),                // buffer size  
 		name);                 // name of mapping object
-	/*
-	if (hMapFile == NULL || hMapFile == INVALID_HANDLE_VALUE) 
-	{ 
-	d_mess("Could not create file mapping object (%d).\n", 
-	GetLastError());
-	return;
-	}
-	*/
+
 	int res = GetLastError();
 	map = (TMapData *) MapViewOfFile(hMapFile,   // handle to map object
 		FILE_MAP_ALL_ACCESS, // read/write permission
@@ -36,7 +32,7 @@ DebugMess::DebugMess()
 			GetLastError()); 
 		return;
 	}
-	if(res == 0)
+	if(0 == res)
 	{
 		map->head = 0;
 		map->tail = 0;
@@ -58,14 +54,14 @@ void DebugMess::print(char *c, ...)
 		i &= 0xff;
 		char *b = map->data[i];
 		vsprintf(b, c, (char *)&c + 4);
-		size_t len = strlen(b);
-		b[len] = '\n';
-		b[1 + len] = '\0';
+		b[strlen(b)] = '\0';
+		SetEvent(h);
 	}
 }
 //---------------------------------------------------------------------------------------
 ViewerDebugMess::ViewerDebugMess() : map(NULL)
 {	
+	h = CreateEvent(NULL, TRUE, FALSE, eventName);
 	hMapFile = CreateFileMapping(
 		INVALID_HANDLE_VALUE,    // use paging file
 		NULL,                    // default security 
@@ -102,22 +98,26 @@ ViewerDebugMess::~ViewerDebugMess()
 //----------------------------------------------------------------------------
 char *ViewerDebugMess::get()
 {
-	if(map && map->tail != map->head)
+	static char b[512];		
+	WaitForSingleObject(h, INFINITE);
+	while(map && map->tail < map->head)
 	{
-		static char b[512];		
 		CharToOemA(map->data[map->tail & 0xff], b);
 		++map->tail;
 		return b;
 	}
+	ResetEvent(h);
 	return NULL;
 }
 //-----------------------------------------------------------------------------
-
-class DebugMess::Initialization
+class  DebugMess::Initialization
 {
-	DebugMess debug;
 public:
-	static DebugMess &Instance(){static Initialization x; return x.debug;}
+	DebugMess &operator()()
+	{
+		static DebugMess x;
+		return x;
+	}
 };
-DebugMess &debug = DebugMess::Initialization::Instance();
+DebugMess &debug = DebugMess::Initialization()();
 #endif
