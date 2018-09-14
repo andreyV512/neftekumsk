@@ -7,6 +7,9 @@ public:
 	HWND Init(HWND);
 	void Size();
 	static const int Width();
+
+	static void Cycle();
+	static void NoCycle();
 };
 
 

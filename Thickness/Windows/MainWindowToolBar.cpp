@@ -11,6 +11,8 @@
 #include "Automat.h"
 #include "DataExchange.h"
 #include "CommunicationWapper\CommunicationWapper.h"
+#include "App/App.h"
+#include "MainWindow.h"
 
 void SycleMeashurement(HWND);//обработчик для кнопки "Циклическое измерение"
 
@@ -47,6 +49,7 @@ typedef TL::MkTlst<
   , SeparatorToolbar<2>
  // , ButtonToolbar<IDB_ClampBtn, TestBase  , ToolTestBase>	  //
 >::Result tool_button_list;
+bool ex_tube = true;
 //----------------------------------------------------------------------------------
 void SycleMeashurement(HWND h)
 {
@@ -73,6 +76,7 @@ void TestBtn(HWND)
 //----------------------------------------------------------------------------
 void StopMeashurement(HWND h)
 {
+	if(!ex_tube) {automat.RotationalSpeedSensorsStop(); ex_tube ^= true;}
 	 zprint("");
 	 automat.StopMode();
 }
@@ -92,7 +96,7 @@ const int MainWindowToolBar::Width()
 	return __tool_bar_width__<tool_button_list>::value;
 }
 //------------------------------------------------------------------------	
-bool ex_tube = true;
+
  void ExitTubeButton(HWND)
  {
 	 if(ex_tube)automat.RotationalSpeedSensorsStart();
@@ -105,6 +109,26 @@ void TestBase(HWND)
 {
 	  DataExchange dataExchange;
 	  dataExchange.SendData();
+}
+
+void MainWindowToolBar::Cycle()
+{
+	HWND h = app.mainWindow.hWnd;
+	SendMessage(h, TB_ENABLEBUTTON, IDB_CycleBtn   , MAKELONG(FALSE, 0));
+	SendMessage(h, TB_ENABLEBUTTON, IDB_Reset      , MAKELONG(TRUE, 0));
+	SendMessage(h, TB_ENABLEBUTTON, IDB_QueryBtn   , MAKELONG(FALSE, 0));
+	SendMessage(h, TB_ENABLEBUTTON, IDB_MashBtn    , MAKELONG(FALSE, 0));
+	SendMessage(h, TB_ENABLEBUTTON, IDB_SensorsUnit, MAKELONG(FALSE, 0));
+}
+
+void MainWindowToolBar::NoCycle()
+{
+	HWND h = app.mainWindow.hWnd;
+	SendMessage(h, TB_ENABLEBUTTON, IDB_CycleBtn   , MAKELONG(TRUE, 0));
+	SendMessage(h, TB_ENABLEBUTTON, IDB_Reset      , MAKELONG(FALSE, 0));
+	SendMessage(h, TB_ENABLEBUTTON, IDB_QueryBtn   , MAKELONG(TRUE, 0));
+	SendMessage(h, TB_ENABLEBUTTON, IDB_MashBtn    , MAKELONG(TRUE, 0));
+	SendMessage(h, TB_ENABLEBUTTON, IDB_SensorsUnit, MAKELONG(TRUE, 0));
 }
 
 
