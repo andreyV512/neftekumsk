@@ -152,15 +152,37 @@ void ZonesWindow::MouseMoveHandler(unsigned offsetInZone)
 	//{
 		double (&data)[1024] = correlationViewer.data;
 		int i = 0;
+		int dx = signalLength / 2;
+		for(; i < dx; ++i)
+		{
+			data[i] = s[i] * 1.0/dx * i;
+		}
 		for(; i < signalLength; ++i)
 		{
-			data[i] = s[i];
+			data[i] = s[i] * (1.0 - 1.0/dx * (i - dx));
 		}
 		fft.Direct(data);
 		fft.Spectrum(data);
 		//--------------------------------------отсечение в частотной области
 		ZeroMemory(data, sizeof(double) * compute.acfBorderLeft[sensor]);
 		ZeroMemory(&data[compute.acfBorderRight[sensor]], sizeof(double) * (fft.bufferSize - compute.acfBorderRight[sensor]));
+
+		dx = (compute.acfBorderRight[sensor] - compute.acfBorderLeft[sensor]) / 2;
+		double dy = 1.0 / dx;
+		int middle = compute.acfBorderLeft[sensor] + dx;
+
+		int j = compute.acfBorderLeft[sensor];
+		int xxxx = j;
+		int right = compute.acfBorderRight[sensor];
+		for(; j < middle; ++j)
+		{
+			data[j] *= dy * (j - xxxx);
+		}
+		xxxx = j;
+		for(; j < right; ++j)
+		{
+			data[j] *= (1.0 - dy * (j - xxxx));
+		}
 		//---------------------------------------------------------------------------------------
 		fft.Direct(data);
 		fft.Spectrum(data);		
