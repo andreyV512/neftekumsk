@@ -281,6 +281,7 @@ void Automat::Do()
 		Sleep(1111);
 		Lan::Stop();
 		MainWindowToolBar::NoCycle();
+		app.measurementOfRunning = false;
 		StartWaitEvent(hAutomaticMode, hSingleMode, App::ProgrammExitEvent);
 		switch(state)
 		{
@@ -324,6 +325,7 @@ void Automat::Do()
 			ErrStop();
 			continue;
 		}
+		app.measurementOfRunning = true;
 		MainWindowToolBar::Cycle();
 		Log::Mess<LogMess::InfoOnWorkBitIn>(0);//"Ожидание сигнала \"Работа\"");	//5
 		WaitEvent(__5_minutes__, hOnWorkBitIn)

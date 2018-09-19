@@ -7,12 +7,12 @@
 
 #include "DebugMess.h"
 //------------------------------------------------------------------------
-MainWindow::MainWindow()
+MessWindow::MessWindow()
 {
 	lastIndex = -1;
 }
 //---------------------------------------------------------------------------
-void MainWindow::operator()(TSize &m)
+void MessWindow::operator()(TSize &m)
 {
 	if(m.resizing == SIZE_MINIMIZED || 0 == m.Width || 0 == m.Height) return;
 	RECT r;
@@ -20,30 +20,30 @@ void MainWindow::operator()(TSize &m)
 	MoveWindow(mainWindowGrid.hWnd, 0,  0, r.right, r.bottom, TRUE);
 }
 //------------------------------------------------------------------------
-void MainWindow::operator()(TCommand &m)
+void MessWindow::operator()(TCommand &m)
 {
 	GetMenuToolBarEvent(m);
 }
 //-------------------------------------------------------------------------------------------
-unsigned MainWindow::operator()(TNotify &m)
+unsigned MessWindow::operator()(TNotify &m)
 {
 	NotifyHandler *x = (NotifyHandler *)GetWindowLongPtr(m.pnmh->hwndFrom, GWLP_USERDATA);
 	if(0 == IsBadReadPtr(x, sizeof(x)))return (*x)(m);
 	return 0;
 }
 //------------------------------------------------------------------------
-void MainWindow::operator()(TGetMinMaxInfo &m)
-{
-	if(NULL != m.pMinMaxInfo)
-	{
-		m.pMinMaxInfo->ptMinTrackSize.x = 400;
-		m.pMinMaxInfo->ptMinTrackSize.y = 300;
-		m.pMinMaxInfo->ptMaxTrackSize.x = 2000;
-		m.pMinMaxInfo->ptMaxTrackSize.y = 500;		
-	}		
-}
+//void MessWindow::operator()(TGetMinMaxInfo &m)
+//{
+//	if(NULL != m.pMinMaxInfo)
+//	{
+//		m.pMinMaxInfo->ptMinTrackSize.x = 400;
+//		m.pMinMaxInfo->ptMinTrackSize.y = 300;
+//		m.pMinMaxInfo->ptMaxTrackSize.x = 2000;
+//		m.pMinMaxInfo->ptMaxTrackSize.y = 500;		
+//	}		
+//}
 //------------------------------------------------------------------------
-unsigned MainWindow::operator()(TCreate &m)
+unsigned MessWindow::operator()(TCreate &m)
 {
 	Menu<MainWindowMenu::MainMenu>().Init(m.hwnd);
 	mainWindowGrid.Init(m.hwnd);
@@ -54,17 +54,17 @@ unsigned MainWindow::operator()(TCreate &m)
 	return 0;
 }
 //-------------------------------------------------------------------------
-void MainWindow::operator()(TKeyDown &l)
+void MessWindow::operator()(TKeyDown &l)
 {
 	dprint(__FUNCTION__);
 }
 //-------------------------------------------------------------------------
-void MainWindow::operator()(TRButtonDown &l)
+void MessWindow::operator()(TRButtonDown &l)
 {
   dprint(__FUNCTION__);
 }
 //------------------------------------------------------------------------
-void MainWindow::operator()(TDestroy &m)
+void MessWindow::operator()(TDestroy &m)
 {
 #if 0
 	dprint("TDestroy");
@@ -81,13 +81,13 @@ void MainWindow::operator()(TDestroy &m)
 //}
 //---------------------------------------------------------------------------
 typedef void(*TptrMess)(void *);
-void MainWindow::operator()(TMessage &m)
+void MessWindow::operator()(TMessage &m)
 {
 	//if(m.wParam)((TptrMess )(m.wParam))((void *)m.lParam);
 	dprint(__FUNCTION__);
 }
 //------------------------------------------------------------------------------
-void MainWindow::operator()(TTimer &m)
+void MessWindow::operator()(TTimer &m)
 {
 	switch(m.ID)
 	{

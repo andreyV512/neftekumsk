@@ -143,6 +143,9 @@
     <ClInclude Include="Data\CrossData.h" />
     <ClInclude Include="Dlg\Dlg.h" />
     <ClInclude Include="FFT\FFT.h" />
+    <ClInclude Include="IOports\IOportsViewer.h" />
+    <ClInclude Include="IOports\IOportsWindow.h" />
+    <ClInclude Include="IOports\IOportsWindowMenu.hpp" />
     <ClInclude Include="ItemsData\PrimaryData.h" />
     <ClInclude Include="ItemsData\ThicknessData.h" />
     <ClInclude Include="ItemsData\ZonesData.h" />
@@ -235,6 +238,9 @@
     <ClCompile Include="Dlg\TcpDlg.cpp" />
     <ClCompile Include="Dlg\TypeSizeDlg.cpp" />
     <ClCompile Include="FFT\FFT.cpp" />
+    <ClCompile Include="IOports\IOportsDlg.cpp" />
+    <ClCompile Include="IOports\IOportsViewer.cpp" />
+    <ClCompile Include="IOports\IOportsWindow.cpp" />
     <ClCompile Include="ItemsData\PrimaryData.cpp" />
     <ClCompile Include="ItemsData\ThicknessData.cpp" />
     <ClCompile Include="ItemsData\ZonesData.cpp" />

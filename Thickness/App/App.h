@@ -13,6 +13,7 @@ public:
 	static HANDLE hEventStrobes;
 public:
 	MainWindow &mainWindow;
+	bool measurementOfRunning;
 public:
 	App();
 	void Init();

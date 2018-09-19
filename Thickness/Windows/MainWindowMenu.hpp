@@ -51,6 +51,7 @@ namespace MainWindowMenu
 	MENU_ITEM(L"Сохранить координаты окна", WindowPosition)
 	MENU_ITEM(L"Оси толщины", Axes)
 	MENU_ITEM(L"Границы АЧХ", ACFBorderDlg)
+	MENU_ITEM(L"Ширина медианного фильтра", MedianFiltreDlg)
 	//MENU_ITEM(L"Диаметр трубы", DiameterTubeDlg)
 
 	template<>struct TopMenu<MainOptionTypeSize>
@@ -63,6 +64,7 @@ namespace MainWindowMenu
 			, MenuItem<ACFBorderDlg>
 			, MenuItem<RotationalSpeed>
 			, MenuItem<Axes>
+			, MenuItem<MedianFiltreDlg>
 			, Separator<0>
 			, MenuItem<MainCreateTypesize>
 			, MenuItem<MainDeleteTypeSize>
@@ -79,19 +81,21 @@ namespace MainWindowMenu
 	struct DiscretePlateInputs: DiscretePlateInputsDlg{};
 	struct DiscretePlateOutputs: DiscretePlateOutputsDlg{};
 	struct ColorItems: ColorItemsDlg{};
-	struct Tcp : TcpDlg{};//{static void Do(HWND h){zprint("");}}; 
+	struct Tcp : TcpDlg{};
+	struct IOports: IOportsDlg{};
 	
 	MENU_TEXT(L"Дискретная плата", SubMenu<DiscretePlate>)
 	MENU_ITEM(L"Входные порты", DiscretePlateInputs)
 	MENU_ITEM(L"Выодные порты", DiscretePlateOutputs)
 	MENU_ITEM(L"Дискриптор платы", DiscretePlateDescriptorDlg)
 	MENU_ITEM(L"Коэффициенты пересчёта", CoefficientDlg)
-	MENU_ITEM(L"Ширина медианного фильтра", MedianFiltreDlg)
+	
 	MENU_ITEM(L"Аналоговая плата", AnalogPlate)
 	MENU_ITEM(L"Параметры сигнала", SignalDlg)
 	
 	MENU_ITEM(L"Цвета", ColorItems)
 	MENU_ITEM(L"Настройка TCP", Tcp)
+	MENU_ITEM(L"Просмотр дискретных портов", IOports)
 	
 	template<>struct SubMenu<DiscretePlate>
 	{
@@ -108,10 +112,12 @@ namespace MainWindowMenu
 			, SubMenu<DiscretePlate>
 			, MenuItem<Tcp>
 			, MenuItem<CoefficientDlg>
-			, MenuItem<MedianFiltreDlg>
+			
 			, MenuItem<SignalDlg>
 			
 			, MenuItem<ColorItems>
+			, Separator<1>
+			, MenuItem<IOports>
 		>::Result list;		
 	};
 	// ----------------------------------------------------------------------------------------------------

@@ -23,4 +23,15 @@ DLG_DO(AboutWindowDlg)
 DLG_DO(TcpDlg)
 DLG_DO(ColorItemsDlg)
 DLG_DO(AxesTableDlg)
+DLG_DO(IOportsDlg)
 #undef DLG_DO
+
+template<class T>struct WindowPositionDlg
+{
+	static void Do(HWND h)
+	{
+		RECT r;
+		GetWindowRect(h, &r);
+		WindowPosition::Set<T>(r);
+	}
+};

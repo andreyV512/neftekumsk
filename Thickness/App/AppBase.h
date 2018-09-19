@@ -147,11 +147,11 @@ struct AxesTable
 template<int>struct ACFBorderLeft ;
 template<int>struct ACFBorderRight;
 DEFINE_PARAM_NUM(ACFBorderLeft , 0, int, 20)
-DEFINE_PARAM_NUM(ACFBorderRight, 0, int, 60)
+DEFINE_PARAM_NUM(ACFBorderRight, 0, int, 80)
 DEFINE_PARAM_NUM(ACFBorderLeft , 1, int, 20)
-DEFINE_PARAM_NUM(ACFBorderRight, 1, int, 60)
+DEFINE_PARAM_NUM(ACFBorderRight, 1, int, 80)
 DEFINE_PARAM_NUM(ACFBorderLeft , 2, int, 20)
-DEFINE_PARAM_NUM(ACFBorderRight, 2, int, 60)
+DEFINE_PARAM_NUM(ACFBorderRight, 2, int, 80)
 struct ACFBorderTable
 {
 	typedef TL::MkTlst<
@@ -305,6 +305,8 @@ DEFINE_PARAM_ID(RotationalSpeedSensorsTable, int, 1)
 DEFINE_PARAM_ID(AxesTable, int, 1)
 DEFINE_PARAM_ID(ACFBorderTable          , int, 1)
 DEFINE_PARAM_ID(ColorTable, int, 1)
+struct MedianFilterTable;
+DEFINE_PARAM_ID(MedianFilterTable, int, 1)
  struct ParametersTable
  {
 	typedef TL::MkTlst<
@@ -315,6 +317,7 @@ DEFINE_PARAM_ID(ColorTable, int, 1)
 		, ID<AxesTable>
 		, ID<ACFBorderTable>
 		, ID<ColorTable>
+		, ID<MedianFilterTable>
 		, NameParam
 	>::Result items_list;
 	typedef NullType unique_list;
@@ -347,9 +350,6 @@ struct IPAddressTable
 		 , LanParametersTable		   
 		 , InputBitsTable
 		 , OutputBitsTable 
-		 
-		 , MedianFilterTable
-		
 		 , IPAddressTable
 	 >::Result one_row_table_list;
 
@@ -363,6 +363,7 @@ struct IPAddressTable
 		, AxesTable
 		, ACFBorderTable
 		, ColorTable
+		, MedianFilterTable
 	 >::Result password_typesize_multy_row_table_list;
 
 	 typedef TL::MkTlst<

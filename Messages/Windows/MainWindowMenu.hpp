@@ -6,7 +6,7 @@ namespace MainWindowMenu
 {
 struct MainFile{};
 struct MainOptionUnits{};
-struct SaveCoordinateWindow: StoredWindowPosition<MainWindow>{}; 
+struct SaveCoordinateWindow: StoredWindowPosition<MessWindow>{}; 
 
 template<>struct TopMenu<MainFile>
 {

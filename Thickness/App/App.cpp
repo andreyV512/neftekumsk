@@ -38,6 +38,7 @@ App::App()
 	//, crossData(Singleton<CrossData>::Instance())
 	//, crossViewerData(Singleton<CrossViewerData>::Instance())
 	: mainWindow(Singleton<MainWindow>::Instance())
+	, measurementOfRunning(false)
 {}
 
 void App::Init()

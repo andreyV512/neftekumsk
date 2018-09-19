@@ -121,6 +121,9 @@
     <Filter Include="ProtocolTCP\StopCycle">
       <UniqueIdentifier>{ab40c0d9-656d-4c02-8838-3632be77187d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Windows\IOports">
+      <UniqueIdentifier>{96b590e5-d7da-4f7a-8f36-921199e7c564}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -420,6 +423,15 @@
     <ClInclude Include="ProtocolTCP\InitTcp.h">
       <Filter>ProtocolTCP</Filter>
     </ClInclude>
+    <ClInclude Include="IOports\IOportsViewer.h">
+      <Filter>Windows\IOports</Filter>
+    </ClInclude>
+    <ClInclude Include="IOports\IOportsWindow.h">
+      <Filter>Windows\IOports</Filter>
+    </ClInclude>
+    <ClInclude Include="IOports\IOportsWindowMenu.hpp">
+      <Filter>Windows\IOports</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -688,6 +700,15 @@
     </ClCompile>
     <ClCompile Include="ProtocolTCP\InitTcp.cpp">
       <Filter>ProtocolTCP</Filter>
+    </ClCompile>
+    <ClCompile Include="IOports\IOportsDlg.cpp">
+      <Filter>Windows\IOports</Filter>
+    </ClCompile>
+    <ClCompile Include="IOports\IOportsViewer.cpp">
+      <Filter>Windows\IOports</Filter>
+    </ClCompile>
+    <ClCompile Include="IOports\IOportsWindow.cpp">
+      <Filter>Windows\IOports</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

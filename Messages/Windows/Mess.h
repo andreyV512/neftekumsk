@@ -2,17 +2,17 @@
 #include "message.h"
 #include "MainWindowGrid.h"
 
-class MessWindow
+class MainWindow
 {
 	int lastIndex;
 	MainWindowGrid mainWindowGrid;
 public:
 	static const int IDT_TIMER1 = 999;
 	HWND hWnd;
-	MessWindow();
+	MainWindow();
 	void operator()(TSize &);
 	void operator()(TCommand &);
-	//void operator()(TGetMinMaxInfo &);
+	void operator()(TGetMinMaxInfo &);
 	unsigned operator()(TCreate &);
 	void operator()(TDestroy &);
 	void operator()(TMessage &);
