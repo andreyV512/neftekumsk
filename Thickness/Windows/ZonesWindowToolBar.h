@@ -7,6 +7,8 @@ void RightArrowHandler(HWND h);
 void UpArrowHandler(HWND h);
 void DownArrowHandler(HWND h);
 
+const int DetailiedToolButtonWidth();
+
 typedef TL::MkTlst<
   SeparatorToolbar<0>
   , ButtonToolbar<IDB_LeftArrow, LeftArrowHandler>

@@ -106,6 +106,8 @@ public:
 	void Recalculation();
 	void CalculationZones();
 	void StopMeshuring();
+
+	void CalculationZoneSensor(int zone, int sensor, int borderLeft, int borderRight, double *data, char *status);
 };
 
 extern Compute compute;

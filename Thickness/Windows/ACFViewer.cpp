@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include "EmptyWindow.h"
 #include "Compute.h"
+#include "MenuApi.h"
 //------------------------------------------------------------------------------------------------------
 using namespace Gdiplus;
 
@@ -87,13 +88,7 @@ void ACFViewer::operator()(TSize &l)
 	chart.rect.right = l.Width - 10;
 	chart.rect.bottom = l.Height - 10;
 	chart.items.get<LeftBorder>().value =  acfBorderLeft;
-	//	Singleton<ACFBorderTable>::Instance().items.get<ACFBorderLeft>().value;
 	chart.items.get<RightBorder>().value = acfBorderRight;
-		//Singleton<ACFBorderTable>::Instance().items.get<ACFBorderRight>().value;
-
-	
-//	chart.items.get<PeakBorder>().value = chart.maxAxesY * peak;
-//	chart.items.get<MinEnergyBorder>().value = minEnergy;
 
 	chart.Draw(g);
 	RECT r = {0, 0, l.Width, l.Height};
@@ -133,8 +128,45 @@ void  ACFViewer::operator()(TLButtonDown &l)
 	}
 }
 //-----------------------------------------------------------------
+namespace ACF_Space
+{
+#define CONTEXT_MENU(name, txt, proc)\
+struct name{};\
+template<>struct TopMenu<name>{typedef NullType list;};\
+MENU_TEXT(txt, TopMenu<name>)\
+template<>struct Event<TopMenu<name> >	   \
+{										   \
+	static void Do(HWND h)				   \
+	{									   \
+		zprint("\n");					   \
+		proc(h);							   \
+	}									   \
+};
+
+	void LeftBorderProc(HWND h){}
+	void RightBorderProc(HWND h){}
+	void RecomputeProc(HWND h){}
+
+CONTEXT_MENU(LeftBorder, L"Левая граница", LeftBorderProc)
+CONTEXT_MENU(RightBorder, L"Правая граница", RightBorderProc)
+CONTEXT_MENU(Recompute, L"Пересчитать зону", RecomputeProc)
+									   
+#undef CONTEXT_MENU
+
+void RightButtonDown(HWND h)
+{
+	PopupMenu<TL::MkTlst<
+		TopMenu<LeftBorder>
+		, TopMenu<RightBorder>
+		//, Separator<0>
+		, TopMenu<Recompute>
+	>::Result>::Do(h, h);
+}
+
+}
 void ACFViewer::operator()(TRButtonDown &l)
 {
+	ACF_Space::RightButtonDown(l.hwnd);
 }
 //--------------------------------------------------------------------------------------------------
 void ACFViewer::operator()(TLButtonDbClk &l)

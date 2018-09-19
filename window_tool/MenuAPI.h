@@ -44,24 +44,54 @@ public:
 	{
 		if(NULL != hWnd) DestroyMenu(GetMenu(hWnd));
 		Param param(CreateMenu(), hWnd);
-		TL::find<List, __insert_menu__>()((TL::Factory<List> *)0, &param);
+		TL::find<List, __insert_menu__>()(&param);
 		SetMenu(hWnd, param.h); 
 		DrawMenuBar(hWnd);
 		return param.h;
 	}
 };
+//template<class List>class PopupMenu
+//{
+//	HMENU hMenu;
+//public:
+//	void Init(HWND hWnd)
+//	{		
+//		Param param(CreatePopupMenu(), hWnd);
+//		TL::find<List, __insert_menu__>()((TL::Factory<List> *)0, &param);
+//		hMenu = param.h;
+//	}
+//	void Do(HWND hWnd)
+//	{
+//		POINT p;
+//		GetCursorPos(&p);
+//		UINT flags = TPM_BOTTOMALIGN | TPM_NONOTIFY | TPM_RETURNCMD;
+//
+//		flags |= (GetSystemMetrics(SM_MENUDROPALIGNMENT) == 0 ) ? TPM_LEFTALIGN: /T/PM_RIGHTALIGN;
+//
+//		if(unsigned d = TrackPopupMenuEx(hMenu, flags, p.x, p.y, hWnd, NULL))
+//		{	
+//			MENUITEMINFO mii;
+//			mii.cbSize = sizeof(MENUITEMINFO);
+//			mii.fMask = MIIM_DATA;
+//			if(GetMenuItemInfo(hMenu, d, false, &mii))
+//			{
+//				((void (__cdecl *)(HWND))(mii.dwItemData))(hWnd);
+//			}
+//		}
+//	}
+//	void Destroy()
+//	{
+//		DestroyMenu(hMenu);
+//	}
+//};
 template<class List>class PopupMenu
 {
-	HMENU hMenu;
 public:
-	void Init(HWND hWnd)
+	template<class P>static void Do(HWND hWnd, P *data)
 	{		
 		Param param(CreatePopupMenu(), hWnd);
-		TL::find<List, __insert_menu__>()((TL::Factory<List> *)0, &param);
-		hMenu = param.h;
-	}
-	void Do(HWND hWnd)
-	{
+		TL::find<List, __insert_menu__>()(&param);
+		HMENU hMenu = param.h;
 		POINT p;
 		GetCursorPos(&p);
 		UINT flags = TPM_BOTTOMALIGN | TPM_NONOTIFY | TPM_RETURNCMD;
@@ -75,14 +105,11 @@ public:
 			mii.fMask = MIIM_DATA;
 			if(GetMenuItemInfo(hMenu, d, false, &mii))
 			{
-				((void (__cdecl *)(HWND))(mii.dwItemData))(hWnd);
+				((void (__cdecl *)(P *))(mii.dwItemData))(data);
 			}
 		}
-	}
-	void Destroy()
-	{
 		DestroyMenu(hMenu);
-	}
+	}	
 };
 #define index Index()
 struct Param
@@ -101,7 +128,7 @@ struct Param
 };
 template<class O, class P>struct __insert_item_menu__
 {
-	bool operator()(O *o, P *p)
+	bool operator()(P *p)
 	{
          debug.print(__FUNCTION__);
 		 return true;
@@ -112,7 +139,7 @@ template<class>struct MenuItem;
 template<class S, class P>struct __insert_item_menu__<MenuItem<S>, P>
 {
 	typedef MenuItem<S> O;
-	bool operator()(O *o, P *p)
+	bool operator()(P *p)
 	{      
 		if(ReturnItemMenu<O>()())
 		{
@@ -129,10 +156,10 @@ template<class S, class P>struct __insert_item_menu__<MenuItem<S>, P>
 };
 template<class O, class P>struct __insert_menu__
 {
-	bool operator()(O *o, P *p)
+	bool operator()(P *p)
 	{	
 		Param param(CreatePopupMenu(), p->hWnd);
-		TL::find<typename O::list, __insert_item_menu__>()((TL::Factory<typename O::list> *)0, &param);
+		TL::find<typename O::list, __insert_item_menu__>()(&param);
 		p->m.fMask = MIIM_SUBMENU | MIIM_TYPE | MIIM_DATA | MIIM_ID | MIIM_STATE;
 		p->m.hSubMenu = param.h;
 		p->m.dwTypeData = NameMenu<O>()(p->hWnd);	
@@ -146,11 +173,11 @@ template<class O, class P>struct __insert_menu__
 template<class S, class P>struct __insert_item_menu__<SubMenu<S>, P>
 {
 	typedef SubMenu<S> O;
-	bool operator()(O *o, P *p)
+	bool operator()(P *p)
 	{      
 		if(ReturnItemMenu<O>()())
 		{
-			__insert_menu__<O, P>()(o, p);
+			__insert_menu__<O, P>()(p);
 			return true;
 		}
 		return false;
@@ -158,7 +185,7 @@ template<class S, class P>struct __insert_item_menu__<SubMenu<S>, P>
 };
 template<class P, int N>struct __insert_item_menu__<Separator<N>, P>
 {	
-	bool operator()(Separator<N> *, P *p)
+	bool operator()(P *p)
 	{        	
 		unsigned t = p->m.fType;
 		p->m.fType = MFT_SEPARATOR;

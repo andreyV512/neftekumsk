@@ -837,4 +837,28 @@ void Compute::SubRecalculation(int start, int stop)
 	}
 }
 //------------------------------------------------------------------------------------
+void Compute::CalculationZoneSensor(int zone, int sens, int borderLeft, int borderRight, double *data, char *status)
+{
+	double start = primaryData.offsetOfTime[zone];
+	double stop  = primaryData.offsetOfTime[1 + zone];
+
+	int tmpLeft = acfBorderLeft[sens];
+	int tmpRight = acfBorderRight[sens];
+
+	acfBorderLeft[sens]  = borderLeft;
+	acfBorderRight[sens] = borderRight;
+
+	for(int i = (int)start, j = 0; i < (int)stop; ++i, ++j)
+	{
+		CalculationOneFrame(//вычисление кадра первичных данных(474, 986)
+			sens
+			, primaryData.SensorData(sens, i)
+			, data[j]
+			, status[j] 
+		);
+	}
+
+	acfBorderLeft[sens] = tmpLeft;
+	acfBorderRight[sens] = tmpRight;
+}
 

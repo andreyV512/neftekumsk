@@ -10,6 +10,7 @@
 class ZonesWindow
 {
 	int currentScreen;
+	HWND hLabelAllFrames, hLabelCalculatedFrames;
 public:
 	HWND hWnd;
 	HWND hToolBar;

@@ -14,7 +14,6 @@
 ZonesWindow::ZonesWindow() 
 	: hWnd(NULL)	
 	, signalLength(Singleton<LanParametersTable>::Instance().items.get<PacketSize>().value)
-//	, frequencyFrames(Singleton<AdditionalSettingsTable>::Instance().items.get<FrequencyFrames>().value)
 {
 	zonesViewer.SetMouseMoveHandler(this, &ZonesWindow::MouseMoveHandler);
 }
@@ -33,12 +32,17 @@ void ZonesWindow::operator()(TSize &m)
 	int dy = rt.bottom;
 	RECT r;
 	GetClientRect(m.hwnd, &r);	
-    MoveWindow(zonesViewer.hWnd , 0, dy, r.right, 200, true);
+	MoveWindow(zonesViewer.hWnd , 0, dy, r.right, 200, true);
 	dy += 200;
 	double dx = (double)r.right / 3;
-    MoveWindow(signalViewer.hWnd , 0, dy, int(dx), r.bottom - dy, true);
+	MoveWindow(signalViewer.hWnd , 0, dy, int(dx), r.bottom - dy, true);
+
 	MoveWindow(correlationViewer.hWnd, int(dx), dy, int(dx), r.bottom - dy, true);	
 	MoveWindow(acfViewer.hWnd, int(dx * 2), dy, int(dx), r.bottom - dy, true);
+
+	const int offsX = DetailiedToolButtonWidth();
+	MoveWindow(hLabelAllFrames, offsX, 0, 300, 18, true);
+	MoveWindow(hLabelCalculatedFrames, offsX, 19, 300, 18, true);
 }
 //-------------------------------------------------------------------------
 unsigned ZonesWindow::operator()(TCreate &m)
@@ -46,9 +50,11 @@ unsigned ZonesWindow::operator()(TCreate &m)
 	Menu<ZonesWindowMenu::MainMenu>().Init(m.hwnd);
 	hToolBar = InitToolbar<detailied_tool_button_list, 16>()(m.hwnd);
 	zonesViewer.hWnd = CreateChildWindow(m.hwnd, (WNDPROC)&Viewer<ZonesViewer>::Proc, L"ZonesViewer", &zonesViewer);
-    signalViewer.hWnd = CreateChildWindow(m.hwnd, (WNDPROC)&Viewer<SignalViewer>::Proc, L"SignalViewer", &signalViewer);
-    correlationViewer.hWnd = CreateChildWindow(m.hwnd, (WNDPROC)&Viewer<CorrelationViewer>::Proc, L"CorrelationViewer", &correlationViewer);
+	signalViewer.hWnd = CreateChildWindow(m.hwnd, (WNDPROC)&Viewer<SignalViewer>::Proc, L"SignalViewer", &signalViewer);
+	correlationViewer.hWnd = CreateChildWindow(m.hwnd, (WNDPROC)&Viewer<CorrelationViewer>::Proc, L"CorrelationViewer", &correlationViewer);
 	acfViewer.hWnd = CreateChildWindow(m.hwnd, (WNDPROC)&Viewer<ACFViewer>::Proc, L"ACFViewer", &acfViewer);
+	hLabelAllFrames = CreateWindow(L"static", L"" , WS_VISIBLE | WS_CHILD, 0, 0, 0, 0, hToolBar, 0, hInstance, NULL);
+	hLabelCalculatedFrames = CreateWindow(L"static", L"" , WS_VISIBLE | WS_CHILD, 0, 0, 0, 0, hToolBar, 0, hInstance, NULL);
 	return 0;
 }
 //-------------------------------------------------------------------------
@@ -83,7 +89,7 @@ void ZonesWindow::Open_(unsigned sensor_, unsigned zone_)
 		if(t > primaryData.GetCurrentOffset()) t = primaryData.GetCurrentOffset() - 2;
 		offset = int((primaryData.offsetOfTime[zone_ - 1]) );
 		count = t - offset + 1;
-		
+
 	}
 	if(0 < count)
 	{
@@ -91,10 +97,12 @@ void ZonesWindow::Open_(unsigned sensor_, unsigned zone_)
 		zone = zone_;
 		sensor = sensor_;
 		if(dimention_of(zonesViewer.data.zones) < count ) count = dimention_of(zonesViewer.data.zones);
+		int calculated = 0;
 		for(int i = 0, j = offset; i < count + 1; ++i, ++j)
 		{
 			zonesViewer.data.zones[i] = primaryData.result[sensor][j];
 			zonesViewer.data.status[i] = primaryData.status[sensor][j];
+			if(zonesViewer.data.status[i] < PrimaryData::Undefined) ++calculated;
 		}
 		wchar_t buf[128];
 		wsprintf(buf, L"Просмотр первичного сигнала. Датчик %d Зона %d", 1 + sensor, zone);
@@ -125,8 +133,13 @@ void ZonesWindow::Open_(unsigned sensor_, unsigned zone_)
 		SetWindowText(hWnd, buf);
 		ShowWindow(hWnd, SW_SHOW);
 		SetForegroundWindow(hWnd);
-	    RepaintWindow(zonesViewer.hWnd);
+		RepaintWindow(zonesViewer.hWnd);
 		MouseMoveHandler(zonesViewer.offset);
+
+		wsprintf(buf, L"Кадров в зоне: %d", count);
+		SetWindowText(hLabelAllFrames, buf); 
+		wsprintf(buf, L"Измеренных кадров: %d", calculated);
+		SetWindowText(hLabelCalculatedFrames, buf);
 	}
 }
 //--------------------------------------------------------------------------------------
@@ -149,91 +162,91 @@ void ZonesWindow::MouseMoveHandler(unsigned offsetInZone)
 		signalViewer.data[i] = s[i] + 128;
 	}
 	RepaintWindow(signalViewer.hWnd);
-	//{
-		double (&data)[1024] = correlationViewer.data;
-		int i = 0;
-		int dx = signalLength / 2;
-		for(; i < dx; ++i)
-		{
-			data[i] = s[i] * 1.0/dx * i;
-		}
-		for(; i < signalLength; ++i)
-		{
-			data[i] = s[i] * (1.0 - 1.0/dx * (i - dx));
-		}
-		fft.Direct(data);
-		fft.Spectrum(data);
-		//--------------------------------------отсечение в частотной области
-		ZeroMemory(data, sizeof(double) * compute.acfBorderLeft[sensor]);
-		ZeroMemory(&data[compute.acfBorderRight[sensor]], sizeof(double) * (fft.bufferSize - compute.acfBorderRight[sensor]));
 
-		dx = (compute.acfBorderRight[sensor] - compute.acfBorderLeft[sensor]) / 2;
-		double dy = 1.0 / dx;
-		int middle = compute.acfBorderLeft[sensor] + dx;
+	double (&data)[1024] = correlationViewer.data;
+	int i = 0;
+	int dx = signalLength / 2;
+	for(; i < dx; ++i)
+	{
+		data[i] = s[i] * 1.0/dx * i;
+	}
+	for(; i < signalLength; ++i)
+	{
+		data[i] = s[i] * (1.0 - 1.0/dx * (i - dx));
+	}
+	fft.Direct(data);
+	fft.Spectrum(data);
+	//--------------------------------------отсечение в частотной области
+	ZeroMemory(data, sizeof(double) * compute.acfBorderLeft[sensor]);
+	ZeroMemory(&data[compute.acfBorderRight[sensor]], sizeof(double) * (fft.bufferSize - compute.acfBorderRight[sensor]));
 
-		int j = compute.acfBorderLeft[sensor];
-		int xxxx = j;
-		int right = compute.acfBorderRight[sensor];
-		for(; j < middle; ++j)
-		{
-			data[j] *= dy * (j - xxxx);
-		}
-		xxxx = j;
-		for(; j < right; ++j)
-		{
-			data[j] *= (1.0 - dy * (j - xxxx));
-		}
-		//---------------------------------------------------------------------------------------
-		fft.Direct(data);
-		fft.Spectrum(data);		
-		correlationViewer.thickness = primaryData.result[sensor][offs];
-		correlationViewer.status = primaryData.status[sensor][offs];
-		correlationViewer.chart.maxAxesY = data[0];
-		correlationViewer.chart.maxAxesX = fft.bufferSize / 2 - 1;
-	//	{
-			//-----------------------------------поиск пика	
-			int maxOffs = int((Singleton<BorderCredibilityTable>::Instance().items.get<MaximumThicknessPipeWall>().value 
-				- correlationViewer.coefficientB) / correlationViewer.coefficientA);
-			int z = int((Singleton<BorderCredibilityTable>::Instance().items.get<MinimumThicknessPipeWall>().value 
-				- correlationViewer.coefficientB) / correlationViewer.coefficientA);
+	dx = (compute.acfBorderRight[sensor] - compute.acfBorderLeft[sensor]) / 2;
+	double dy = 1.0 / dx;
+	int middle = compute.acfBorderLeft[sensor] + dx;
 
-			z /= 2;
-			double minVal = data[z];
-			double maxVal = minVal;
-			double val = 0;
-			double min = minVal;
-			int offsMin = z;
-			int offsMax = z;
-			
-			for(; z < maxOffs; ++z)
+	int j = compute.acfBorderLeft[sensor];
+	int xxxx = j;
+	int right = compute.acfBorderRight[sensor];
+	for(; j < middle; ++j)
+	{
+		data[j] *= dy * (j - xxxx);
+	}
+	xxxx = j;
+	for(; j < right; ++j)
+	{
+		data[j] *= (1.0 - dy * (j - xxxx));
+	}
+	//---------------------------------------------------------------------------------------
+	fft.Direct(data);
+	fft.Spectrum(data);		
+	correlationViewer.thickness = primaryData.result[sensor][offs];
+	correlationViewer.status = primaryData.status[sensor][offs];
+	correlationViewer.chart.maxAxesY = data[0];
+	correlationViewer.chart.maxAxesX = fft.bufferSize / 2 - 1;
+
+	//-----------------------------------поиск пика	
+	int maxOffs = int((Singleton<BorderCredibilityTable>::Instance().items.get<MaximumThicknessPipeWall>().value 
+		- correlationViewer.coefficientB) / correlationViewer.coefficientA);
+	int z = int((Singleton<BorderCredibilityTable>::Instance().items.get<MinimumThicknessPipeWall>().value 
+		- correlationViewer.coefficientB) / correlationViewer.coefficientA);
+
+	z /= 2;
+	double minVal = data[z];
+	double maxVal = minVal;
+	double val = 0;
+	double min = minVal;
+	int offsMin = z;
+	int offsMax = z;
+
+	for(; z < maxOffs; ++z)
+	{
+		if(minVal > data[z]) 
+		{
+			minVal = data[z];
+			offsMin = z;
+			if(offsMin > offsMax) 
 			{
-				if(minVal > data[z]) 
-				{
-					minVal = data[z];
-					offsMin = z;
-					if(offsMin > offsMax) 
-					{
-						minVal = maxVal = data[z];
-						continue;
-					}
-				}
-				if(maxVal < data[z])
-				{
-					maxVal = data[z];
-					offsMax = z;
-				}
-				double t = maxVal - minVal;
-				if(val < t) 
-				{
-					val = t;
-					min = minVal;
-				}
+				minVal = maxVal = data[z];
+				continue;
 			}
-			correlationViewer.peak = compute.peak[sensor] * data[0] + min;
-			correlationViewer.bottomBorder = min;
-	//	}		
-		RepaintWindow(correlationViewer.hWnd);
-//	}
+		}
+		if(maxVal < data[z])
+		{
+			maxVal = data[z];
+			offsMax = z;
+		}
+		double t = maxVal - minVal;
+		if(val < t) 
+		{
+			val = t;
+			min = minVal;
+		}
+	}
+	correlationViewer.peak = compute.peak[sensor] * data[0] + min;
+	correlationViewer.bottomBorder = min;
+
+	RepaintWindow(correlationViewer.hWnd);
+
 	{
 		double (&data)[1024] = acfViewer.data;
 		int i = 0;
@@ -266,7 +279,7 @@ bool __sent_mess_(TMouseWell &l, HWND h)
 		SendMessage(MESSAGE(l));
 		return false;
 	}
-    return true;
+	return true;
 }
 void ZonesWindow::operator()(TKeyDown &l)
 {
@@ -275,15 +288,15 @@ void ZonesWindow::operator()(TKeyDown &l)
 	case VK_LEFT: 
 	case VK_RIGHT:  
 		{
-		HWND h[] = {
-			zonesViewer.hWnd
-			, signalViewer.hWnd
-			, correlationViewer.hWnd
-			, acfViewer.hWnd
-		};
-		currentScreen = currentScreen < 0 ? dimention_of(h) - 1 : currentScreen >= dimention_of(h) ? 0  : currentScreen;
-		l.hwnd = h[currentScreen];
-		SendMessage(MESSAGE(l));
+			HWND h[] = {
+				zonesViewer.hWnd
+				, signalViewer.hWnd
+				, correlationViewer.hWnd
+				, acfViewer.hWnd
+			};
+			currentScreen = currentScreen < 0 ? dimention_of(h) - 1 : currentScreen >= dimention_of(h) ? 0  : currentScreen;
+			l.hwnd = h[currentScreen];
+			SendMessage(MESSAGE(l));
 		}
 		break;
 	case VK_UP: --currentScreen; break;

@@ -52,5 +52,4 @@ public:
 	void operator()(TLButtonDbClk &);
 	void operator()(TMouseWell &);
 	void operator()(TKeyDown &);
-	//void operator()(TDestroy &);
 };
