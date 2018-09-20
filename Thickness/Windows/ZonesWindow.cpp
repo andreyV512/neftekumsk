@@ -20,7 +20,7 @@ ZonesWindow::ZonesWindow()
 //-----------------------------------------------------------------------------
 void ZonesWindow::operator()(TCommand &m)
 {
-	GetMenuToolBarEvent(m);
+	EventDo(m);
 }
 //--------------------------------------------------------------------------------------
 void ZonesWindow::operator()(TSize &m)
@@ -116,10 +116,10 @@ void ZonesWindow::Open_(unsigned sensor_, unsigned zone_)
 		correlationViewer.coefficientB = compute.coefficientB[sensor];
 		correlationViewer.minEnergy = compute.minEnergy[sensor];
 
-		acfViewer.coefficientA = compute.coefficientA[sensor];
-		acfViewer.coefficientB = compute.coefficientB[sensor];
-		acfViewer.peak = compute.peak[sensor];
-		acfViewer.minEnergy = compute.minEnergy[sensor];
+		//acfViewer.coefficientA = compute.coefficientA[sensor];
+		//acfViewer.coefficientB = compute.coefficientB[sensor];
+		//acfViewer.peak = compute.peak[sensor];
+		//acfViewer.minEnergy = compute.minEnergy[sensor];
 
 		acfViewer.acfBorderLeft = compute.acfBorderLeft[sensor];
 		acfViewer.acfBorderRight = compute.acfBorderRight[sensor];
@@ -138,7 +138,7 @@ void ZonesWindow::Open_(unsigned sensor_, unsigned zone_)
 
 		wsprintf(buf, L"Кадров в зоне: %d", count);
 		SetWindowText(hLabelAllFrames, buf); 
-		wsprintf(buf, L"Измеренных кадров: %d", calculated);
+		wsprintf(buf, L"Измеренных кадров: %d  %s%%", calculated, Wchar_from<double, 4>(100.0 * calculated/count)());
 		SetWindowText(hLabelCalculatedFrames, buf);
 	}
 }
@@ -155,6 +155,7 @@ ZonesWindow &ZonesWindow::Instance()
 //------------------------------------------------------------------------------------
 void ZonesWindow::MouseMoveHandler(unsigned offsetInZone)
 {
+	currentOffsetInZone = offsetInZone;
 	unsigned offs = offset + offsetInZone;
 	char *s = primaryData.SensorData(sensor, offs);
 	for(int i = 0; i < signalLength; ++i)
@@ -260,7 +261,7 @@ void ZonesWindow::MouseMoveHandler(unsigned offsetInZone)
 		}
 		fft.Direct(data);
 		fft.Spectrum(data);
-		acfViewer.thickness = primaryData.result[sensor][offs];
+	//	acfViewer.thickness = primaryData.result[sensor][offs];
 		double max = 0;
 		for(int i = 0; i < fft.bufferSize; ++i) if(data[i] > max) max = data[i];
 		acfViewer.chart.maxAxesY = max;

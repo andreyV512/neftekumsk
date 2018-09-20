@@ -123,6 +123,7 @@
     <ClInclude Include="..\window_tool\MenuAPI.h" />
     <ClInclude Include="..\window_tool\message.h" />
     <ClInclude Include="..\window_tool\Pass.h" />
+    <ClInclude Include="..\window_tool\TEvent.h" />
     <ClInclude Include="..\window_tool\ToolBarWidth.hpp" />
     <ClInclude Include="App\App.h" />
     <ClInclude Include="App\AppBase.h" />

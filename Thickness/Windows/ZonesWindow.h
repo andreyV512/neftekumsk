@@ -10,11 +10,12 @@
 class ZonesWindow
 {
 	int currentScreen;
+public:
 	HWND hLabelAllFrames, hLabelCalculatedFrames;
 public:
 	HWND hWnd;
 	HWND hToolBar;
-	//int &frequencyFrames;
+	unsigned currentOffsetInZone;
 	ZonesWindow();
 	void operator()(TCommand &);
 	void operator()(TSize &);
@@ -32,6 +33,7 @@ public:
 private:
 	int &signalLength;
 	void Open_(unsigned sensor, unsigned zone);
+public:
 	void MouseMoveHandler(unsigned);
 public:
 	ZonesViewer zonesViewer;

@@ -38,9 +38,7 @@ void IOportsWindow::operator()(TSize &l)
 //------------------------------------------------------------------------
 void IOportsWindow::operator()(TCommand &m)
 {
-	//EventDo(m);
-	
-	GetMenuToolBarEvent(m);
+	EventDo(m);
 }
 //------------------------------------------------------------------------
 void IOportsWindow::operator()(TGetMinMaxInfo &m)

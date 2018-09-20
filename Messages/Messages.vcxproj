@@ -112,6 +112,7 @@
     <ClInclude Include="..\Ini\WindowsPosition.h" />
     <ClInclude Include="..\Log\LogMessages.h" />
     <ClInclude Include="..\Log\LogBuffer.h" />
+    <ClInclude Include="..\templates\templates.hpp" />
     <ClInclude Include="..\templates\typelist.hpp" />
     <ClInclude Include="..\Widgets\CheckBoxWidget.h" />
     <ClInclude Include="..\window_tool\DlgFiles.h" />

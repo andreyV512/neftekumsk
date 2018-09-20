@@ -432,6 +432,9 @@
     <ClInclude Include="IOports\IOportsWindowMenu.hpp">
       <Filter>Windows\IOports</Filter>
     </ClInclude>
+    <ClInclude Include="..\window_tool\TEvent.h">
+      <Filter>window_tool</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

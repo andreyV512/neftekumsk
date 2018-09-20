@@ -4,6 +4,10 @@
 #include "EmptyWindow.h"
 #include "Compute.h"
 #include "MenuApi.h"
+#include "ZonesWindow.h"
+#include "Pass.h"
+#include "DlgTemplates\ParamDlg.hpp"
+#include "Dlg.h"
 //------------------------------------------------------------------------------------------------------
 using namespace Gdiplus;
 
@@ -45,6 +49,7 @@ ACFViewer::ACFViewer()
 	, cursor(chart)
 	, cursorLabel(chart, *this)
 	, mouseMove(true)
+	, bordersProc(NULL)
 {
 	chart.rect.left = 10;
 	chart.rect.top = 30;
@@ -128,6 +133,91 @@ void  ACFViewer::operator()(TLButtonDown &l)
 	}
 }
 //-----------------------------------------------------------------
+void ACFViewer::LeftBorderProc (int x)
+{
+	int t = (int)acfBorderLeft;
+	t -= x;
+	if(t > 0 && t < acfBorderRight)acfBorderLeft = t;	
+	ZonesWindow &z = ZonesWindow::Instance();
+	int tmpLeft = compute.acfBorderLeft[z.sensor];
+	compute.acfBorderLeft[z.sensor] = (int)acfBorderLeft;
+	int tmpRight = compute.acfBorderRight[z.sensor];
+	compute.acfBorderRight[z.sensor] = (int)acfBorderRight;
+	compute.CalculationZoneSensor(z.zone - 1, z.sensor, z.zonesViewer.data.zones, z.zonesViewer.data.status);
+	RepaintWindow(z.zonesViewer.hWnd);
+	z.MouseMoveHandler(z.currentOffsetInZone);
+	compute.acfBorderLeft[z.sensor] = tmpLeft;
+	compute.acfBorderRight[z.sensor] = tmpRight;
+	dprint("left axes %d\n", (int)acfBorderLeft);
+
+	wchar_t buf[512];
+	wsprintf(buf, L"Кадров в зоне: %d", compute.allData[z.sensor]);
+	SetWindowText(z.hLabelAllFrames, buf); 
+	wsprintf(buf, L"Измеренных кадров: %d  %s%%", compute.goodData[z.sensor], Wchar_from<double, 4>(100.0 * compute.goodData[z.sensor]/compute.allData[z.sensor])());
+	SetWindowText(z.hLabelCalculatedFrames, buf);
+
+}
+void ACFViewer::RightBorderProc(int x)
+{
+	int t = acfBorderRight;
+	t -= x;
+	if(acfBorderRight > acfBorderLeft && acfBorderRight < chart.maxAxesX)acfBorderRight = t;
+	ZonesWindow &z = ZonesWindow::Instance();
+	int tmpLeft = compute.acfBorderLeft[z.sensor];
+	compute.acfBorderLeft[z.sensor] = (int)acfBorderLeft;
+	int tmpRight = compute.acfBorderRight[z.sensor];
+	compute.acfBorderRight[z.sensor] = (int)acfBorderRight;
+	compute.CalculationZoneSensor(z.zone - 1, z.sensor, z.zonesViewer.data.zones, z.zonesViewer.data.status);
+	RepaintWindow(z.zonesViewer.hWnd);
+	z.MouseMoveHandler(z.currentOffsetInZone);	
+	compute.acfBorderLeft[z.sensor] = tmpLeft;
+	compute.acfBorderRight[z.sensor] = tmpRight;
+	dprint("right axes %d\n", (int)acfBorderRight);
+
+	wchar_t buf[512];
+	wsprintf(buf, L"Кадров в зоне: %d", compute.allData[z.sensor]);
+	SetWindowText(z.hLabelAllFrames, buf); 
+	wsprintf(buf, L"Измеренных кадров: %d  %s%%", compute.goodData[z.sensor], Wchar_from<double, 4>(100.0 * compute.goodData[z.sensor]/compute.allData[z.sensor])());
+	SetWindowText(z.hLabelCalculatedFrames, buf);
+}
+template<class O, class P>struct __RecomputeProc__
+{
+	void operator()(O &o, P &p)
+	{
+		p.update.set<O>(o.value);
+	}
+};
+void ACFViewer::RecomputeProc  (int x)
+{
+	bordersProc = NULL;
+	if(TypesizePasswordDlg().Do(hWnd))
+	{
+		CBase base(ParametersBase().name());
+		if(base.IsOpen())
+		{
+			ACFBorderTable &t = Singleton<ACFBorderTable>::Instance();
+			ZonesWindow &z = ZonesWindow::Instance();
+			unsigned currentSensor = z.sensor;
+			ACFBorderLeft<0> (&x)[TL::Length<ACFBorderTable::items_list>::value] = (ACFBorderLeft<0> (&)[TL::Length<ACFBorderTable::items_list>::value])t.items;
+			for(unsigned i = 0; i < TL::Length<ACFBorderTable::items_list>::value / 2; ++i)
+			{
+				if(i == currentSensor)
+				{
+					x[i * 2].value = acfBorderLeft;
+					x[i * 2 + 1].value = acfBorderRight;
+					compute.acfBorderLeft[z.sensor] = acfBorderLeft;
+					compute.acfBorderRight[z.sensor] = acfBorderRight;
+					break;
+				}
+			}
+			__update_data__<ACFBorderTable> _data(base);
+			TL::foreach<ACFBorderTable::items_list, __RecomputeProc__>()(t.items, _data);
+			_data.update.Where().ID(1).Execute();
+			Recalculation::Do(0);
+		}
+	}
+}
+//-----------------------------------------------------------------
 namespace ACF_Space
 {
 #define CONTEXT_MENU(name, txt, proc)\
@@ -139,17 +229,23 @@ template<>struct Event<TopMenu<name> >	   \
 	static void Do(HWND h)				   \
 	{									   \
 		zprint("\n");					   \
-		proc(h);							   \
+		((ACFViewer *)GetWindowLong(h, GWL_USERDATA))->bordersProc = proc;\
 	}									   \
 };
+CONTEXT_MENU(LeftBorder, L"Левая граница",   &ACFViewer::LeftBorderProc )
+CONTEXT_MENU(RightBorder, L"Правая граница", &ACFViewer::RightBorderProc)
 
-	void LeftBorderProc(HWND h){}
-	void RightBorderProc(HWND h){}
-	void RecomputeProc(HWND h){}
-
-CONTEXT_MENU(LeftBorder, L"Левая граница", LeftBorderProc)
-CONTEXT_MENU(RightBorder, L"Правая граница", RightBorderProc)
-CONTEXT_MENU(Recompute, L"Пересчитать зону", RecomputeProc)
+struct Recompute{};
+template<>struct TopMenu<Recompute>{typedef NullType list;};
+MENU_TEXT(L"Сохранить", TopMenu<Recompute>)
+template<>struct Event<TopMenu<Recompute> >	   
+{										   
+	static void Do(HWND h)				   
+	{									   
+		((ACFViewer *)GetWindowLong(h, GWL_USERDATA))->RecomputeProc(0);
+	}									   
+};
+//CONTEXT_MENU(Recompute, L"Сохранить", &ACFViewer::RecomputeProc  )
 									   
 #undef CONTEXT_MENU
 
@@ -158,7 +254,7 @@ void RightButtonDown(HWND h)
 	PopupMenu<TL::MkTlst<
 		TopMenu<LeftBorder>
 		, TopMenu<RightBorder>
-		//, Separator<0>
+		, Separator<0>
 		, TopMenu<Recompute>
 	>::Result>::Do(h, h);
 }
@@ -184,8 +280,10 @@ void ACFViewer::operator()(TMouseWell &l)
 	GetWindowRect(l.hwnd, &r);
 	if(InRect(l.x, l.y, r))
 	{
+		int dx = l.delta / 120;
+		if(NULL != bordersProc) (this->*bordersProc)(dx);
 		mouseMove = false;
-		storedMouseMove.x -= l.delta / 120;
+		storedMouseMove.x -= dx;
 		cursor.VerticalCursor(storedMouseMove, HDCGraphics(storedMouseMove.hwnd, backScreen));
 	}
 }

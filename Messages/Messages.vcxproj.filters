@@ -203,6 +203,9 @@
     <ClInclude Include="..\Ini\WindowsPosition.h">
       <Filter>Ini</Filter>
     </ClInclude>
+    <ClInclude Include="..\templates\templates.hpp">
+      <Filter>templates</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Messages.rc">

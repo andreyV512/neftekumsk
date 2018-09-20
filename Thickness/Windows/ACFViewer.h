@@ -41,8 +41,13 @@ public:
 private:
 	CursorLabel cursorLabel;
 public:
+	void (ACFViewer::*bordersProc)(int);
+	void LeftBorderProc (int);
+	void RightBorderProc(int);
+	void RecomputeProc  (int);
+public:
 	HWND hWnd;
-	double coefficientA, coefficientB, peak, minEnergy, thickness, acfBorderLeft, acfBorderRight;
+	int /*coefficientA, coefficientB, peak, minEnergy, thickness,*/ acfBorderLeft, acfBorderRight;
 	ACFViewer();												   
 	void operator()(TSize &);
 	void operator()(TPaint &);

@@ -52,12 +52,10 @@ namespace MainWindowMenu
 	MENU_ITEM(L"Оси толщины", Axes)
 	MENU_ITEM(L"Границы АЧХ", ACFBorderDlg)
 	MENU_ITEM(L"Ширина медианного фильтра", MedianFiltreDlg)
-	//MENU_ITEM(L"Диаметр трубы", DiameterTubeDlg)
 
 	template<>struct TopMenu<MainOptionTypeSize>
 	{
 		typedef TL::MkTlst<
-		//	 MenuItem<DiameterTubeDlg>
 		     MenuItem<ThicknessTreshold>
 			, MenuItem<DeadZones>
 			, MenuItem<AllowableThickness>
@@ -121,7 +119,7 @@ namespace MainWindowMenu
 		>::Result list;		
 	};
 	// ----------------------------------------------------------------------------------------------------
-	struct MainAbout: AboutWindowDlg{};//{static void Do(HWND){zprint("");}};
+	struct MainAbout: AboutWindowDlg{};
 	MENU_TEXT(L"О программе", TopMenu<MainAbout>)
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	MENU_ITEM(L"О программе", MainAbout)

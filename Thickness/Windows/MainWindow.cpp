@@ -42,7 +42,7 @@ void MainWindow::operator()(TSize &m)
 //------------------------------------------------------------------------
 void MainWindow::operator()(TCommand &m)
 {
-	GetMenuToolBarEvent(m);
+	EventDo(m);
 }
 //------------------------------------------------------------------------
 void MainWindow::operator()(TGetMinMaxInfo &m)

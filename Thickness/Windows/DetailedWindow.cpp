@@ -143,7 +143,7 @@ DetailedWindow &DetailedWindow::Instance()
 //------------------------------------------------------------------------------
 void DetailedWindow::operator()(TCommand &m)
 {
-	GetMenuToolBarEvent(m);
+	EventDo(m);
 	dprint("TCommand %s", __FUNCTION__);
 }
 //------------------------------------------------------------------------

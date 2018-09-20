@@ -12,6 +12,7 @@
 #include "PrimaryData.h"
 #include "Communication.h"
 #include "Strobes.h"
+#include "ZonesData.h"
 
 #include "Lan.h"
 
@@ -36,22 +37,8 @@ Compute::Compute(PrimaryData &pd)
 	, tresholdDefect(Singleton<ThresholdsTable>::Instance().items.get<BorderDefect>().value)
 	, deadAreaMM0 (Singleton<DeadAreaTable>::Instance().items.get<DeadAreaMM0>().value)
 	, deadAreaMM1(Singleton<DeadAreaTable>::Instance().items.get<DeadAreaMM1>().value)
-//	, lengthTube    (Singleton<ThresholdsTable>::Instance().items.get<LengthTube>().value)
-
-
-
-
-//	, nominalThickness(Singleton<ThresholdsTable>::Instance().items.get<NominalThickness>().value)
-//	, nominalPercentMin(Singleton<ThresholdsTable>::Instance().items.get<NominalPercentMin>().value)
 	, thicknessData(::thicknessData)
-	//, nominalPercentMax(Singleton<ThresholdsTable>::Instance().items.get<NominalPercentMax>().value)
-	//, defectDifferentWallPercent(Singleton<ThresholdsTable>::Instance().items.get<DefectDifferentWallPercent>().value)
-//	, frequencyFrames(Singleton<AdditionalSettingsTable>::Instance().items.get<FrequencyFrames>().value)
-//	, deadAreaMM0(Singleton<DeadAreaTable>::Instance().items.get<DeadAreaMM0>().value)
-//	, deadAreaMM1(Singleton<DeadAreaTable>::Instance().items.get<DeadAreaMM1>().value)	
 	, medianFiltreLength(Singleton<MedianFilterTable>::Instance().items.get<MedianFilter>().value)
-	//, acfBorderLeft(Singleton<ACFBorderTable>::Instance().items.get<ACFBorderLeft>().value)
-	//, acfBorderRight(Singleton<ACFBorderTable>::Instance().items.get<ACFBorderRight>().value)
 {
 	InitializeCriticalSection(&cs0);
 	InitializeCriticalSection(&cs1);
@@ -90,7 +77,6 @@ template<class O, class P>struct Compute::__init_offset__
 		   - p->coefficientB[i]) / p->coefficientA[i]
 		);
 		
-		//double nominalThickness = Singleton<ThresholdsTable>::Instance().items.get<Border2Class>().value;
 		p->maxOffset[i] = unsigned((Singleton<BorderCredibilityTable>::Instance().items.get<MaximumThicknessPipeWall>().value
 			- p->coefficientB[i]) / p->coefficientA[i]
 		);
@@ -123,7 +109,6 @@ template<int N, class P>struct Compute::__init_left_acf__<ACFBorderLeft<N>, P>
 	void operator()(ACFBorderLeft<N> *o, P *p)
 	{
 		p->acfBorderLeft[N] = o->value;
-			//Singleton<ACFBorderTable>::Instance().items.get<ACFBorderLeft<N>>().value;
 	}
 };
 template<int N, class P>struct Compute::__init_left_acf__<ACFBorderRight<N>, P>
@@ -133,7 +118,6 @@ template<int N, class P>struct Compute::__init_right_acf__<ACFBorderRight<N>, P>
 	void operator()(ACFBorderRight<N> *o, P *p)
 	{
 		p->acfBorderRight[N] = o->value;
-			//&Singleton<ACFBorderTable>::Instance().items.get<ACFBorderRight<N>>().value;
 	}
 };
 template<int N, class P>struct Compute::__init_right_acf__<ACFBorderLeft<N>, P>
@@ -201,10 +185,6 @@ void Compute::InitParam()
 		filtre[i].SetLength(medianFiltreLength);
 		filtre[i].Clear();
 	}
-	//defectBorderMin = tresholdDefect;
-	//defectBorderMax = treshold2Class;
-	//defectBorder3 = treshold3Class;
-	
 }
 //-----------------------------------------------------------------------------------------
 void Compute::EndAdjustmentsTube()//коррекция результата с учётом мёртвой зоны в конце трубы
@@ -410,13 +390,6 @@ void Compute::Calculation()
 							, data[index]
 							);
 						}
-						/*
-						if(thicknessMax - thicknessMin > defectDifferentWall) 
-						{
-							if(PrimaryData::Nominal == thicknessStatus || PrimaryData::DeathZone == thicknessStatus)thicknessStatus = PrimaryData::DefectDifferentWall;
-							else thicknessStatus |= PrimaryData::DefectDifferentWall;
-						}
-						*/
 					}
 				}
 			}
@@ -625,10 +598,7 @@ struct __Recalculation__
 					, owner.primaryData.result[sens][i]
 				, owner.primaryData.status[sens][i]    
 				);
-			//	owner.primaryData.result[sens][i - owner.primaryData.trimOffset] = owner.primaryData.testThickness;
 			}
-			//owner.primaryData.testThickness += 0.1;
-			//if(owner.primaryData.testThickness > 10) owner.primaryData.testThickness = 0;
 		}
 	}
 	static void Proc(__Recalculation__ *d){d->Do();}
@@ -638,10 +608,6 @@ void Compute::Recalculation()
 {
 	compute.InitParam();
 	unsigned startTime = GetTickCount();
-	//defectBorderMin = tresholdDefect;
-	//defectBorderMax = treshold2Class;
-	//defectBorder3 =  treshold3Class;
-
 	ZeroMemory(&thicknessData, sizeof(thicknessData));
 	ZeroMemory(&sensorsData, sizeof(sensorsData));
 	ZeroMemory(primaryData.result, sizeof(primaryData.result));
@@ -837,28 +803,52 @@ void Compute::SubRecalculation(int start, int stop)
 	}
 }
 //------------------------------------------------------------------------------------
-void Compute::CalculationZoneSensor(int zone, int sens, int borderLeft, int borderRight, double *data, char *status)
+void Compute::CalculationZoneSensor(int zone, int sens,  double *data, char *status)
 {
 	double start = primaryData.offsetOfTime[zone];
 	double stop  = primaryData.offsetOfTime[1 + zone];
-
-	int tmpLeft = acfBorderLeft[sens];
-	int tmpRight = acfBorderRight[sens];
-
-	acfBorderLeft[sens]  = borderLeft;
-	acfBorderRight[sens] = borderRight;
-
-	for(int i = (int)start, j = 0; i < (int)stop; ++i, ++j)
+	allData[sens] = 0;
+	goodData[sens] = 0;
+	int widthFiltre = Singleton<MedianFilterTable>::Instance().items.get<MedianFilter>().value;
+	//if(widthFiltre > 1)
+	//{
+	//	int st = start - widthFiltre;
+	//	MedianFiltre
+	//		if(st > 0)
+	//		{
+	//
+	//		}
+	//}
+	double d[100 + ZonesData::MAX_ZONES_COUNT];
+	char s[100 + ZonesData::MAX_ZONES_COUNT];
+	int st = (int)start - widthFiltre;
+	if(st < 0) st = (int)start;
+	for(int i = st, j = 0; i < (int)stop; ++i, ++j)
 	{
 		CalculationOneFrame(//вычисление кадра первичных данных(474, 986)
 			sens
 			, primaryData.SensorData(sens, i)
-			, data[j]
-			, status[j] 
+			, d[j]
+			, s[j] 
 		);
 	}
-
-	acfBorderLeft[sens] = tmpLeft;
-	acfBorderRight[sens] = tmpRight;
+	int len = stop - start;
+	if(widthFiltre > 1)
+	{
+		MedianFiltre filtre;
+		filtre.SetLength(widthFiltre);
+		//int index = (filtre[i])(data);
+		filtre.Init(d);
+		for(int i = widthFiltre, j = 0; i < len; ++i, ++j)
+		{
+			int index = filtre(&d[i]);
+			data[j] = (&d[i])[index];
+			status[j] = (&s[i])[index];
+		}
+		return;
+	}
+	
+	memmove(data, d, len * sizeof(double));
+	memmove(status, s, len * sizeof(char));
 }
 
