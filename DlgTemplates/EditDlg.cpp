@@ -19,7 +19,7 @@ EditDlg::EditDlg(HWND hWnd
 	wchar_t *c = (wchar_t *)&p[sizeof(DLGTEMPLATE) + 4];
     wcscpy(c, title);
 	
-	DialogBoxIndirectParam(hInstance, &d, hWnd, (DLGPROC)Proc, (LPARAM)this);
+	result = TRUE == DialogBoxIndirectParam(hInstance, &d, hWnd, (DLGPROC)Proc, (LPARAM)this);
     LocalFree((HLOCAL)p);
 }
 LRESULT CALLBACK EditDlg::Proc(HWND h, UINT msg, WPARAM wParam, LPARAM lParam)

@@ -8,6 +8,7 @@ public:
 	bool(*CancelBtn)(HWND, wchar_t *);
 	static bool Dump(HWND, wchar_t *){return true;}
 	wchar_t buf[128];
+	bool result;
 	EditDlg(HWND hWnd
 		, wchar_t *title, wchar_t *data, bool(*ok)(HWND, wchar_t *) = Dump
 		, bool(*cancel)(HWND, wchar_t *) = Dump);
