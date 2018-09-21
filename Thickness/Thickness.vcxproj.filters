@@ -435,6 +435,9 @@
     <ClInclude Include="..\window_tool\TEvent.h">
       <Filter>window_tool</Filter>
     </ClInclude>
+    <ClInclude Include="..\templates\templates.hpp">
+      <Filter>templates</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

@@ -4,6 +4,13 @@
 #include "EmptyWindow.h"
 #include "Compute.h"
 #include "AppBase.h"
+#include "DlgTemplates\ParamDlg.hpp"
+#include "MenuApi.h"
+#include "DebugMess.h"
+#include "DlgTemplates/EditDlg.h"
+#include "templates/templates.hpp"
+#include "ZonesWindow.h"
+#include "Dlg.h"
 //------------------------------------------------------------------------------------------------------
 using namespace Gdiplus;
 
@@ -116,7 +123,7 @@ void CorrelationViewer::operator()(TSize &l)
 		  - coefficientB) / coefficientA;
 
 	
-	chart.items.get<PeakBorder>().value = peak;
+	chart.items.get<PeakBorder>().value = paramPeak * data[0];
 	chart.items.get<BottomBorder>().value = bottomBorder;
 	chart.items.get<MinEnergyBorder>().value = minEnergy;
 
@@ -158,8 +165,179 @@ void  CorrelationViewer::operator()(TLButtonDown &l)
 	}
 }
 //-----------------------------------------------------------------
+namespace CorrelationSpace
+{
+	bool MinEnergyOkBtn(HWND h, wchar_t *txt)
+	{
+		double t = Wchar_to<double>()(txt);
+		if(t <= 0)
+		{
+			MessageBox(h, L"Параметр должен быть больше 0", L"Ошибка !!!", MB_ICONERROR);
+			return false;
+		}	
+		CorrelationViewer &w = ZonesWindow::Instance().correlationViewer;
+		if(t >= w.maxEnergy)
+		{
+			wchar_t buf[128];
+			wsprintf(buf,  L"Параметр должен быть меньше %s", Wchar_from<double, 5>(w.maxEnergy)());
+			MessageBox(h, buf, L"Ошибка !!!", MB_ICONERROR);
+			return false;
+		}	
+		w.minEnergy = t;
+		return true;
+	}
+	bool MaxEnergyOkBtn(HWND h, wchar_t *txt)
+	{
+		double t = Wchar_to<double>()(txt);
+		if(t <= 0)
+		{
+			MessageBox(h, L"Параметр должен быть больше 0", L"Ошибка !!!", MB_ICONERROR);
+			return false;
+		}	
+		CorrelationViewer &w = ZonesWindow::Instance().correlationViewer;
+		if(t >= w.maxEnergy)
+		{
+			wchar_t buf[128];
+			wsprintf(buf,  L"Параметр должен быть больше %s", Wchar_from<double, 5>(w.minEnergy)());
+			MessageBox(h, buf, L"Ошибка !!!", MB_ICONERROR);
+			return false;
+		}	
+		w.maxEnergy = t;
+		return true;
+	}
+	bool PeakOkBtn(HWND h, wchar_t *txt)
+	{
+		double t = Wchar_to<double>()(txt);
+		if(t <= 0)
+		{
+			MessageBox(h, L"Параметр должен быть больше 0", L"Ошибка !!!", MB_ICONERROR);
+			return false;
+		}	
+		if(t >= 1.0)
+		{
+			MessageBox(h, L"Параметр должен быть меньше 1", L"Ошибка !!!", MB_ICONERROR);
+			return false;
+		}	
+		ZonesWindow::Instance().correlationViewer.paramPeak = t;
+		return true;
+	}
+
+	struct __save_data__
+	{
+		int id;
+		double MinEnergy, MaxEnergy, Peak;
+	};
+	template<class O, class P>struct __save__;
+
+#define SAVE(name)template<int N, class P>struct __save__<name<N>, P>\
+{void operator()(name<N> &o, P &p){if(N == p.id)o.value = p.name;}};
+
+SAVE(MinEnergy)
+SAVE(MaxEnergy)
+SAVE(Peak)
+
+#undef SAVE	
+template<class O, class P>struct __RecomputeProc__
+{
+	void operator()(O &o, P &p)
+	{
+		p.update.set<O>(o.value);
+	}
+};
+}
+void CorrelationViewer::ChangeParam()
+{
+	ZonesWindow &z = ZonesWindow::Instance();
+	double tmpMinEnergy = compute.minEnergy[z.sensor];
+	double tmpMaxEnergy = compute.maxEnergy[z.sensor];
+	double tmpPeak      = compute.peak[z.sensor];     
+	compute.minEnergy[z.sensor] = minEnergy;
+	compute.maxEnergy[z.sensor]	= maxEnergy;
+	compute.peak[z.sensor]     	= paramPeak;
+	compute.CalculationZoneSensor(z.zone - 1, z.sensor, z.zonesViewer.data.zones, z.zonesViewer.data.status);
+	compute.minEnergy[z.sensor] = tmpMinEnergy;
+	compute.maxEnergy[z.sensor] = tmpMaxEnergy;
+	compute.peak[z.sensor]      = tmpPeak     ;
+	RepaintWindow(hWnd);
+	RepaintWindow(ZonesWindow::Instance().zonesViewer.hWnd);
+}
+void CorrelationViewer::MinEnergy()
+{
+	Wchar_from<double, 5> buf(minEnergy);
+	if(EditDlg(hWnd, L"Минимальная энергия", buf(), &CorrelationSpace::MinEnergyOkBtn).result)
+	{
+		ChangeParam();
+	}
+}
+void CorrelationViewer::MaxEnergy()
+{
+	Wchar_from<double, 5> buf(maxEnergy);
+	if(EditDlg(hWnd, L"Минимальная энергия", buf(), &CorrelationSpace::MaxEnergyOkBtn).result)
+	{
+		ChangeParam();
+	}
+}
+void CorrelationViewer::Peak()
+{
+	Wchar_from<double, 5> buf(paramPeak);
+	if(EditDlg(hWnd, L"Энергия к первому пику", buf(), &CorrelationSpace::PeakOkBtn).result)
+	{
+		ChangeParam();
+	}
+}
+void CorrelationViewer::Save()
+{
+	if(OptionPasswordDlg().Do(hWnd))
+	{
+		CorrelationSpace::__save_data__ data = {ZonesWindow::Instance().sensor, minEnergy, maxEnergy, paramPeak};
+		SignalParametersTable::TItems &items = Singleton<SignalParametersTable>::Instance().items;
+		TL::foreach<SignalParametersTable::items_list, CorrelationSpace::__save__>()(items, data);
+		CBase base(ParametersBase().name());
+		if(base.IsOpen())
+		{
+			__update_data__<SignalParametersTable> _data(base);
+			TL::foreach<SignalParametersTable::items_list, CorrelationSpace::__RecomputeProc__>()(items, _data);
+			_data.update.Where().ID(1).Execute();
+		}
+		Recalculation::Do(0);
+	}
+}
+//--------------------------------------------------------------------
+namespace CorrelationSpace
+{
+#define CONTEXT_MENU(name, txt, proc)\
+struct name{};\
+template<>struct TopMenu<name>{typedef NullType list;};\
+MENU_TEXT(txt, TopMenu<name>)\
+template<>struct Event<TopMenu<name> >	   \
+{										   \
+	static void Do(HWND h)				   \
+	{									   \
+		zprint("\n");					   \
+		((CorrelationViewer *)GetWindowLong(h, GWL_USERDATA))->proc();\
+	}									   \
+};
+
+CONTEXT_MENU(_MinEnergy, L"Минимальная энергия",   CorrelationViewer::MinEnergy )
+CONTEXT_MENU(_MaxEnergy, L"Максимальная энергия", CorrelationViewer::MaxEnergy)
+CONTEXT_MENU(_Peak, L"Энергия к первому пику", CorrelationViewer::Peak)
+CONTEXT_MENU(_Save, L"Сохранить", CorrelationViewer::Save)
+#undef CONTEXT_MENU
+
+void RightButtonDown(HWND h)
+{
+	PopupMenu<TL::MkTlst<
+		TopMenu<_MinEnergy>
+		, TopMenu<_MaxEnergy>
+		, TopMenu<_Peak>
+		, Separator<0>
+		, TopMenu<_Save>
+	>::Result>::Do(h, h);
+}
+}
 void CorrelationViewer::operator()(TRButtonDown &l)
 {
+	CorrelationSpace::RightButtonDown(l.hwnd);
 }
 //--------------------------------------------------------------------------------------------------
 void CorrelationViewer::operator()(TLButtonDbClk &l)

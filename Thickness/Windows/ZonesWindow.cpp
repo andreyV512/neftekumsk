@@ -114,12 +114,9 @@ void ZonesWindow::Open_(unsigned sensor_, unsigned zone_)
 
 		correlationViewer.coefficientA = compute.coefficientA[sensor];
 		correlationViewer.coefficientB = compute.coefficientB[sensor];
+		correlationViewer.paramPeak = compute.peak[sensor];
 		correlationViewer.minEnergy = compute.minEnergy[sensor];
-
-		//acfViewer.coefficientA = compute.coefficientA[sensor];
-		//acfViewer.coefficientB = compute.coefficientB[sensor];
-		//acfViewer.peak = compute.peak[sensor];
-		//acfViewer.minEnergy = compute.minEnergy[sensor];
+		correlationViewer.maxEnergy = compute.maxEnergy[sensor];
 
 		acfViewer.acfBorderLeft = compute.acfBorderLeft[sensor];
 		acfViewer.acfBorderRight = compute.acfBorderRight[sensor];

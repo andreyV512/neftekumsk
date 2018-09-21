@@ -245,7 +245,6 @@ template<>struct Event<TopMenu<Recompute> >
 		((ACFViewer *)GetWindowLong(h, GWL_USERDATA))->RecomputeProc(0);
 	}									   
 };
-//CONTEXT_MENU(Recompute, L"Сохранить", &ACFViewer::RecomputeProc  )
 									   
 #undef CONTEXT_MENU
 

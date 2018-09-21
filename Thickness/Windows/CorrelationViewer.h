@@ -44,11 +44,17 @@ public:
 		, MinEnergyBorder
 		, BottomBorder
 	>::Result> chart;
+	
+	void MinEnergy();
+	void MaxEnergy();
+	void Peak();
+	void Save();
 private:
 	CursorLabel cursorLabel;
+	void ChangeParam();
 public:
 	HWND hWnd;
-	double coefficientA, coefficientB, peak, bottomBorder, minEnergy, thickness;
+	double coefficientA, coefficientB, peak, bottomBorder, minEnergy, maxEnergy, thickness, paramPeak;
 	char status;
 	CorrelationViewer();
 	void operator()(TSize &);
