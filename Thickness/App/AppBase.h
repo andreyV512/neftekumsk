@@ -29,7 +29,7 @@ DEFINE_PARAM(BorderDefect, double, 3.6)
 struct ThresholdsTable
 {
 	typedef TL::MkTlst<
-		Border2Class
+		Border2Class		
 		, Border3Class
 		, BorderDefect
 	>::Result items_list;
