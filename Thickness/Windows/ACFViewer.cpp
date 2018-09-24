@@ -180,6 +180,8 @@ void ACFViewer::RightBorderProc(int x)
 	wsprintf(buf, L"Измеренных кадров: %d  %s%%", compute.goodData[z.sensor], Wchar_from<double, 4>(100.0 * compute.goodData[z.sensor]/compute.allData[z.sensor])());
 	SetWindowText(z.hLabelCalculatedFrames, buf);
 }
+namespace ACF_Space
+{
 template<class O, class P>struct __RecomputeProc__
 {
 	void operator()(O &o, P &p)
@@ -187,6 +189,34 @@ template<class O, class P>struct __RecomputeProc__
 		p.update.set<O>(o.value);
 	}
 };
+struct __save_data__
+{
+	int id, acfBorderLeft, acfBorderRight;
+};
+template<class O, class P>struct __save__;
+template<int N, class P>struct __save__<ACFBorderLeft<N>, P>
+{
+	void operator()(ACFBorderLeft<N> &o, P &p)
+	{
+		if(N == p.id)
+		{
+			o.value = p.acfBorderLeft;
+			compute.acfBorderLeft[N] = p.acfBorderLeft;
+		}
+	}
+};
+template<int N, class P>struct __save__<ACFBorderRight<N>, P>
+{
+	void operator()(ACFBorderRight<N> &o, P &p)
+	{
+		if(N == p.id)
+		{
+			o.value = p.acfBorderRight;
+			compute.acfBorderRight[N] = p.acfBorderRight;
+		}
+	}
+};
+}
 void ACFViewer::RecomputeProc  (int x)
 {
 	bordersProc = NULL;
@@ -196,22 +226,10 @@ void ACFViewer::RecomputeProc  (int x)
 		if(base.IsOpen())
 		{
 			ACFBorderTable &t = Singleton<ACFBorderTable>::Instance();
-			ZonesWindow &z = ZonesWindow::Instance();
-			unsigned currentSensor = z.sensor;
-			ACFBorderLeft<0> (&x)[TL::Length<ACFBorderTable::items_list>::value] = (ACFBorderLeft<0> (&)[TL::Length<ACFBorderTable::items_list>::value])t.items;
-			for(unsigned i = 0; i < TL::Length<ACFBorderTable::items_list>::value / 2; ++i)
-			{
-				if(i == currentSensor)
-				{
-					x[i * 2].value = acfBorderLeft;
-					x[i * 2 + 1].value = acfBorderRight;
-					compute.acfBorderLeft[z.sensor] = acfBorderLeft;
-					compute.acfBorderRight[z.sensor] = acfBorderRight;
-					break;
-				}
-			}
+			ACF_Space::__save_data__ save_data = {ZonesWindow::Instance().sensor, acfBorderLeft, acfBorderRight};
+			TL::foreach<ACFBorderTable::items_list, ACF_Space::__save__>()(t.items, save_data);
 			__update_data__<ACFBorderTable> _data(base);
-			TL::foreach<ACFBorderTable::items_list, __RecomputeProc__>()(t.items, _data);
+			TL::foreach<ACFBorderTable::items_list, ACF_Space::__RecomputeProc__>()(t.items, _data);
 			_data.update.Where().ID(1).Execute();
 			Recalculation::Do(0);
 		}
