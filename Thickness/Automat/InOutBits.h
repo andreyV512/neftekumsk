@@ -12,8 +12,8 @@
 
 IN_BITS(SQ1           , 1 << 0)
 IN_BITS(SQ3           , 1 << 1)
-IN_BITS(StateB        , 1 << 3)
-IN_BITS(StateA        , 1 << 2)
+IN_BITS(StateB        , 1 << 2)
+IN_BITS(StateA        , 1 << 3)
 IN_BITS(Run           , 1 << 4)
 IN_BITS(ControlCircuit, 1 << 5)
 IN_BITS(Work          , 1 << 6)

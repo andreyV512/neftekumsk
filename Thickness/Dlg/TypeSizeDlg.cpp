@@ -7,9 +7,9 @@
 
 #include "MainWindow.h"
 namespace{
-	PARAM_TITLE(Border2Class, L"Порог класс 2")
-	PARAM_TITLE(Border3Class, L"Порог класс 3")	
-	PARAM_TITLE(BorderDefect, L"Порог брак")	
+	PARAM_TITLE(Border2Class, L"Порог класс 1")
+	PARAM_TITLE(Border3Class, L"Порог класс 2")	
+	PARAM_TITLE(BorderDefect, L"Порог класс 2")	
 
 	MIN_EQUAL_VALUE(Border2Class, 2)
 	MAX_EQUAL_VALUE(Border2Class, 15)

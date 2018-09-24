@@ -22,9 +22,9 @@ struct CurrentParametersTable
 };
 STR_PARAM(NameParam, 128, L"NONAME")
 
-DEFINE_PARAM(Border2Class, double, 5.5)
-DEFINE_PARAM(Border3Class, double, 4.8)
-DEFINE_PARAM(BorderDefect, double, 3.2)
+DEFINE_PARAM(Border2Class, double, 4.8)
+DEFINE_PARAM(Border3Class, double, 3.8)
+DEFINE_PARAM(BorderDefect, double, 3.6)
 
 struct ThresholdsTable
 {
