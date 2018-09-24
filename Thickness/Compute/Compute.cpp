@@ -832,7 +832,7 @@ void Compute::CalculationZoneSensor(int zone, int sens,  double *data, char *sta
 			, s[j] 
 		);
 	}
-	int len = stop - start;
+	int len = int(stop - start);
 	if(widthFiltre > 1)
 	{
 		MedianFiltre filtre;
