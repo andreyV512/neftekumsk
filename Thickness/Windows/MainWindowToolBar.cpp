@@ -113,7 +113,7 @@ void TestBase(HWND)
 
 void MainWindowToolBar::Cycle()
 {
-	HWND h = app.mainWindow.hWnd;
+	HWND h = app.mainWindow.toolBar.hWnd;
 	SendMessage(h, TB_ENABLEBUTTON, IDB_CycleBtn   , MAKELONG(FALSE, 0));
 	SendMessage(h, TB_ENABLEBUTTON, IDB_Reset      , MAKELONG(TRUE, 0));
 	SendMessage(h, TB_ENABLEBUTTON, IDB_QueryBtn   , MAKELONG(FALSE, 0));
@@ -123,7 +123,7 @@ void MainWindowToolBar::Cycle()
 
 void MainWindowToolBar::NoCycle()
 {
-	HWND h = app.mainWindow.hWnd;
+	HWND h = app.mainWindow.toolBar.hWnd;
 	SendMessage(h, TB_ENABLEBUTTON, IDB_CycleBtn   , MAKELONG(TRUE, 0));
 	SendMessage(h, TB_ENABLEBUTTON, IDB_Reset      , MAKELONG(FALSE, 0));
 	SendMessage(h, TB_ENABLEBUTTON, IDB_QueryBtn   , MAKELONG(TRUE, 0));

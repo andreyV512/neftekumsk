@@ -177,9 +177,6 @@
     <ClInclude Include="..\window_tool\InitToolbar.hpp">
       <Filter>window_tool</Filter>
     </ClInclude>
-    <ClInclude Include="Windows\SelectTypeSize.h">
-      <Filter>Windows\MainWindow</Filter>
-    </ClInclude>
     <ClInclude Include="App\AppBase.h">
       <Filter>App</Filter>
     </ClInclude>
@@ -438,6 +435,12 @@
     <ClInclude Include="..\templates\templates.hpp">
       <Filter>templates</Filter>
     </ClInclude>
+    <ClInclude Include="..\window_tool\SelectTypeSizeList.h">
+      <Filter>window_tool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\window_tool\MessagesInterface.h">
+      <Filter>window_tool</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -459,9 +462,6 @@
       <Filter>window_tool</Filter>
     </ClCompile>
     <ClCompile Include="Windows\MainWindowToolBar.cpp">
-      <Filter>Windows\MainWindow</Filter>
-    </ClCompile>
-    <ClCompile Include="Windows\SelectTypeSize.cpp">
       <Filter>Windows\MainWindow</Filter>
     </ClCompile>
     <ClCompile Include="App\AppBase.cpp">
@@ -715,6 +715,9 @@
     </ClCompile>
     <ClCompile Include="IOports\IOportsWindow.cpp">
       <Filter>Windows\IOports</Filter>
+    </ClCompile>
+    <ClCompile Include="..\window_tool\SelectTypeSizeList.cpp">
+      <Filter>window_tool</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

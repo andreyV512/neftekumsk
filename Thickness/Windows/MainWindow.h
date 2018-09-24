@@ -1,17 +1,17 @@
 #pragma once
-#include "SelectTypeSize.h"
 #include <windows.h>
 #include "message.h"
 #include "TopLabelViewer.h"
 #include "CheckBoxWidget.h"
 #include "MainWindowToolBar.h"
+#include "window_tool\SelectTypeSizeList.h"
 
 class ThicknessViewer;
 
 class MainWindow
 {
 public:
-	SelectTypeSize select;
+	SelectTypeSizeList select;
 	HWND hWnd;
 	HWND hStatusWindow;
 	MainWindowToolBar toolBar;

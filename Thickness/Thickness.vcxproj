@@ -123,7 +123,9 @@
     <ClInclude Include="..\window_tool\InitToolbar.hpp" />
     <ClInclude Include="..\window_tool\MenuAPI.h" />
     <ClInclude Include="..\window_tool\message.h" />
+    <ClInclude Include="..\window_tool\MessagesInterface.h" />
     <ClInclude Include="..\window_tool\Pass.h" />
+    <ClInclude Include="..\window_tool\SelectTypeSizeList.h" />
     <ClInclude Include="..\window_tool\TEvent.h" />
     <ClInclude Include="..\window_tool\ToolBarWidth.hpp" />
     <ClInclude Include="App\App.h" />
@@ -180,7 +182,6 @@
     <ClInclude Include="Windows\MainWindow.h" />
     <ClInclude Include="Windows\MainWindowMenu.hpp" />
     <ClInclude Include="Windows\MainWindowToolBar.h" />
-    <ClInclude Include="Windows\SelectTypeSize.h" />
     <ClInclude Include="Windows\SensorViewer.h" />
     <ClInclude Include="Windows\SignalData.h" />
     <ClInclude Include="Windows\SignalViewer.h" />
@@ -213,6 +214,7 @@
     <ClCompile Include="..\window_tool\EmptyWindow.cpp" />
     <ClCompile Include="..\window_tool\MenuAPI.cpp" />
     <ClCompile Include="..\window_tool\Pass.cpp" />
+    <ClCompile Include="..\window_tool\SelectTypeSizeList.cpp" />
     <ClCompile Include="App\App.cpp" />
     <ClCompile Include="App\AppBase.cpp" />
     <ClCompile Include="ArchiveEvents\ArchiveEvents.cpp" />
@@ -278,7 +280,6 @@
     <ClCompile Include="Windows\LabelMessage.cpp" />
     <ClCompile Include="Windows\MainWindow.cpp" />
     <ClCompile Include="Windows\MainWindowToolBar.cpp" />
-    <ClCompile Include="Windows\SelectTypeSize.cpp" />
     <ClCompile Include="Windows\SensorViewer.cpp">
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Communication;../Ini;../Log;../1730;ArchiveEvents;Automat;StoredData;Compute;FFT;../DebugApp;Lan;Lan/Include;../Thickness;../../DlgTemplates;Dlg;../Widgets;Data;../Graphics;..\Base;..\;Windows;App;..\window_tool;..\templates;..\debug_tools;ItemsData;</AdditionalIncludeDirectories>
     </ClCompile>
