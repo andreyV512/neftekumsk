@@ -285,6 +285,13 @@ void CorrelationViewer::Peak()
 		ChangeParam();
 	}
 }
+void CorrelationViewer::PeakBorder::Draw()
+{
+	double tmp = value;
+	value += ((Tchart &)chart).items.get<BottomBorder>().value;
+	HBorder::Draw();
+	value = tmp;
+}
 void CorrelationViewer::Save()
 {
 	if(OptionPasswordDlg().Do(hWnd))

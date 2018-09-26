@@ -30,9 +30,11 @@ bool ACFViewer::CursorLabel::Draw(TMouseMove &l, VGraphics &g)
 	if(leftOffs >= 0 && dimention_of(data) >= leftOffs)
 	{
 		double y = data[leftOffs];
-		sprintf(buf, "<ff0000>АЧХ  <ff>x<ff0000>%d <ff>y <ff0000>%f"
+		sprintf(buf, "<ff0000>АЧХ  <ff>x<ff0000>%d <ff>y <ff0000>%f <ff>левяя %.0f <ff>правая %.0f"
 			, leftOffs
 			, y
+			, owner.chart.items.get<LeftBorder>().value
+			, owner.chart.items.get<RightBorder>().value
 			);
 		RECT r;
 		GetClientRect(l.hwnd, &r);		

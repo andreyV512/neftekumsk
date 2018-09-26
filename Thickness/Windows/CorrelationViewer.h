@@ -29,11 +29,16 @@ private:
 public:
 	class LeftBorder : public VBorder{public:LeftBorder(Chart &c):VBorder(c){}};
 	class RightBorder : public VBorder{public:RightBorder(Chart &c):VBorder(c){}};
-	class PeakBorder : public HBorder{public:PeakBorder(Chart &c):HBorder(c){}};
+	class PeakBorder : public HBorder
+	{
+		public:
+			PeakBorder(Chart &c):HBorder(c){}
+			void Draw();
+	};
 	class MinEnergyBorder : public HBorder{public:MinEnergyBorder(Chart &c):HBorder(c){color = 0xffff0000;}};
 	class BottomBorder : public HBorder{public:BottomBorder(Chart &c):HBorder(c){color = 0xff0000ff;}};
 	class VCursor : public VBorder{public:VCursor(Chart &c):VBorder(c){color = 0xff0000ff;}};
-	ChartDraw<Chart, TL::MkTlst<
+	typedef ChartDraw<Chart, TL::MkTlst<
 		LeftAxes
 		, BottomAxes 
 		, LineSeries
@@ -43,7 +48,8 @@ public:
 		, PeakBorder
 		, MinEnergyBorder
 		, BottomBorder
-	>::Result> chart;
+	>::Result> Tchart;
+	Tchart chart;
 	
 	void MinEnergy();
 	void MaxEnergy();

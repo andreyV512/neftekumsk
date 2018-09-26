@@ -216,7 +216,7 @@ struct OutputBitsTable
  template<int>struct Peak;
 
 #define PEAK(n)\
-	DEFINE_PARAM_NUM(MinEnergy, n, double, 0.1)\
+	DEFINE_PARAM_NUM(MinEnergy, n, double, 0.001)\
 	DEFINE_PARAM_NUM(MaxEnergy, n, double, 1000)\
 	DEFINE_PARAM_NUM(Peak, n, double, 0.3)
 
