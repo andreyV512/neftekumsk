@@ -117,7 +117,7 @@ void MainWindowToolBar::Cycle()
 	SendMessage(h, TB_ENABLEBUTTON, IDB_CycleBtn   , MAKELONG(FALSE, 0));
 	SendMessage(h, TB_ENABLEBUTTON, IDB_Reset      , MAKELONG(TRUE, 0));
 	SendMessage(h, TB_ENABLEBUTTON, IDB_QueryBtn   , MAKELONG(FALSE, 0));
-	SendMessage(h, TB_ENABLEBUTTON, IDB_MashBtn    , MAKELONG(FALSE, 0));
+//	SendMessage(h, TB_ENABLEBUTTON, IDB_MashBtn    , MAKELONG(FALSE, 0));
 	SendMessage(h, TB_ENABLEBUTTON, IDB_SensorsUnit, MAKELONG(FALSE, 0));
 }
 
@@ -127,7 +127,7 @@ void MainWindowToolBar::NoCycle()
 	SendMessage(h, TB_ENABLEBUTTON, IDB_CycleBtn   , MAKELONG(TRUE, 0));
 	SendMessage(h, TB_ENABLEBUTTON, IDB_Reset      , MAKELONG(FALSE, 0));
 	SendMessage(h, TB_ENABLEBUTTON, IDB_QueryBtn   , MAKELONG(TRUE, 0));
-	SendMessage(h, TB_ENABLEBUTTON, IDB_MashBtn    , MAKELONG(TRUE, 0));
+//	SendMessage(h, TB_ENABLEBUTTON, IDB_MashBtn    , MAKELONG(TRUE, 0));
 	SendMessage(h, TB_ENABLEBUTTON, IDB_SensorsUnit, MAKELONG(TRUE, 0));
 }
 
