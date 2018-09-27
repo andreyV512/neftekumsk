@@ -6,7 +6,7 @@ public:
 	int countZones;
 	double zones[MAX_ZONES_COUNT];
 	char status[MAX_ZONES_COUNT];
-	int offs[MAX_ZONES_COUNT];
+	char offs[MAX_ZONES_COUNT];
 	ZonesData();
 	void Clear();
 	bool SetZones(int countZones, double *data);

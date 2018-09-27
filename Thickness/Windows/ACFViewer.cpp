@@ -145,12 +145,11 @@ void ACFViewer::LeftBorderProc (int x)
 	compute.acfBorderLeft[z.sensor] = (int)acfBorderLeft;
 	int tmpRight = compute.acfBorderRight[z.sensor];
 	compute.acfBorderRight[z.sensor] = (int)acfBorderRight;
-	compute.CalculationZoneSensor(z.zone - 1, z.sensor, z.zonesViewer.data.zones, z.zonesViewer.data.status);
+	compute.CalculationZoneSensor(z.zone - 1, z.sensor, z.zonesViewer.data.zones, z.zonesViewer.data.status, z.zonesViewer.data.offs);
 	RepaintWindow(z.zonesViewer.hWnd);
 	z.MouseMoveHandler(z.currentOffsetInZone);
 	compute.acfBorderLeft[z.sensor] = tmpLeft;
 	compute.acfBorderRight[z.sensor] = tmpRight;
-	dprint("left axes %d\n", (int)acfBorderLeft);
 
 	wchar_t buf[512];
 	wsprintf(buf, L"Кадров в зоне: %d", compute.allData[z.sensor]);
@@ -169,12 +168,11 @@ void ACFViewer::RightBorderProc(int x)
 	compute.acfBorderLeft[z.sensor] = (int)acfBorderLeft;
 	int tmpRight = compute.acfBorderRight[z.sensor];
 	compute.acfBorderRight[z.sensor] = (int)acfBorderRight;
-	compute.CalculationZoneSensor(z.zone - 1, z.sensor, z.zonesViewer.data.zones, z.zonesViewer.data.status);
+	compute.CalculationZoneSensor(z.zone - 1, z.sensor, z.zonesViewer.data.zones, z.zonesViewer.data.status, z.zonesViewer.data.offs);
 	RepaintWindow(z.zonesViewer.hWnd);
 	z.MouseMoveHandler(z.currentOffsetInZone);	
 	compute.acfBorderLeft[z.sensor] = tmpLeft;
 	compute.acfBorderRight[z.sensor] = tmpRight;
-	dprint("right axes %d\n", (int)acfBorderRight);
 
 	wchar_t buf[512];
 	wsprintf(buf, L"Кадров в зоне: %d", compute.allData[z.sensor]);

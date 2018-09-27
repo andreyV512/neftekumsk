@@ -254,7 +254,7 @@ void CorrelationViewer::ChangeParam()
 	compute.minEnergy[z.sensor] = minEnergy;
 	compute.maxEnergy[z.sensor]	= maxEnergy;
 	compute.peak[z.sensor]     	= paramPeak;
-	compute.CalculationZoneSensor(z.zone - 1, z.sensor, z.zonesViewer.data.zones, z.zonesViewer.data.status);
+	compute.CalculationZoneSensor(z.zone - 1, z.sensor, z.zonesViewer.data.zones, z.zonesViewer.data.status, z.zonesViewer.data.offs);
 	compute.minEnergy[z.sensor] = tmpMinEnergy;
 	compute.maxEnergy[z.sensor] = tmpMaxEnergy;
 	compute.peak[z.sensor]      = tmpPeak     ;

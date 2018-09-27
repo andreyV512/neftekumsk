@@ -192,7 +192,7 @@ void ZonesViewer::operator()(TMouseWell &l)
 
 		chart.items.get<BottomAxesInt>().OffsetToPixel(storedMouseMove.x, l.delta / 120);
 		if(backScreen)cursor.VerticalCursor(storedMouseMove, HDCGraphics(storedMouseMove.hwnd, backScreen));
-		if(obj&&ptr)(obj->*ptr)(offset);
+		if(obj&&ptr)(obj->*ptr)(offset + data.offs[offset]);
 	}
 }
 //---------------------------------------------------------------------------------------------------

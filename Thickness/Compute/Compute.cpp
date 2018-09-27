@@ -803,22 +803,13 @@ void Compute::SubRecalculation(int start, int stop)
 	}
 }
 //------------------------------------------------------------------------------------
-void Compute::CalculationZoneSensor(int zone, int sens,  double *data, char *status)
+void Compute::CalculationZoneSensor(int zone, int sens,  double *data, char *status, char *offs)
 {
 	double start = primaryData.offsetOfTime[zone];
 	double stop  = primaryData.offsetOfTime[1 + zone];
 	allData[sens] = 0;
 	goodData[sens] = 0;
-	int widthFiltre = Singleton<MedianFilterTable>::Instance().items.get<MedianFilter>().value;
-	//if(widthFiltre > 1)
-	//{
-	//	int st = start - widthFiltre;
-	//	MedianFiltre
-	//		if(st > 0)
-	//		{
-	//
-	//		}
-	//}
+	int widthFiltre = Singleton<MedianFilterTable>::Instance().items.get<MedianFilter>().value;	
 	double d[100 + ZonesData::MAX_ZONES_COUNT];
 	char s[100 + ZonesData::MAX_ZONES_COUNT];
 	int st = (int)start - widthFiltre;
@@ -837,13 +828,13 @@ void Compute::CalculationZoneSensor(int zone, int sens,  double *data, char *sta
 	{
 		MedianFiltre filtre;
 		filtre.SetLength(widthFiltre);
-		//int index = (filtre[i])(data);
 		filtre.Init(d);
 		for(int i = widthFiltre, j = 0; i < len; ++i, ++j)
 		{
 			int index = filtre(&d[i]);
 			data[j] = (&d[i])[index];
 			status[j] = (&s[i])[index];
+			offs[j] = (char)index;
 		}
 		return;
 	}

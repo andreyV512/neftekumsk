@@ -98,10 +98,11 @@ void ZonesWindow::Open_(unsigned sensor_, unsigned zone_)
 		sensor = sensor_;
 		if(dimention_of(zonesViewer.data.zones) < count ) count = dimention_of(zonesViewer.data.zones);
 		int calculated = 0;
+		compute.CalculationZoneSensor(zone - 1, sensor_, zonesViewer.data.zones, zonesViewer.data.status, zonesViewer.data.offs);
 		for(int i = 0, j = offset; i < count + 1; ++i, ++j)
 		{
-			zonesViewer.data.zones[i] = primaryData.result[sensor][j];
-			zonesViewer.data.status[i] = primaryData.status[sensor][j];
+			//zonesViewer.data.zones[i] = primaryData.result[sensor][j];
+			//zonesViewer.data.status[i] = primaryData.status[sensor][j];
 			if(zonesViewer.data.status[i] < PrimaryData::Undefined) ++calculated;
 		}
 		wchar_t buf[128];
