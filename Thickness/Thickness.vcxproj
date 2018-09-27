@@ -49,7 +49,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)CommunicationWapper;$(ProjectDir)ProtocolTCP\Thickness;TCPServer;$(ProjectDir);ProtocolTCP;..\..\Thickness\ProtocolTCP;Communication;../Ini;../Log;../1730;ArchiveEvents;Automat;StoredData;Compute;FFT;../DebugApp;Lan;Lan/Include;../Thickness;../../DlgTemplates;Dlg;../Widgets;Data;../Graphics;..\Base;..\;Windows;App;..\window_tool;..\templates;..\debug_tools;ItemsData</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)window_tool;$(SolutionDir)debug_tools;$(SolutionDir)templates;$(ProjectDir)CommunicationWapper;$(ProjectDir)ProtocolTCP\Thickness;TCPServer;$(ProjectDir);ProtocolTCP;..\..\Thickness\ProtocolTCP;Communication;../Ini;../Log;../1730;ArchiveEvents;Automat;StoredData;Compute;FFT;../DebugApp;Lan;Lan/Include;../Thickness;../../DlgTemplates;Dlg;../Widgets;Data;../Graphics;..\Base;..\;Windows;App;ItemsData</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

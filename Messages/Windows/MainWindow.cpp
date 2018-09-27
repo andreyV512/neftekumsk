@@ -22,7 +22,7 @@ void MessWindow::operator()(TSize &m)
 //------------------------------------------------------------------------
 void MessWindow::operator()(TCommand &m)
 {
-	GetMenuToolBarEvent(m);
+	EventDo(m);
 }
 //-------------------------------------------------------------------------------------------
 unsigned MessWindow::operator()(TNotify &m)

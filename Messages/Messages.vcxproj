@@ -49,7 +49,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>../Ini;Dlg;../Log;../Widgets;../Base;Windows;../Messages;../window_tool;../templates;App;../debug_tools;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir);../Ini;Dlg;../Log;../Widgets;../Base;Windows;../Messages;../window_tool;../templates;App;../debug_tools</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -65,7 +65,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>../Ini;Dlg;../Log;../Widgets;../Base;Windows;../Messages;../window_tool;../templates;App;../debug_tools</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir);../Ini;Dlg;../Log;../Widgets;../Base;Windows;../Messages;../window_tool;../templates;App;../debug_tools</AdditionalIncludeDirectories>
       <EnableFiberSafeOptimizations>false</EnableFiberSafeOptimizations>
       <WholeProgramOptimization>false</WholeProgramOptimization>
     </ClCompile>
