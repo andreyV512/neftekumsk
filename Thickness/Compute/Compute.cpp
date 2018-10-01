@@ -431,14 +431,19 @@ void Compute::CalculationOneFrame(int sensorIndex, char *sensorData, double &res
 	int j = 0;
 	int dx = frameSize / 2;
 	double dy = 1.0 / dx;
+//	double sum = 0;
 	for(; j < dx; ++j)
 	{
 		data[j] = sensorData[j] * dy * j;
+	//	sum += data[j];
 	}
 	for(; j < frameSize; ++j)
 	{
 		data[j] = sensorData[j] * (1.0 - dy * (j - dx));
+	//	sum += data[j];
 	}
+	//sum /= frameSize;
+	//for(int i = 0; i < frameSize; ++i) data[i] -= sum;
 ///------------------------------------------
 	fft.Direct(data);
 	fft.Spectrum(data);		
