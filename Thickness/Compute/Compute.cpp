@@ -527,14 +527,14 @@ void Compute::CalculationOneFrame(int sensorIndex, char *sensorData, double &res
 			val = t;
 			offsVal = z;
 		}
-		if(data[z] > tresh)
-		{
-			ext = true;
-		}
-		else if(ext)
-		{
-				break;
-		}
+		//if(data[z] > tresh)
+		//{
+		//	ext = true;
+		//}
+		//else if(ext)
+		//{
+		//		break;
+		//}
 	}
 
 	if(val < tresh)

@@ -126,10 +126,10 @@ void DetailedWindow::Update()
 	SetForegroundWindow(hWnd);
 
 	wchar_t txt[128];
-	wsprintf(txt, L"%d %d %d"
-		, int(100.0 * compute.goodData[0] / compute.allData[0])
-		, int(100.0 * compute.goodData[1] / compute.allData[1])
-		, int(100.0 * compute.goodData[2] / compute.allData[2])
+	wsprintf(txt, L"%s %s %s"
+		, Wchar_from<double>(100.0 * compute.goodData[0] / compute.allData[0])()
+		, Wchar_from<double>(100.0 * compute.goodData[1] / compute.allData[1])()
+		, Wchar_from<double>(100.0 * compute.goodData[2] / compute.allData[2])()
 	);
 	//wchar_t txt[128];
 	//mbstowcs(txt, buf, 1 + strlen(buf));
