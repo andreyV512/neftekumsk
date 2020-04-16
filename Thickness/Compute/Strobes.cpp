@@ -32,13 +32,25 @@ void Strobes()
 	{
 		if(startTime < primaryData.realOffsetTime[k])
 		{
+			int t = startTime - realOffsetTime[k - 1];
+			if(t < 0)
+			{
+				dprint("err\n");
+			}
 			offsetOfSamples[index] = (double)numberPackets*(k - 1) + 
-				(double)numberPackets*(startTime - realOffsetTime[k - 1])/(realOffsetTime[k] - realOffsetTime[k - 1]);
+				(double)numberPackets* t /(realOffsetTime[k] - realOffsetTime[k - 1]);
 
 			++index;
 			if(index >= primaryData.countZones) break;
 			
 			startTime = baseTime + primaryData.indexOffsetZone[index];
+			while(int(startTime - realOffsetTime[k]) < 0)
+			{
+				++index;
+				if(index >= primaryData.countZones) break;
+
+				startTime = baseTime + primaryData.indexOffsetZone[index];
+			}
 		}
 	}
 }

@@ -459,6 +459,7 @@ void Automat::DoTest()
 	int dly = 5000;
 	if(Delay(dly))
 	{
+		Lan::Stop();
 		CLR_BITS(PowerScannerBitOut);
 
 		Log::Mess<LogMess::InfoOffPowerScannerBitOut>(0);
